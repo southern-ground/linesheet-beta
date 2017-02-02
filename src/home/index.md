@@ -4,7 +4,5 @@ title: React Static Boilerplate
 
 ## Welcome!
 
-This is a single-page application powered by React and Material Design Lite (MDL).
-
-https://github.com/kriasoft/react-static-boilerplate
+This is a single-page web application designed to create, edit, and publish Line Sheets for Shelly Brown.
 
