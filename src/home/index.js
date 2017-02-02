@@ -45,6 +45,8 @@ class HomePage extends React.Component {
 
     componentWillMount() {
 
+        store.subscribe(this.updateProps);
+
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
 
         document.title = title;
@@ -66,7 +68,7 @@ class HomePage extends React.Component {
 
     componentWillUnmount() {
 
-        //this.unsubscribeFunciton();
+        this.unsubscribeFunciton();
 
     }
 
