@@ -7,24 +7,50 @@
 * This source code is licensed under the MIT license found in the
 * LICENSE.txt file in the root directory of this source tree.
 */
-
-.row {
-  padding: 40px;
+.header{
+    width: 100%;
+    background: #c5c5c5;
+    color: white;
+    text-transform: uppercase;
+}
+.header__content{
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.title {
+    font-size: 2rem;
+    text-decoration: none;
+    color: inherit;
+}
+.header__nav {
+    display: flex;
+    flex-direction: row;
 }
 
-.title {
-  color: #fff;
-  text-decoration: none;
+.header__nav__item {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.header__nav__item:not(:last-of-type) {
+    margin: 0 10px 0 0;
 }
 
 @media screen and (max-width: 1024px) {
 
-  .header {
-    display: flex;
-  }
+    .header {
+        display: flex;
+    }
 
-  .row {
-    padding: 0 16px;
-  }
+    .row {
+        padding: 0 16px;
+    }
 
 }
