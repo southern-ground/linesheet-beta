@@ -1,3 +1,18 @@
 *, h1, h2, h3, h4 {
     font-family: 'Raleway', sans-serif;
 }
+
+a{
+    color: red;
+}
+
+.align__right{
+    text-align: right;
+}
+
+.generic__error{
+    color: red;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}
