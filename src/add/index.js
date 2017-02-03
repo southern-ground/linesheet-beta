@@ -12,13 +12,29 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
 import {title, html} from './index.md';
+import store from '../store';
+import {
+    ADD_CATEGORY,
+    GET_CATEGORIES,
+    ERROR_CATEGORY
+} from '../constants';
+import Category from '../../components/Layout/Category';
 
 class AddPage extends React.Component {
 
     constructor(props) {
+
         super(props);
+
         this.addItem = this.addItem.bind(this);
         this.addCategory = this.addCategory.bind(this);
+        this.updateProps = this.updateProps.bind(this);
+
+        var appState = store.getState(),
+            localState = {categories: [], busy: false, loaded: false, error: '', errorText: ''};
+
+        this.state = {...localState, categories: appState.categories || []};
+
     }
 
     addItem(e) {
@@ -27,22 +43,81 @@ class AddPage extends React.Component {
     }
 
     addCategory(e) {
+
         e.preventDefault();
+
         console.log('AddPage::addCategory');
+
+        var newCategory = this.refs.category.value || '';
+
+        if (newCategory.length === 0) {
+            this.setState({
+                error: ERROR_CATEGORY,
+                errorText: "Please enter a valid category name"
+            });
+        } else {
+            console.log('No error state');
+            this.setState({
+                error: '',
+                errorText: '',
+                busy: true
+            });
+            store.dispatch({
+                type: ADD_CATEGORY,
+                category: newCategory
+            });
+        }
+    }
+
+    removeCategory(e) {
+        console.log('AddPage::removeCategory');
+        console.log(arguments);
+    }
+
+    componentWillMount() {
+
+        console.log('AddPage::componentWillMount');
+
+        document.title = title;
+
+        this.unsubscribeFunciton = store.subscribe(this.updateProps);
+
+        this.setState({busy: true});
+
+        if (this.state.categories.length === 0 && this.state.loaded === false) {
+            store.dispatch({type: GET_CATEGORIES});
+        }
+
     }
 
     componentDidMount() {
         document.title = title;
     }
 
+    componentWillUnmount() {
+
+        this.unsubscribeFunciton();
+
+    }
+
+    updateProps() {
+        var appState = store.getState();
+        this.setState({...this.state, categories: appState.categories, busy: false, loaded: true});
+    }
+
     render() {
+        console.log('AddPage::render');
+        console.log(this.state);
+        console.log(this.state.error === ERROR_CATEGORY);
         return (
             <Layout className={s.content}>
+
                 <section>
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
                 <section>
                     <h2>Items</h2>
+                    <h3>Add an Item</h3>
                     <form onSubmit={this.addItem}>
                         <ul className={s.formItems}>
                             <li>
@@ -55,6 +130,16 @@ class AddPage extends React.Component {
                                                                                     placeholder="Item Name"/>
                             </li>
                             <li>
+                                <label htmlFor="Category_Name">Product Category</label>
+                                <select id="Category_Name"
+                                        name="category_name">{
+                                    this.state.categories.map((category, index) => {
+                                        return (
+                                            <option value={category.id} key={'cat-' + index}>{category.name}</option>);
+                                    })}
+                                </select>
+                            </li>
+                            <li>
                                 <label htmlFor="Item_Wholesale">Wholesale Price </label> <input type="text"
                                                                                                 id="Item_Wholesale"
                                                                                                 name="item_wholesale"
@@ -65,27 +150,45 @@ class AddPage extends React.Component {
                                                                                name="item_msrp" placeholder="$0.00"/>
                             </li>
                             <li>
-                                <input className={s.formSubmit} type="submit" value="Add Item" onClick={this.addItem}/>
+                                <input className={s.formSubmit} type="submit" value="Add Item"
+                                       disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
                             </li>
                         </ul>
                     </form>
                 </section>
                 <section>
                     <h2>Categories</h2>
+                    <h3>Add A Category</h3>
                     <form onSubmit={this.addCategory}>
                         <ul className={s.formItems}>
                             <li>
                                 <label htmlFor="Category_Name">Category Name</label> <input type="text"
                                                                                             id="Category_Name"
                                                                                             name="category_name"
-                                                                                            placeholder="Category"/>
+                                                                                            placeholder="Category"
+                                                                                            ref="category"
+                                                                                            className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
+                            />
                             </li>
                             <li>
                                 <input className={s.formSubmit} type="submit" value="Add Category"
+                                       disabled={this.state.busy ? 'disabled' : ''}
                                        onClick={this.addCategory}/>
+                            </li>
+                            <li>
+                                <p className={s.error__message}>{this.state.errorText}</p>
                             </li>
                         </ul>
                     </form>
+                    <div>
+                        <h3>Current Categories</h3>
+                        <div className={s.category__list}>
+                            {this.state.categories.map((category, index) => {
+                                return <Category id={category.id} name={category.name} onDelete={this.removeCategory}
+                                                 key={'cat-' + index} className={index % 2 ? "even" : ""}/>
+                            })}
+                        </div>
+                    </div>
                 </section>
             </Layout >
         );
