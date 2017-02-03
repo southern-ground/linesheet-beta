@@ -7,14 +7,16 @@
 * This source code is licensed under the MIT license found in the
 * LICENSE.txt file in the root directory of this source tree.
 */
-.header{
+.header {
     width: 100%;
     background: #c5c5c5;
     color: white;
     text-transform: uppercase;
     padding: 20px 0;
+    z-index: 101;
 }
-.header__content{
+
+.header__content {
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
@@ -23,39 +25,37 @@
     justify-content: space-between;
     align-items: center;
 }
-.header .header__content nav{
+
+.header__content nav{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
     height: auto;
 }
+
+.header__content nav a{
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.header__content nav a:last-of-type{
+    padding: 0 0 0 5px;
+}
+
 .title {
     font-size: 2rem;
     text-decoration: none;
     color: inherit;
 }
-.header__nav {
-    display: flex;
-    flex-direction: row;
-}
-
-.header__nav__item {
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-.header__nav__item:not(:last-of-type) {
-    margin: 0 10px 0 0;
-}
 
 @media screen and (max-width: 1024px) {
 
-    .header{
-        padding: 10px;
-    }
-    .title{
+    .title {
         font-size: 1.5rem;
     }
-    .header__content{
+
+    .header__content {
         flex-direction: column;
     }
 
