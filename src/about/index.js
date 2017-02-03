@@ -19,16 +19,15 @@ class AboutPage extends React.Component {
         document.title = title;
     }
 
-    render() {
-        console.log('About::render');
-        return (
-            <Layout className={s.content}>
-                <section>
-                    <div dangerouslySetInnerHTML={{__html: html}}/>
-                </section>
-            </Layout>
-        );
-    }
+  render() {
+    return (
+      <Layout className={s.content}>
+          <section>
+              <div dangerouslySetInnerHTML={{__html: html}}/>
+          </section>
+      </Layout>
+    );
+  }
 
 }
 
