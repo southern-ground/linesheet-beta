@@ -1,4 +1,8 @@
-*, h1, h2, h3, h4 {
+body,html{
+    margin: 0;
+    padding: 0;
+}
+*, html, body, h1, h2, h3, h4 {
     font-family: 'Raleway', sans-serif;
 }
 
@@ -14,5 +18,50 @@ a{
     color: red;
     font-weight: 700;
     text-transform: uppercase;
+
+}
+
+.content{
+
+}
+
+.error__input{
+    border: 1px solid red;
+}
+.error__message{
+    color: red;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.blocker{
+    z-index: 150;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.busyMessage{
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+.hidden{
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+
+    .content {
+        margin: 0 16px;
+    }
 
 }
