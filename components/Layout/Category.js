@@ -12,11 +12,11 @@ class Category extends React.Component {
     constructor(props) {
         super(props);
         this.deleteCategory = this.deleteCategory.bind(this);
-        this.props.onDelete(this.props.id);
     }
 
     deleteCategory(e) {
         console.log('Category::deleteCategory');
+        this.props.onDelete(this.props.id);
     }
 
     render() {
