@@ -1,0 +1,19 @@
+.category{
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
+}
+button{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.button__delete{
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius:3px;
+    cursor:pointer;
+}
+.even{
+    background-color: #c5c5c5;
+}

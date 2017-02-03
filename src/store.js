@@ -13,6 +13,10 @@ import {
     API,
     API_GATEWAYS,
     COOKIE_NAME,
+    ADD_CATEGORY,
+    ADD_CATEGORY_RESPONSE,
+    GET_CATEGORIES,
+    GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
     LOAD_COOKIE,
@@ -23,7 +27,7 @@ import Cookies from 'js-cookie';
 
 // Centralized application state
 // For more information visit http://redux.js.org/
-const initialState = {inventory: [], categories: [], cookieLoaded: false};
+const initialState = {inventory: [], categories: [], cookieLoaded: false, busy: false, busyMsg: ""};
 
 const getBlankCookie = () => {
     // Generates a cookie from a known template.
@@ -49,6 +53,55 @@ const writeCookie = (data) => {
 const store = createStore((state = initialState, action) => {
 
     switch (action.type) {
+        case ADD_CATEGORY:
+            console.log('store::acton ADD_CATEGORY');
+
+            request
+                .get(API + API_GATEWAYS[ADD_CATEGORY] + "&category=" + action.category)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('ADD_CATEGORY Error:', err);
+                    } else {
+                        console.log('ADD_CATEGORY response:');
+                        var data = JSON.parse(res.text);
+                        if (data.response === 200) {
+                            // No error:
+                            writeCookie({categories: data.categories});
+                            store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
+                        } else {
+                            // Error?
+                        }
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Adding Category"};
+
+        case GET_CATEGORIES:
+            console.log('store::acton GET_CATEGORIES');
+
+            request
+                .get(API + API_GATEWAYS[GET_CATEGORIES])
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('GET_INVENTORY Error:', err);
+                    } else {
+                        console.log('GET_CATEGORIES response:');
+                        var data = JSON.parse(res.text);
+                        console.log(data);
+                        if (data.response === 200) {
+                            // No error:
+                            writeCookie({categories: data.categories});
+                            store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
+                        } else {
+                            // Error?
+                        }
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Getting Categories"};
+        case GET_CATEGORIES_RESPONSE:
+            console.log('store::action GET_CATEGORIES_RESPONSE');
+            return {...state, categories: action.data, busy: false, busyMsg: ""}
         case GET_INVENTORY:
 
             console.log('store::action GET_INVENTORY');
@@ -81,13 +134,14 @@ const store = createStore((state = initialState, action) => {
                         }
                     });
             }
-            return state;
+            return {...state, busy: true, busyMsg: "Getting Inventory"};
         case GET_INVENTORY_RESPONSE:
             console.log('store::action GET_INVENTORY_RESPONSE');
-            return {...state, inventory: action.data};
+            return {...state, inventory: action.data, busy: false, busyMsg: ""};
         default:
             return state;
     }
+
 });
 
 export default store;
