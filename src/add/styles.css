@@ -26,6 +26,10 @@
     flex-direction: column;
 }
 
+.category__list{
+    width: 400px;
+}
+
 @media (max-width: 1024px){
     .formItems{
         margin: 0 auto;
