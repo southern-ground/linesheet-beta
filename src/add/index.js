@@ -15,6 +15,7 @@ import {title, html} from './index.md';
 import store from '../store';
 import {
     ADD_CATEGORY,
+    DELETE_CATEGORY,
     GET_CATEGORIES,
     ERROR_CATEGORY
 } from '../constants';
@@ -67,31 +68,32 @@ class AddPage extends React.Component {
                 category: newCategory
             });
         }
+
+        this.refs.category.value = '';
     }
 
-    removeCategory(e) {
+    removeCategory(categoryID) {
         console.log('AddPage::removeCategory');
-        console.log(arguments);
+        store.dispatch({type: DELETE_CATEGORY, categoryID: categoryID});
     }
 
     componentWillMount() {
-
-        console.log('AddPage::componentWillMount');
 
         document.title = title;
 
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
 
-        this.setState({busy: true});
-
-        if (this.state.categories.length === 0 && this.state.loaded === false) {
-            store.dispatch({type: GET_CATEGORIES});
-        }
-
     }
 
     componentDidMount() {
+
         document.title = title;
+
+        if (this.state.categories.length === 0 && this.state.loaded === false) {
+            store.dispatch({type: GET_CATEGORIES});
+            this.setState({busy: true});
+        }
+
     }
 
     componentWillUnmount() {
@@ -102,13 +104,14 @@ class AddPage extends React.Component {
 
     updateProps() {
         var appState = store.getState();
-        this.setState({...this.state, categories: appState.categories, busy: false, loaded: true});
+        this.setState({
+            ...this.state, categories: appState.categories.sort((a, b) => {
+                return a.name > b.name ? 1 : -1;
+            }), busy: false, loaded: true
+        });
     }
 
     render() {
-        console.log('AddPage::render');
-        console.log(this.state);
-        console.log(this.state.error === ERROR_CATEGORY);
         return (
             <Layout className={s.content}>
 
@@ -184,8 +187,14 @@ class AddPage extends React.Component {
                         <h3>Current Categories</h3>
                         <div className={s.category__list}>
                             {this.state.categories.map((category, index) => {
-                                return <Category id={category.id} name={category.name} onDelete={this.removeCategory}
-                                                 key={'cat-' + index} className={index % 2 ? "even" : ""}/>
+                                return <Category
+                                    id={category.id}
+                                    name={category.name}
+                                    onDelete={(id) => {
+                                        this.removeCategory(id)
+                                    }}
+                                    key={'cat-' + index}
+                                    className={index % 2 ? "even" : ""}/>
                             })}
                         </div>
                     </div>

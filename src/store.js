@@ -15,6 +15,7 @@ import {
     COOKIE_NAME,
     ADD_CATEGORY,
     ADD_CATEGORY_RESPONSE,
+    DELETE_CATEGORY,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
@@ -52,12 +53,15 @@ const writeCookie = (data) => {
 
 const store = createStore((state = initialState, action) => {
 
+    console.log('store::createStore', action.type);
+    console.log(action);
+
     switch (action.type) {
+
         case ADD_CATEGORY:
-            console.log('store::acton ADD_CATEGORY');
 
             request
-                .get(API + API_GATEWAYS[ADD_CATEGORY] + "&category=" + action.category)
+                .get(API + API_GATEWAYS[ADD_CATEGORY] + "&category=" + encodeURI(action.category))
                 .end((err, res) => {
                     if (err) {
                         console.warn('ADD_CATEGORY Error:', err);
@@ -76,18 +80,20 @@ const store = createStore((state = initialState, action) => {
 
             return {...state, busy: true, busyMsg: "Adding Category"};
 
-        case GET_CATEGORIES:
-            console.log('store::acton GET_CATEGORIES');
+        case DELETE_CATEGORY:
 
             request
-                .get(API + API_GATEWAYS[GET_CATEGORIES])
+                .get(API + API_GATEWAYS[DELETE_CATEGORY] + "&categoryID=" + action.categoryID)
                 .end((err, res) => {
                     if (err) {
-                        console.warn('GET_INVENTORY Error:', err);
+                        console.warn('DELETE_CATEGORY Error:', err);
                     } else {
-                        console.log('GET_CATEGORIES response:');
+                        console.log('DELETE_CATEGORY response:');
+
                         var data = JSON.parse(res.text);
+
                         console.log(data);
+
                         if (data.response === 200) {
                             // No error:
                             writeCookie({categories: data.categories});
@@ -98,13 +104,37 @@ const store = createStore((state = initialState, action) => {
                     }
                 });
 
-            return {...state, busy: true, busyMsg: "Getting Categories"};
-        case GET_CATEGORIES_RESPONSE:
-            console.log('store::action GET_CATEGORIES_RESPONSE');
-            return {...state, categories: action.data, busy: false, busyMsg: ""}
-        case GET_INVENTORY:
+            return {...state, busy: true, busyMsg: "Deleting Category"};
 
-            console.log('store::action GET_INVENTORY');
+        case GET_CATEGORIES:
+
+            var url = API + API_GATEWAYS[GET_CATEGORIES];
+
+            console.log('GET_CATEGORIES:', url);
+
+            request
+                .get(url)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('GET_INVENTORY Error:', err);
+                    } else {
+                        var data = JSON.parse(res.text);
+                        if (data.response === 200) {
+                            // No error:
+                            writeCookie({categories: data.categories});
+                            store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
+                        }
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Getting Categories"};
+
+        case GET_CATEGORIES_RESPONSE:
+
+            return {...state, categories: action.data, busy: false, busyMsg: ""};
+
+            break;
+        case GET_INVENTORY:
 
             var inventoryRefresh = action.refresh || false;
 
@@ -134,10 +164,13 @@ const store = createStore((state = initialState, action) => {
                         }
                     });
             }
+
             return {...state, busy: true, busyMsg: "Getting Inventory"};
+
         case GET_INVENTORY_RESPONSE:
-            console.log('store::action GET_INVENTORY_RESPONSE');
+
             return {...state, inventory: action.data, busy: false, busyMsg: ""};
+
         default:
             return state;
     }

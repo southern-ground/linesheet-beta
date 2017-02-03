@@ -8,7 +8,8 @@ export const API = "http://shellybrown.com/linesheets/api/";
 export const API_GATEWAYS = {
     action_get_inventory: "?action=get_inventory",
     action_get_categories: "?action=get_categories",
-    action_add_category: "?action=add_category"
+    action_add_category: "?action=add_category",
+    action_delete_category: "?action=delete_category"
 };
 
 /* ERRORS */
@@ -22,6 +23,7 @@ export const ADD_CATEGORY = "action_add_category";
 export const ADD_CATEGORY_RESPONSE = "action_add_category_response";
 export const GET_CATEGORIES = "action_get_categories";
 export const GET_CATEGORIES_RESPONSE = "action_get_categories_response";
+export const DELETE_CATEGORY = "action_delete_category";
 
 // Inventory:
 export const GET_INVENTORY = "action_get_inventory";
