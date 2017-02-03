@@ -47,7 +47,6 @@ class Layout extends React.Component {
     }
 
     updateProps() {
-        console.log('Layout::updateProps');
         var appState = store.getState();
         this.setState({...this.state, busy: appState.busy, busyMsg: appState.busyMsg});
     }
