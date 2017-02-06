@@ -83,7 +83,7 @@ const store = createStore((state = initialState, action) => {
         case DELETE_CATEGORY:
 
             request
-                .get(API + API_GATEWAYS[DELETE_CATEGORY] + "&categoryID=" + action.categoryID)
+                .get(API + API_GATEWAYS[DELETE_CATEGORY] + "&categoryId=" + action.categoryID)
                 .end((err, res) => {
                     if (err) {
                         console.warn('DELETE_CATEGORY Error:', err);
