@@ -16,6 +16,7 @@ import store from '../store';
 import {
     ADD_CATEGORY,
     DELETE_CATEGORY,
+    EDIT_CATEGORY,
     GET_CATEGORIES,
     ERROR_CATEGORY
 } from '../constants';
@@ -29,6 +30,7 @@ class AddPage extends React.Component {
 
         this.addItem = this.addItem.bind(this);
         this.addCategory = this.addCategory.bind(this);
+        this.editCategory = this.editCategory.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
         var appState = store.getState(),
@@ -72,28 +74,24 @@ class AddPage extends React.Component {
         this.refs.category.value = '';
     }
 
+    editCategory(categoryId, categoryName) {
+        store.dispatch({type: EDIT_CATEGORY, categoryId: categoryId, categoryName: categoryName});
+    }
+
     removeCategory(categoryID) {
-        console.log('AddPage::removeCategory');
         store.dispatch({type: DELETE_CATEGORY, categoryID: categoryID});
     }
 
     componentWillMount() {
-
         document.title = title;
-
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
-
     }
 
     componentDidMount() {
-
-        document.title = title;
-
         if (this.state.categories.length === 0 && this.state.loaded === false) {
             store.dispatch({type: GET_CATEGORIES});
             this.setState({busy: true});
         }
-
     }
 
     componentWillUnmount() {
@@ -192,6 +190,9 @@ class AddPage extends React.Component {
                                     name={category.name}
                                     onDelete={(id) => {
                                         this.removeCategory(id)
+                                    }}
+                                    onEdit={(id, categoryName) => {
+                                        this.editCategory(id, categoryName);
                                     }}
                                     key={'cat-' + index}
                                     className={index % 2 ? "even" : ""}/>

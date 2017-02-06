@@ -14,8 +14,8 @@ import {
     API_GATEWAYS,
     COOKIE_NAME,
     ADD_CATEGORY,
-    ADD_CATEGORY_RESPONSE,
     DELETE_CATEGORY,
+    EDIT_CATEGORY,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
@@ -106,6 +106,32 @@ const store = createStore((state = initialState, action) => {
 
             return {...state, busy: true, busyMsg: "Deleting Category"};
 
+        case EDIT_CATEGORY:
+
+            request
+                .get(API + API_GATEWAYS[EDIT_CATEGORY]
+                    + "&categoryId=" + action.categoryId
+                    + "&categoryName=" + action.categoryName)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('EDIT_CATEGORY Error:', err);
+                    } else {
+
+                        console.log('EDIT_CATEGORY response:');
+
+                        var data = JSON.parse(res.text);
+
+                        if (data.response === 200) {
+                            // No error:
+                            writeCookie({categories: data.categories});
+                            store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
+                        } else {
+                            // Error?
+                        }
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Saving Category"};
         case GET_CATEGORIES:
 
             var url = API + API_GATEWAYS[GET_CATEGORIES];

@@ -9,7 +9,8 @@ export const API_GATEWAYS = {
     action_get_inventory: "?action=get_inventory",
     action_get_categories: "?action=get_categories",
     action_add_category: "?action=add_category",
-    action_delete_category: "?action=delete_category"
+    action_delete_category: "?action=delete_category",
+    action_edit_category: "?action=edit_category"
 };
 
 /* ERRORS */
@@ -21,6 +22,7 @@ export const ERROR_CATEGORY = "invalid category name";
 // Categories:
 export const ADD_CATEGORY = "action_add_category";
 export const ADD_CATEGORY_RESPONSE = "action_add_category_response";
+export const EDIT_CATEGORY = "action_edit_category";
 export const GET_CATEGORIES = "action_get_categories";
 export const GET_CATEGORIES_RESPONSE = "action_get_categories_response";
 export const DELETE_CATEGORY = "action_delete_category";
