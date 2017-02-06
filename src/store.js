@@ -16,6 +16,8 @@ import {
     ADD_CATEGORY,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
+    ADD_ITEM,
+    ADD_ITEM_RESPONSE,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
@@ -53,10 +55,42 @@ const writeCookie = (data) => {
 
 const store = createStore((state = initialState, action) => {
 
-    console.log('store::createStore', action.type);
-    console.log(action);
-
     switch (action.type) {
+
+        case "ok":
+
+            return {...state, busy: false, busyMsg: ''}
+
+        case ADD_ITEM:
+
+            var addItemUrl = API + API_GATEWAYS[ADD_ITEM];
+
+            Object.keys(action.item).map((key)=>{
+                addItemUrl += "&" + key + "=" + action.item[key];
+            });
+
+            console.log(addItemUrl);
+
+            request
+                .get(addItemUrl)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('ADD_ITEM Error:', err);
+                    } else {
+                        console.log('ADD_ITEM response:');
+                        var data = JSON.parse(res.text);
+                        console.log(data);
+                        if (data.response === 200) {
+                            // No error:
+                            // writeCookie({categories: data.categories});
+                            store.dispatch({type: "ok"});
+                        } else {
+                            // Error?
+                        }
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Adding Category"};
 
         case ADD_CATEGORY:
 
@@ -117,8 +151,6 @@ const store = createStore((state = initialState, action) => {
                         console.warn('EDIT_CATEGORY Error:', err);
                     } else {
 
-                        console.log('EDIT_CATEGORY response:');
-
                         var data = JSON.parse(res.text);
 
                         if (data.response === 200) {
@@ -135,8 +167,6 @@ const store = createStore((state = initialState, action) => {
         case GET_CATEGORIES:
 
             var url = API + API_GATEWAYS[GET_CATEGORIES];
-
-            console.log('GET_CATEGORIES:', url);
 
             request
                 .get(url)
@@ -171,14 +201,13 @@ const store = createStore((state = initialState, action) => {
             }
 
             if (inventoryRefresh) {
-                console.log('\tCookie just loaded or refresh called');
+
                 request
                     .get(API + API_GATEWAYS[GET_INVENTORY])
                     .end((err, res) => {
                         if (err) {
                             console.warn('GET_INVENTORY Error:', err);
                         } else {
-                            console.log('GET_INVENTORY response:');
                             var data = JSON.parse(res.text);
                             if (data.response === 200) {
                                 // No error:

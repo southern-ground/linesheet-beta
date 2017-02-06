@@ -10,12 +10,15 @@ export const API_GATEWAYS = {
     action_get_categories: "?action=get_categories",
     action_add_category: "?action=add_category",
     action_delete_category: "?action=delete_category",
-    action_edit_category: "?action=edit_category"
+    action_edit_category: "?action=edit_category",
+    action_add_item: "?action=add_item"
 };
 
 /* ERRORS */
 
 export const ERROR_CATEGORY = "invalid category name";
+export const ERROR_SKU = "invalid item sku";
+export const ERROR_NAME = "invalid item name";
 
 /* ACTIONS */
 
@@ -28,6 +31,8 @@ export const GET_CATEGORIES_RESPONSE = "action_get_categories_response";
 export const DELETE_CATEGORY = "action_delete_category";
 
 // Inventory:
+export const ADD_ITEM = "action_add_item";
+export const ADD_ITEM_RESPONSE = "action_add_item_response";
 export const GET_INVENTORY = "action_get_inventory";
 export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
 

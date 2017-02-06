@@ -18,7 +18,10 @@ import {
     DELETE_CATEGORY,
     EDIT_CATEGORY,
     GET_CATEGORIES,
-    ERROR_CATEGORY
+    ADD_ITEM,
+    ERROR_CATEGORY,
+    ERROR_NAME,
+    ERROR_SKU
 } from '../constants';
 import Category from '../../components/Layout/Category';
 
@@ -40,9 +43,62 @@ class AddPage extends React.Component {
 
     }
 
+    selectedCategories() {
+        var categories = [];
+        var options = this.refs.itemCategories.options;
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                categories.push(options[i].value);
+            }
+        }
+        return categories;
+    }
+
     addItem(e) {
+
         e.preventDefault();
+
         console.log('AddPage::addItem');
+
+        var newItem = {
+                sku: this.refs.itemSKU.value || '',
+                name: this.refs.itemName.value || '',
+                wholeSale: this.refs.itemWholesalePrice.value || 0,
+                categories: this.selectedCategories(),
+                msrp: this.refs.itemMSRP.value || 0
+            },
+            newState = {
+                error: '',
+                itemErrorText: ''
+            };
+
+        if (newItem.sku.length === 0) {
+            // Error.
+            newState.error = ERROR_SKU;
+            newState.itemErrorText = "Please enter a valid sku";
+        } else if (newItem.name.length === 0) {
+            newState.error = ERROR_NAME;
+            newState.itemErrorText = "Please enter a valid name";
+        }
+
+        if (newState.error.length) {
+            this.setState(newState);
+        } else {
+            store.dispatch({
+                type: ADD_ITEM,
+                item: newItem
+            });
+
+            this.refs.itemSKU.value = '';
+            this.refs.itemName.value = '';
+            this.refs.itemWholesalePrice.value = '';
+            this.refs.itemMSRP.value = '';
+            for(var i = 0; i < this.refs.itemCategories.options.length; i++){
+                this.refs.itemCategories.options[i].selected = false;
+            }
+            this.setState(newState);
+        }
+
     }
 
     addCategory(e) {
@@ -56,13 +112,12 @@ class AddPage extends React.Component {
         if (newCategory.length === 0) {
             this.setState({
                 error: ERROR_CATEGORY,
-                errorText: "Please enter a valid category name"
+                categoryErrorText: "Please enter a valid category name"
             });
         } else {
-            console.log('No error state');
             this.setState({
                 error: '',
-                errorText: '',
+                categoryErrorText: '',
                 busy: true
             });
             store.dispatch({
@@ -110,6 +165,7 @@ class AddPage extends React.Component {
     }
 
     render() {
+
         return (
             <Layout className={s.content}>
 
@@ -122,37 +178,68 @@ class AddPage extends React.Component {
                     <form onSubmit={this.addItem}>
                         <ul className={s.formItems}>
                             <li>
-                                <label htmlFor="Item_SKU">SKU</label> <input type="text" id="Item_SKU" name="item_sku"
-                                                                             placeholder="SKU"/>
+                                <label htmlFor="Item_SKU">SKU</label>
+                                <input
+                                    type="text"
+                                    id="Item_SKU"
+                                    name="item_sku"
+                                    placeholder="SKU"
+                                    ref="itemSKU"
+                                    className={this.state.error === ERROR_SKU ? s.error__input : ""}
+                                />
                             </li>
                             <li>
-                                <label htmlFor="Item_Name">Item Name</label> <input type="text" id="Item_Name"
-                                                                                    name="item_name"
-                                                                                    placeholder="Item Name"/>
+                                <label htmlFor="Item_Name">Item Name</label>
+                                <input
+                                    type="text"
+                                    id="Item_Name"
+                                    name="item_name"
+                                    placeholder="Item Name"
+                                    ref="itemName"
+                                    className={this.state.error === ERROR_NAME ? s.error__input : ""}
+                                />
                             </li>
                             <li>
                                 <label htmlFor="Category_Name">Product Category</label>
                                 <select id="Category_Name"
-                                        name="category_name">{
+                                        name="category_name"
+                                        ref="itemCategories"
+                                        multiple>{
                                     this.state.categories.map((category, index) => {
                                         return (
-                                            <option value={category.id} key={'cat-' + index}>{category.name}</option>);
+                                            <option
+                                                value={category.id}
+                                                key={'cat-' + index}>{category.name}
+                                            </option>);
                                     })}
                                 </select>
                             </li>
                             <li>
-                                <label htmlFor="Item_Wholesale">Wholesale Price </label> <input type="text"
-                                                                                                id="Item_Wholesale"
-                                                                                                name="item_wholesale"
-                                                                                                placeholder="$0.00"/>
+                                <label htmlFor="Item_Wholesale">Wholesale Price </label>
+                                <input type="text"
+                                       id="Item_Wholesale"
+                                       name="item_wholesale"
+                                       placeholder="$0.00"
+                                       ref="itemWholesalePrice"
+                                />
                             </li>
                             <li>
-                                <label htmlFor="Item_MSRP">MSRP</label> <input type="text" id="Item_MSRP"
-                                                                               name="item_msrp" placeholder="$0.00"/>
+                                <label htmlFor="Item_MSRP">MSRP</label>
+                                <input
+                                    type="text"
+                                    id="Item_MSRP"
+                                    name="item_msrp"
+                                    placeholder="$0.00"
+                                    ref="itemMSRP"
+                                />
                             </li>
                             <li>
                                 <input className={s.formSubmit} type="submit" value="Add Item"
                                        disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
+
+                            </li>
+                            <li>
+                                <p className={s.error__message}>{this.state.itemErrorText}</p>
                             </li>
                         </ul>
                     </form>
@@ -163,13 +250,14 @@ class AddPage extends React.Component {
                     <form onSubmit={this.addCategory}>
                         <ul className={s.formItems}>
                             <li>
-                                <label htmlFor="Category_Name">Category Name</label> <input type="text"
-                                                                                            id="Category_Name"
-                                                                                            name="category_name"
-                                                                                            placeholder="Category"
-                                                                                            ref="category"
-                                                                                            className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
-                            />
+                                <label htmlFor="Category_Name">Category Name</label>
+                                <input type="text"
+                                       id="Category_Name"
+                                       name="category_name"
+                                       placeholder="Category"
+                                       ref="category"
+                                       className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
+                                />
                             </li>
                             <li>
                                 <input className={s.formSubmit} type="submit" value="Add Category"
@@ -177,7 +265,9 @@ class AddPage extends React.Component {
                                        onClick={this.addCategory}/>
                             </li>
                             <li>
-                                <p className={s.error__message}>{this.state.errorText}</p>
+                                <p className={s.error__message}>
+                                    {this.state.categoryErrorText}
+                                </p>
                             </li>
                         </ul>
                     </form>
