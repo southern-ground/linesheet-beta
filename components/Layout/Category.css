@@ -9,9 +9,9 @@ button{
     text-transform: uppercase;
     font-weight: bold;
 }
-.button__delete{
+
+.button{
     cursor:pointer;
-    background-color: red;
     border: none;
     color: white;
     border-radius:5px;
@@ -20,6 +20,20 @@ button{
     text-decoration: none;
     display: inline-block;
     font-size: 1.1rem;
+    margin: 0 0 0 10px;
+}
+
+.button__delete{
+    background-color: red;
+}
+.button__edit{
+    background-color: darkgreen;
+}
+.button__save{
+    background-color: blue;
+}
+.button__cancel{
+    background-color: darkslategray;
 }
 .even{
     background-color: #c5c5c5;
