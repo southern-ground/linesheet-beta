@@ -13,11 +13,13 @@ import {
     API,
     API_GATEWAYS,
     COOKIE_NAME,
+    OK,
     ADD_CATEGORY,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
     ADD_ITEM,
     ADD_ITEM_RESPONSE,
+    DELETE_ITEM,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
@@ -57,7 +59,7 @@ const store = createStore((state = initialState, action) => {
 
     switch (action.type) {
 
-        case "ok":
+        case OK:
 
             return {...state, busy: false, busyMsg: ''}
 
@@ -65,11 +67,9 @@ const store = createStore((state = initialState, action) => {
 
             var addItemUrl = API + API_GATEWAYS[ADD_ITEM];
 
-            Object.keys(action.item).map((key)=>{
+            Object.keys(action.item).map((key) => {
                 addItemUrl += "&" + key + "=" + action.item[key];
             });
-
-            console.log(addItemUrl);
 
             request
                 .get(addItemUrl)
@@ -77,13 +77,14 @@ const store = createStore((state = initialState, action) => {
                     if (err) {
                         console.warn('ADD_ITEM Error:', err);
                     } else {
-                        console.log('ADD_ITEM response:');
                         var data = JSON.parse(res.text);
-                        console.log(data);
                         if (data.response === 200) {
                             // No error:
                             // writeCookie({categories: data.categories});
-                            store.dispatch({type: "ok"});
+                            store.dispatch({
+                                type: GET_INVENTORY_RESPONSE,
+                                data: data.inventory
+                            });
                         } else {
                             // Error?
                         }
@@ -164,6 +165,7 @@ const store = createStore((state = initialState, action) => {
                 });
 
             return {...state, busy: true, busyMsg: "Saving Category"};
+
         case GET_CATEGORIES:
 
             var url = API + API_GATEWAYS[GET_CATEGORIES];
@@ -190,6 +192,7 @@ const store = createStore((state = initialState, action) => {
             return {...state, categories: action.data, busy: false, busyMsg: ""};
 
             break;
+
         case GET_INVENTORY:
 
             var inventoryRefresh = action.refresh || false;
@@ -225,6 +228,35 @@ const store = createStore((state = initialState, action) => {
         case GET_INVENTORY_RESPONSE:
 
             return {...state, inventory: action.data, busy: false, busyMsg: ""};
+
+        case DELETE_ITEM:
+
+            var url = API + API_GATEWAYS[DELETE_ITEM] + "&sku=" + action.sku;
+
+            request
+                .get(url)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn("DELETE_ITEM error: " + err);
+                        store.dispatch({action: OK})
+                    } else {
+                        var data = JSON.parse(res.text);
+                        if(data.response === 200){
+                            store.dispatch({
+                                type: GET_INVENTORY_RESPONSE,
+                                data: data.inventory
+                            });
+                        }else{
+                            console.warn('Error on deleting item', data.response);
+                            store.dispatch({
+                                type: OK
+                            });
+                        }
+
+                    }
+                });
+
+            return {...state, busy: true, busyMsg: "Deleting Item"};
 
         default:
             return state;

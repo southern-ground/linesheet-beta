@@ -12,9 +12,13 @@ import React, {PropTypes} from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
 import {title, html} from './index.md';
-import {GET_INVENTORY} from '../constants';
+import {
+    DELETE_ITEM,
+    GET_INVENTORY
+} from '../constants';
 import store from '../store';
 import Link from '../../components/Link';
+import Inventory from '../../components/Layout/Inventory';
 
 class HomePage extends React.Component {
 
@@ -31,6 +35,9 @@ class HomePage extends React.Component {
         this.renderLoading = this.renderLoading.bind(this);
         this.renderInventory = this.renderInventory.bind(this);
         this.renderPrompt = this.renderPrompt.bind(this);
+
+        this.onEditItem = this.onEditItem.bind(this);
+        this.onDeleteItem = this.onDeleteItem.bind(this);
 
         this.updateProps = this.updateProps.bind(this);
 
@@ -70,6 +77,19 @@ class HomePage extends React.Component {
 
     }
 
+    onEditItem(id) {
+        console.log('HomePage::onEditItem', id);
+
+    }
+
+    onDeleteItem(id) {
+        console.log('HomePage::onDeleteItem', id);
+        store.dispatch({
+            type: DELETE_ITEM,
+            sku: id
+        });
+    }
+
     updateProps() {
 
         console.log('Home::updateProps');
@@ -78,23 +98,54 @@ class HomePage extends React.Component {
 
     }
 
-    refreshInventory(){
+    refreshInventory() {
         console.log('Home::refreshInventory');
-        store.dispatch({type:GET_INVENTORY, refresh: true})
+        store.dispatch({type: GET_INVENTORY, refresh: true})
         this.setState({...this.state, loading: true});
     }
 
     renderInventory() {
-        return (<div>
-            {this.state.inventory.length === 0 ? this.renderPrompt() : ''}
-        </div>);
+        return (<ul className={s.itemList}>
+
+            {this.state.inventory.length === 0
+                ?
+                this.renderPrompt()
+                :
+                this.state.inventory.map((item, index) => {
+                    var categoryIDs = (item.categories || "").split(","),
+                        appState = store.getState(),
+                        categories = categoryIDs.map((id) => {
+                            return appState.categories.filter((category) => {
+                                return category.id === id;
+                            })
+                        });
+
+                    return (<li key={"item-" + index}>
+                        <Inventory
+                            sku={item.sku}
+                            name={item.name}
+                            wholesale={item.wholeSale}
+                            msrp={item.msrp}
+                            categories={categories.map((category)=>{
+                                return category.name
+                            })}
+                            onDelete={(id) => {
+                                this.onDeleteItem(id);
+                            }}
+                            onEdit={(id) => {
+                                this.onEditItem(id);
+                            }}/>
+                    </li>)
+                })
+            }
+        </ul>);
     }
 
     renderLoading() {
         return (<span>Loading &#133;</span>);
     }
 
-    renderPrompt(){
+    renderPrompt() {
         return (<div>
             <p>
                 <span className={s.generic__error}>Error:</span> There doesn't appear to be any inventory in the system.
@@ -106,8 +157,6 @@ class HomePage extends React.Component {
     }
 
     render() {
-        console.log('Home::render');
-        console.log(this.state);
         return (
             <Layout className={s.content}>
 
@@ -129,6 +178,7 @@ class HomePage extends React.Component {
                                 this.renderInventory() }
                     </div>
                 </section>
+
             </Layout>
         );
     }

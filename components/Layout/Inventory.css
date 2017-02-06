@@ -1,0 +1,65 @@
+@import '../../src/Global.css';
+
+.inventoryItem{
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.inventoryItem:nth-child(even) {
+    background: #c5c5c5;
+}
+
+.inventoryItem div{
+    flex-grow: 1;
+    flex-basis: 100px;
+}
+
+.categoriesList li:nth-child(even){
+    background-color: inherit;
+}
+
+.itemProperties ul{
+    list-style: none;
+    display: flex;
+}
+
+.itemProperties ul li{
+    display: inline-block;
+}
+
+button{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button{
+    cursor:pointer;
+    border: none;
+    color: white;
+    border-radius:5px;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin: 0 0 0 10px;
+}
+
+.button__delete{
+    background-color: red;
+}
+.button__edit{
+    background-color: darkgreen;
+}
+.button__save{
+    background-color: blue;
+}
+.button__cancel{
+    background-color: darkslategray;
+}
+.even{
+    background-color: #c5c5c5;
+}
