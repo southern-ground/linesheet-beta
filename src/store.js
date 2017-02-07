@@ -83,7 +83,8 @@ const store = createStore((state = initialState, action) => {
                             // writeCookie({categories: data.categories});
                             store.dispatch({
                                 type: GET_INVENTORY_RESPONSE,
-                                data: data.inventory
+                                inventory: data.inventory,
+                                categories: data.categories
                             });
                         } else {
                             // Error?
@@ -214,8 +215,15 @@ const store = createStore((state = initialState, action) => {
                             var data = JSON.parse(res.text);
                             if (data.response === 200) {
                                 // No error:
-                                writeCookie({inventory: data.inventory});
-                                store.dispatch({type: GET_INVENTORY_RESPONSE, data: data.inventory});
+                                writeCookie({
+                                    inventory: data.inventory,
+                                    categories: data.categories
+                                });
+                                store.dispatch({
+                                    type: GET_INVENTORY_RESPONSE,
+                                    inventory: data.inventory,
+                                    categories: data.categories
+                                });
                             } else {
                                 // Error?
                             }
@@ -227,7 +235,13 @@ const store = createStore((state = initialState, action) => {
 
         case GET_INVENTORY_RESPONSE:
 
-            return {...state, inventory: action.data, busy: false, busyMsg: ""};
+            return {
+                ...state,
+                inventory: action.inventory,
+                categories: action.categories,
+                busy: false,
+                busyMsg: ""
+            };
 
         case DELETE_ITEM:
 
@@ -244,7 +258,8 @@ const store = createStore((state = initialState, action) => {
                         if(data.response === 200){
                             store.dispatch({
                                 type: GET_INVENTORY_RESPONSE,
-                                data: data.inventory
+                                inventory: data.inventory,
+                                categories: data.categories
                             });
                         }else{
                             console.warn('Error on deleting item', data.response);
