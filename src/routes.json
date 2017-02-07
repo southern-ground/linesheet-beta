@@ -18,6 +18,10 @@
     "page": "./add"
   },
   {
+    "path": "/edit/:id",
+    "page": "./edit"
+  },
+  {
     "path": "/tasks/:status(pending|completed)?",
     "page": "./home"
   }
