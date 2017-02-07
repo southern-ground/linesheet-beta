@@ -1,0 +1,31 @@
+@import '../Global.css';
+
+.inventory_list{
+    margin: 10px 0 0 0;
+}
+
+.formItems{
+    list-style:none;
+    padding: 0;
+    width: 80vw;
+    max-width: 400px;
+}
+
+.formItems li{
+    display: flex;
+    flex-direction: column;
+}
+
+.formItems label{
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.formSubmit{
+    margin: 20px 0 0;
+    text-transform: uppercase;
+    padding: 5px;
+    font-weight: bold !important;
+    width: 80vw;
+    max-width: 200px;
+}
