@@ -44,9 +44,12 @@ class HomePage extends React.Component {
         var appState = store.getState(),
             localState = {inventory: [], loading: true};
 
-        console.log(appState);
-
-        this.state = {...localState, inventory: appState.inventory, loading: !appState.cookieLoaded};
+        this.state = {
+            ...localState,
+            inventory: appState.inventory,
+            loading: !appState.cookieLoaded,
+            categories: appState.categories
+        };
 
     }
 
@@ -79,7 +82,6 @@ class HomePage extends React.Component {
 
     onEditItem(id) {
         console.log('HomePage::onEditItem', id);
-
     }
 
     onDeleteItem(id) {
@@ -94,7 +96,17 @@ class HomePage extends React.Component {
 
         console.log('Home::updateProps');
 
-        this.setState({...this.state, loading: false, inventory: store.getState().inventory});
+        var appState = store.getState(),
+            categories = appState.categories.sort((a, b) => {
+                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+            });
+
+        this.setState({
+            ...this.state,
+            loading: false,
+            inventory: appState.inventory,
+            categories: categories
+        });
 
     }
 
@@ -105,40 +117,52 @@ class HomePage extends React.Component {
     }
 
     renderInventory() {
-        return (<ul className={s.itemList}>
+
+        return (<div className={s.table}>
+
+            <div className={s.table_row}>
+                <div className={s.table_cell + " " + s.table_header}>
+                    SKU
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Name
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Wholesame
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    MSRP
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Categories
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Edit/Delete
+                </div>
+            </div>
 
             {this.state.inventory.length === 0
                 ?
                 this.renderPrompt()
                 :
                 this.state.inventory.map((item, index) => {
-                    var categoryIDs = (item.categories || "").split(","),
-                        appState = store.getState(),
-                        categories = categoryIDs.map((id) => {
-                            return appState.categories.filter((category) => {
-                                return category.id === id;
-                            })
-                        });
-
-                    return (<li key={"item-" + index}>
-                        <Inventory
-                            sku={item.sku}
-                            name={item.name}
-                            wholesale={item.wholeSale}
-                            msrp={item.msrp}
-                            categories={categories.map((category)=>{
-                                return category.name
-                            })}
-                            onDelete={(id) => {
-                                this.onDeleteItem(id);
-                            }}
-                            onEdit={(id) => {
-                                this.onEditItem(id);
-                            }}/>
-                    </li>)
+                    return (<Inventory
+                        sku={item.sku}
+                        name={item.name}
+                        wholesale={item.wholeSale}
+                        msrp={item.msrp}
+                        categories={(item.categories || "").split(",")}
+                        allCategories={store.getState().categories}
+                        key={"inventory-" + index}
+                        onDelete={(id) => {
+                            this.onDeleteItem(id);
+                        }}
+                        onEdit={(id) => {
+                            this.onEditItem(id);
+                        }}/>)
                 })
             }
-        </ul>);
+        </div>);
     }
 
     renderLoading() {
@@ -168,7 +192,7 @@ class HomePage extends React.Component {
                     <div className={s.align__right}>
                         <button onClick={this.refreshInventory} disabled={this.state.loading}>Refresh Inventory</button>
                     </div>
-                    <div ref="inventory">
+                    <div className={s.inventory_list} ref="inventory">
                         { this.state.loading ?
                             this.renderLoading()
                             :
