@@ -12,7 +12,8 @@ export const API_GATEWAYS = {
     action_delete_category: "?action=delete_category",
     action_delete_item: "?action=delete_item",
     action_edit_category: "?action=edit_category",
-    action_add_item: "?action=add_item"
+    action_add_item: "?action=add_item",
+    action_update_inventory: "?action=update_item"
 };
 
 /* ERRORS */
@@ -38,6 +39,7 @@ export const ADD_ITEM_RESPONSE = "action_add_item_response";
 export const DELETE_ITEM = "action_delete_item";
 export const GET_INVENTORY = "action_get_inventory";
 export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
+export const UPDATE_ITEM = "action_update_inventory";
 
 /* COOKIES */
 export const COOKIE_NAME = "com.shellybrown.linesheets";
