@@ -6,6 +6,8 @@ class Inventory extends React.Component {
     static propTypes = {
         sku: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
+        categories: PropTypes.array.isRequired,
+        allCategories: PropTypes.array.isRequired,
         onDelete: PropTypes.func.isRequired,
         onEdit: PropTypes.func.isRequired
     };
@@ -16,6 +18,8 @@ class Inventory extends React.Component {
         this.editStart = this.editStart.bind(this);
         this.editSave = this.editSave.bind(this);
         this.editCancel = this.editCancel.bind(this);
+
+        this.getCategoryList = this.getCategoryList.bind(this);
 
         this.state = {
             editActive: false
@@ -35,31 +39,49 @@ class Inventory extends React.Component {
         this.setState({editActive: false});
     }
 
-    render() {
-        return (
-            <div className={s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
+    getCategoryList(itemCategories, allCategories) {
+        return allCategories.filter(category => {
+            if (itemCategories.filter(categoryId => {
+                    return category.id === categoryId;
+                }).length > 0) {
+                return category.name;
+            }
+        });
+    }
 
-                <div>
+    render() {
+
+        var itemCategories = this.getCategoryList(this.props.categories, this.props.allCategories);
+
+        return (
+            <div className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
+
+                <div className={s.table_cell + " " + s.inventoryProperty}>
                     {this.props.sku}
                 </div>
-                <div>
+                <div className={s.table_cell + " " + s.inventoryProperty}>
                     {this.props.name}
                 </div>
-                <div>
-                    {this.props.wholesale}
+                <div className={s.table_cell + " " + s.inventoryProperty}>
+                    ${this.props.wholesale}
                 </div>
-                <div>
-                    {this.props.msrp}
+                <div className={s.table_cell + " " + s.inventoryProperty}>
+                    ${this.props.msrp}
                 </div>
-                <div>
+                <div className={s.table_cell + " " + s.inventoryProperty}>
                     <ul className={s.categoriesList}>
-                    {this.props.categories.map((category, index)=>{
-                        return (<li key={"cat-" + index}>{category})}</li>);
-                    })}
+                        {itemCategories.map((category, index)=>{
+                            return (<li
+                                className={s.category}
+                                data-id={category.id}
+                                key={'cat-' + index}>
+                                {category.name}
+                                </li>)
+                        })}
                     </ul>
                 </div>
 
-                <div>
+                <div className={s.table_cell}>
                     <button
                         className={s.button + " " + s.button__save + (this.state.editActive ? "" : " hidden")}
                         onClick={this.editSave}>Save

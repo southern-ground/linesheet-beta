@@ -2,10 +2,6 @@
 
 .inventoryItem{
     padding: 5px 10px;
-    display: flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-between;
 }
 
 .inventoryItem:nth-child(even) {
@@ -13,12 +9,30 @@
 }
 
 .inventoryItem div{
-    flex-grow: 1;
-    flex-basis: 100px;
+    flex-grow: 0;
+    flex-basis: 150px;
 }
+
+.inventoryProperty label{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.categoriesList{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 
 .categoriesList li:nth-child(even){
     background-color: inherit;
+}
+
+.category{
+    padding: 0;
+    margin: 0;
 }
 
 .itemProperties ul{

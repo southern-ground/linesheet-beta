@@ -58,6 +58,26 @@ a{
 .hidden{
     display: none;
 }
+
+.table{
+    display: table;
+    width: 100%;
+}
+.table_row{
+    display: table-row;
+}
+.table_header{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+    background-color: darkgray;
+    color: white;
+}
+.table_cell{
+    display: table-cell;
+    padding: 4px 8px;
+}
+
 @media screen and (max-width: 1024px) {
 
     .content {
