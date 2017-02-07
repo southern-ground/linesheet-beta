@@ -20,6 +20,9 @@ import {
     GET_INVENTORY,
     UPDATE_ITEM
 } from '../constants';
+
+import CategorySelect from '../../components/Layout/CategorySelect';
+
 import Link from '../../components/Link';
 
 class EditPage extends React.Component {
@@ -81,7 +84,8 @@ class EditPage extends React.Component {
                     "name": "",
                     "wholesale": "",
                     "msrp": ""
-                };
+                },
+            categories = (item.categories || "").split(",");
 
         return (
             <Layout className={s.content}>
@@ -117,18 +121,22 @@ class EditPage extends React.Component {
                             </li>
                             <li>
                                 <label htmlFor="Category_Name">Product Category</label>
-                                <select id="Category_Name"
-                                        name="category_name"
-                                        ref="itemCategories"
-                                        multiple>{
-                                    this.state.categories.map((category, index) => {
-                                        return (
-                                            <option
-                                                value={category.id}
-                                                key={'cat-' + index}>{category.name}
-                                            </option>);
-                                    })}
-                                </select>
+
+                                <div>
+                                    {
+                                        this.state.categories.map((category, index) => {
+
+                                            return <CategorySelect
+                                                id={category.id}
+                                                name={category.name}
+                                                index={index}
+                                                selected={categories.filter(catId=>{
+                                                    return catId === category.id
+                                                }).length > 0}
+                                            />
+                                        })
+                                    }
+                                </div>
                             </li>
                             <li>
                                 <label htmlFor="Item_Wholesale">Wholesale Price </label>

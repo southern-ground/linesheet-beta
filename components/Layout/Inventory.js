@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
 import s from './Inventory.css';
+import history from 'history';
+import Link from '../Link';
 
 class Inventory extends React.Component {
 
@@ -24,10 +26,13 @@ class Inventory extends React.Component {
         this.state = {
             editActive: false
         }
+
     }
 
     editStart() {
-        this.setState({editActive: true});
+        // this.setState({editActive: true});
+        console.log(history);
+        history.push('./edit/' + this.props.sku);
     }
 
     editSave() {
@@ -63,6 +68,9 @@ class Inventory extends React.Component {
                     {this.props.name}
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
+                    <img src={this.props.image || "http://placehold.it/50x50"} className={s.inventoryItemImage} />
+                </div>
+                <div className={s.table_cell + " " + s.inventoryProperty}>
                     ${this.props.wholesale}
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
@@ -82,18 +90,12 @@ class Inventory extends React.Component {
                 </div>
 
                 <div className={s.table_cell}>
-                    <button
-                        className={s.button + " " + s.button__save + (this.state.editActive ? "" : " hidden")}
-                        onClick={this.editSave}>Save
-                    </button>
-                    <button
-                        className={s.button + " " + s.button__cancel + (this.state.editActive ? "" : " hidden")}
-                        onClick={this.editCancel}>Cancel
-                    </button>
-                    <button
-                        className={s.button + " " + s.button__edit + (this.state.editActive ? " hidden" : "")}
-                        onClick={this.editStart}>Edit
-                    </button>
+                    <Link
+                        className={s.button + " " + s.button__edit}
+                        to={"./edit/" + this.props.sku}>
+                        Edit
+                    </Link>
+
                     <button
                         className={s.button + " " + s.button__delete + (this.state.editActive ? " hidden" : "")}
                         onClick={(event) => this.props.onDelete(this.props.sku)}>Delete

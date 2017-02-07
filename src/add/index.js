@@ -25,7 +25,7 @@ import {
 } from '../constants';
 import Category from '../../components/Layout/Category';
 
-class AddPage extends React.Component {
+class AddItem extends React.Component {
 
     constructor(props) {
 
@@ -93,7 +93,7 @@ class AddPage extends React.Component {
             this.refs.itemName.value = '';
             this.refs.itemWholesalePrice.value = '';
             this.refs.itemMSRP.value = '';
-            for(var i = 0; i < this.refs.itemCategories.options.length; i++){
+            for (var i = 0; i < this.refs.itemCategories.options.length; i++) {
                 this.refs.itemCategories.options[i].selected = false;
             }
             this.setState(newState);
@@ -235,7 +235,12 @@ class AddPage extends React.Component {
                                 />
                             </li>
                             <li>
-                                <input className={s.formSubmit} type="submit" value="Add Item"
+                                <input className={
+                                    s.formSubmit + " " +
+                                    s.button + " " +
+                                    s.button__save + " " +
+                                    s.align__right
+                                } type="submit" value="Add Item"
                                        disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
 
                             </li>
@@ -245,56 +250,10 @@ class AddPage extends React.Component {
                         </ul>
                     </form>
                 </section>
-                <section>
-                    <h2>Categories</h2>
-                    <h3>Add A Category</h3>
-                    <form onSubmit={this.addCategory}>
-                        <ul className={s.formItems}>
-                            <li>
-                                <label htmlFor="Category_Name">Category Name</label>
-                                <input type="text"
-                                       id="Category_Name"
-                                       name="category_name"
-                                       placeholder="Category"
-                                       ref="category"
-                                       className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
-                                />
-                            </li>
-                            <li>
-                                <input className={s.formSubmit} type="submit" value="Add Category"
-                                       disabled={this.state.busy ? 'disabled' : ''}
-                                       onClick={this.addCategory}/>
-                            </li>
-                            <li>
-                                <p className={s.error__message}>
-                                    {this.state.categoryErrorText}
-                                </p>
-                            </li>
-                        </ul>
-                    </form>
-                    <div>
-                        <h3>Current Categories</h3>
-                        <div className={s.category__list}>
-                            {this.state.categories.map((category, index) => {
-                                return <Category
-                                    id={category.id}
-                                    name={category.name}
-                                    onDelete={(id) => {
-                                        this.removeCategory(id)
-                                    }}
-                                    onEdit={(id, categoryName) => {
-                                        this.editCategory(id, categoryName);
-                                    }}
-                                    key={'cat-' + index}
-                                    className={index % 2 ? "even" : ""}/>
-                            })}
-                        </div>
-                    </div>
-                </section>
             </Layout >
         );
     }
 
 }
 
-export default AddPage;
+export default AddItem;

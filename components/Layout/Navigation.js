@@ -25,8 +25,9 @@ class Navigation extends React.Component {
     render() {
         return (
             <nav ref={node => (this.root = node)}>
-                <Link to="/">Home</Link>
-                <Link to="/add">Add</Link>
+                <Link to="/">Items</Link>
+                <Link to="/add">Add Item</Link>
+                <Link to="/categories">Categories</Link>
                 <Link to="/about">About</Link>
             </nav>
         );

@@ -26,6 +26,9 @@
     flex-direction: column;
 }
 
+.categoryList{
+    border: 0;
+}
 .as__row{
     flex-direction: row !important;
 }

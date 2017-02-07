@@ -7,6 +7,11 @@
     max-width: 400px;
 }
 
+.formItems li{
+    display: flex;
+    flex-direction: column;
+}
+
 .formItems label{
     text-transform: uppercase;
     font-weight: 700;
@@ -19,11 +24,6 @@
     font-weight: bold !important;
     width: 80vw;
     max-width: 200px;
-}
-
-.formItems li{
-    display: flex;
-    flex-direction: column;
 }
 
 .as__row{

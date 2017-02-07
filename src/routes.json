@@ -10,6 +10,10 @@
     "chunk": "main"
   },
   {
+    "path": "/categories",
+    "page": "./categories"
+  },
+  {
     "path": "/about",
     "page": "./about"
   },

@@ -20,6 +20,8 @@ import store from '../store';
 import Link from '../../components/Link';
 import Inventory from '../../components/Layout/Inventory';
 
+import router from '../router';
+
 const SORT_SKU = "sort-sku";
 const SORT_NAME = "sort-name";
 const SORT_WHOLESALE = "sort-wholesale";
@@ -89,6 +91,7 @@ class HomePage extends React.Component {
 
     onEditItem(id) {
         console.log('HomePage::onEditItem', id);
+        window.location('./edit/' + id);
     }
 
     onDeleteItem(id) {
@@ -168,6 +171,9 @@ class HomePage extends React.Component {
                         e.stopPropagation();
                         this.sortOn(SORT_NAME)
                     }}>Name</a>
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Image
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
                     <a href="#"
