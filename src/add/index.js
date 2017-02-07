@@ -23,7 +23,7 @@ import {
     ERROR_NAME,
     ERROR_SKU
 } from '../constants';
-import Category from '../../components/Layout/Category';
+import CategorySelect from '../../components/Layout/CategorySelect';
 
 class AddItem extends React.Component {
 
@@ -36,10 +36,22 @@ class AddItem extends React.Component {
         this.editCategory = this.editCategory.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
-        var appState = store.getState(),
-            localState = {categories: [], busy: false, loaded: false, error: '', errorText: ''};
+        this.toggleCategory = this.toggleCategory.bind(this);
 
-        this.state = {...localState, categories: appState.categories || []};
+        var appState = store.getState(),
+            localState = {
+                categories: [],
+                itemCategories: [],
+                busy: false,
+                loaded: false,
+                error: '',
+                errorText: ''
+            };
+
+        this.state = {
+            ...localState,
+            categories: appState.categories || []
+        };
 
     }
 
@@ -60,7 +72,7 @@ class AddItem extends React.Component {
 
         console.log('AddPage::addItem');
 
-        var newItem = {
+        /*var newItem = {
                 sku: this.refs.itemSKU.value || '',
                 name: this.refs.itemName.value || '',
                 wholeSale: this.refs.itemWholesalePrice.value || 0,
@@ -97,7 +109,9 @@ class AddItem extends React.Component {
                 this.refs.itemCategories.options[i].selected = false;
             }
             this.setState(newState);
-        }
+        }*/
+
+        console.log(this.state.itemCategories.length);
 
     }
 
@@ -155,13 +169,37 @@ class AddItem extends React.Component {
 
     }
 
-    updateProps() {
-        var appState = store.getState();
-        console.log(appState);
+    toggleCategory(id, selected) {
+        console.log('AddPage::toggleCategory', id, selected);
+
+        var categories = this.state.itemCategories;
+
+        if (selected) {
+            categories.push(id);
+        } else {
+            categories = categories.filter((cat)=>{
+                return cat !== id;
+            });
+        }
+
         this.setState({
-            ...this.state, categories: appState.categories.sort((a, b) => {
+            itemCategories: categories
+        });
+    }
+
+    updateProps() {
+
+        console.log('AddPage::updateProps');
+
+        var appState = store.getState();
+
+        this.setState({
+            ...this.state,
+            categories: appState.categories.sort((a, b) => {
                 return a.name > b.name ? 1 : -1;
-            }), busy: false, loaded: true
+            }),
+            busy: false,
+            loaded: true
         });
     }
 
@@ -169,7 +207,6 @@ class AddItem extends React.Component {
 
         return (
             <Layout className={s.content}>
-
                 <section>
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
@@ -202,18 +239,18 @@ class AddItem extends React.Component {
                             </li>
                             <li>
                                 <label htmlFor="Category_Name">Product Category</label>
-                                <select id="Category_Name"
-                                        name="category_name"
-                                        ref="itemCategories"
-                                        multiple>{
-                                    this.state.categories.map((category, index) => {
+                                <div>
+                                    {this.state.categories.map((category, index) => {
                                         return (
-                                            <option
-                                                value={category.id}
-                                                key={'cat-' + index}>{category.name}
-                                            </option>);
+                                            <CategorySelect
+                                                id={category.id}
+                                                name={category.name}
+                                                key={'cat-' + index}
+                                                onToggle={this.toggleCategory}
+                                            />
+                                        );
                                     })}
-                                </select>
+                                </div>
                             </li>
                             <li>
                                 <label htmlFor="Item_Wholesale">Wholesale Price </label>

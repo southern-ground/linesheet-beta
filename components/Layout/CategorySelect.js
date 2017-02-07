@@ -10,6 +10,11 @@ class CategorySelect extends React.Component {
 
     constructor(props) {
         super(props);
+        this.onToggle = this.onToggle.bind(this);
+    }
+
+    onToggle(){
+        this.props.onToggle(this.props.id, this.refs.checkbox.checked);
     }
 
     render() {
@@ -19,6 +24,10 @@ class CategorySelect extends React.Component {
                    data-id={this.props.id}
                    checked={this.props.selected}
                    key={"cat-" + this.props.index}
+                   ref="checkbox"
+                   onChange={(e)=>{
+                       this.onToggle();
+                   }}
             />
             <span>{this.props.name}</span>
         </div>
