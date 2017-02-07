@@ -12,27 +12,7 @@ a{
 
 .align__right{
     text-align: right;
-}
-
-.generic__error{
-    color: red;
-    font-weight: 700;
-    text-transform: uppercase;
-
-}
-
-.content{
-
-}
-
-.error__input{
-    border: 1px solid red;
-}
-.error__message{
-    color: red;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    font-weight: 700;
+    justify-content: flex-end;
 }
 
 .blocker{
@@ -54,6 +34,54 @@ a{
 .busyMessage{
     font-size: 0.8rem;
     opacity: 0.8;
+}
+
+.button{
+    cursor:pointer;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius:5px;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin: 0 0 0 10px;
+    text-transform: uppercase;
+}
+
+.button__delete{
+    background-color: red;
+}
+.button__edit{
+    background-color: darkgreen;
+}
+.button__save{
+    background-color: blue;
+}
+.button__cancel{
+    background-color: darkslategray;
+}
+.button__group{
+    display: inline;
+    width: 40%;
+}
+
+.error__input{
+    border: 1px solid red;
+}
+.error__message{
+    color: red;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.generic__error{
+    color: red;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 .hidden{
     display: none;
@@ -84,6 +112,7 @@ a{
 .table_cell{
     display: table-cell;
     padding: 4px 8px;
+    vertical-align: middle;
 }
 
 @media screen and (max-width: 1024px) {

@@ -3,15 +3,3 @@
 .inventory_list{
     margin: 10px 0 0 0;
 }
-.itemList{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.itemList li{
-    margin: 0;
-    padding: 0;
-}
-.itemList li:nth-child(even){
-    background-color: #c5c5c5;
-}
