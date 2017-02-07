@@ -20,6 +20,11 @@ import store from '../store';
 import Link from '../../components/Link';
 import Inventory from '../../components/Layout/Inventory';
 
+const SORT_SKU = "sort-sku";
+const SORT_NAME = "sort-name";
+const SORT_WHOLESALE = "sort-wholesale";
+const SORT_MSRP = "sort-msrp";
+
 class HomePage extends React.Component {
 
     static propTypes = {
@@ -40,6 +45,8 @@ class HomePage extends React.Component {
         this.onDeleteItem = this.onDeleteItem.bind(this);
 
         this.updateProps = this.updateProps.bind(this);
+
+        this.sortOn = this.sortOn.bind(this);
 
         var appState = store.getState(),
             localState = {inventory: [], loading: true};
@@ -92,6 +99,31 @@ class HomePage extends React.Component {
         });
     }
 
+    sortOn(which){
+        switch(which){
+            case SORT_SKU:
+                this.setState({inventory:this.state.inventory.sort((a,b)=>{
+                    return a.sku.toUpperCase() > b.sku.toUpperCase() ? 1 : -1;
+                })});
+                break;
+            case SORT_NAME:
+                this.setState({inventory:this.state.inventory.sort((a,b)=>{
+                    return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                })});
+                break;
+            case SORT_WHOLESALE:
+                this.setState({inventory:this.state.inventory.sort((a,b)=>{
+                    return parseFloat(a.wholeSale) > parseFloat(b.wholeSale) ? 1 : -1;
+                })});
+                break;
+            case SORT_MSRP:
+                this.setState({inventory:this.state.inventory.sort((a,b)=>{
+                    return parseFloat(a.msrp) > parseFloat(b.msrp) ? 1 : -1;
+                })});
+                break;
+        }
+    }
+
     updateProps() {
 
         console.log('Home::updateProps');
@@ -122,16 +154,36 @@ class HomePage extends React.Component {
 
             <div className={s.table_row}>
                 <div className={s.table_cell + " " + s.table_header}>
-                    SKU
+                    <a href="#"
+                       onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.sortOn(SORT_SKU);
+                    }}>SKU</a>
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
-                    Name
+                    <a href="#"
+                       onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.sortOn(SORT_NAME)
+                    }}>Name</a>
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
-                    Wholesame
+                    <a href="#"
+                       onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.sortOn(SORT_WHOLESALE);
+                    }}>Wholesame</a>
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
-                    MSRP
+                    <a href="#"
+                       onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.sortOn(SORT_MSRP);
+                    }}>MSRP</a>
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
                     Categories

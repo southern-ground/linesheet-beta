@@ -73,6 +73,14 @@ a{
     background-color: darkgray;
     color: white;
 }
+.table_header a{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+    background-color: darkgray;
+    color: white;
+    text-decoration: none;
+}
 .table_cell{
     display: table-cell;
     padding: 4px 8px;

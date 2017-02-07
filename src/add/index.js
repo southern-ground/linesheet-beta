@@ -157,6 +157,7 @@ class AddPage extends React.Component {
 
     updateProps() {
         var appState = store.getState();
+        console.log(appState);
         this.setState({
             ...this.state, categories: appState.categories.sort((a, b) => {
                 return a.name > b.name ? 1 : -1;
