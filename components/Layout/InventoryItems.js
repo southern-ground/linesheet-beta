@@ -102,7 +102,7 @@ class InventoryItems extends React.Component {
                 return (<Inventory
                     sku={item.sku}
                     name={item.name}
-                    wholesale={item.wholeSale}
+                    wholesale={item.wholesale}
                     msrp={item.msrp}
                     categories={(item.categories || "").split(",")}
                     allCategories={store.getState().categories}
@@ -149,7 +149,7 @@ class InventoryItems extends React.Component {
             case SORT_WHOLESALE:
                 this.setState({
                     inventory: this.props.inventory.sort((a, b) => {
-                        return parseFloat(a.wholeSale) > parseFloat(b.wholeSale) ? 1 : -1;
+                        return parseFloat(a.wholesale) > parseFloat(b.wholesale) ? 1 : -1;
                     })
                 });
                 break;

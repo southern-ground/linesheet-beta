@@ -173,7 +173,12 @@ const store = createStore((state = initialState, action) => {
                             writeCookie({categories: data.categories});
                             store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
                         } else {
-                            // Error?
+                            store.dispatch(
+                                {
+                                    type: GET_CATEGORIES_RESPONSE,
+                                    data: data.categories,
+                                    error: "That category is in use by a product. Please un-assign the category from all products before deleting it."
+                                });
                         }
                     }
                 });
@@ -221,7 +226,9 @@ const store = createStore((state = initialState, action) => {
             return {
                 ...state,
                 categories: action.data,
-                initialized: true,};
+                error: action.error || "",
+                initialized: true
+            };
             break;
         case OPEN_FORM:
             return {...state, openInventoryForm: true};

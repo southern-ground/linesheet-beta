@@ -56,7 +56,7 @@ class AddForm extends React.Component {
                 sku: this.refs.itemSKU.value || '',
                 name: this.refs.itemName.value || '',
                 categories: this.getCategories(),
-                wholeSale: this.refs.itemWholesalePrice.value || 0,
+                wholesale: this.refs.itemWholesalePrice.value || 0,
                 msrp: this.refs.itemMSRP.value || 0
             },
             newState = {
@@ -164,6 +164,7 @@ class AddForm extends React.Component {
                                             id={category.id}
                                             name={category.name}
                                             key={'cat-' + index}
+                                            checked={false}
                                         />
                                     );
                                 })}

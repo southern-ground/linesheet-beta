@@ -61,7 +61,7 @@ class CategoriesPage extends React.Component {
         var newItem = {
                 sku: this.refs.itemSKU.value || '',
                 name: this.refs.itemName.value || '',
-                wholeSale: this.refs.itemWholesalePrice.value || 0,
+                wholesale: this.refs.itemWholesalePrice.value || 0,
                 categories: this.selectedCategories(),
                 msrp: this.refs.itemMSRP.value || 0
             },
@@ -147,9 +147,10 @@ class CategoriesPage extends React.Component {
         var appState = store.getState();
         this.setState({
             ...this.state,
-            categories: appState.categories,
+            categories: appState.categories || [],
             busy: false,
-            loaded: true
+            loaded: true,
+            error: appState.error || ""
         });
     }
 
@@ -196,8 +197,9 @@ class CategoriesPage extends React.Component {
                 </section>
                 <section>
                     <h2>Current Categories</h2>
+                    <p className={s.error__message}>{this.state.error}</p>
                     <div className={s.category__list}>
-                        {this.state.categories.sort((a, b) => {
+                        {(this.state.categories || []).sort((a, b) => {
                             return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
                         }).map((category, index) => {
                             return <Category

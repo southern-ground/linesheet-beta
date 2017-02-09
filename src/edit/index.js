@@ -15,6 +15,12 @@ import CategorySelect from '../../components/Layout/CategorySelect';
 
 import Link from '../../components/Link';
 
+const SKU_FIELD_REF = "itemSKU";
+const NAME_FIELD_REF = "itemName";
+const CATEGORIES_FIELD_REF = "itemCategories";
+const WHOLESALE_FIELD_REF = "itemWholesale";
+const MSRP_FIELD_REF = "itemMSRP";
+
 class EditPage extends React.Component {
 
     constructor(props) {
@@ -27,39 +33,42 @@ class EditPage extends React.Component {
         var appState = store.getState();
 
         this.state = {
-            sku: this.props.route.params.id,
+            initialized: false,
+            item: {
+                sku: this.props.route.params.id,
+                name: "",
+                categories: [],
+                wholesale: "",
+                msrp: ""
+            },
+            error: "",
+            errorText: "",
             inventory: appState.inventory || [],
-            categories: appState.categories || [],
-            itemCategories: [],
-            busy: false,
-            loaded: false,
-            error: '',
-            errorText: ''
+            categories: appState.categories || []
         };
 
     }
 
     componentWillMount() {
-        console.log('EditPage::componentWillMount');
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
     }
 
     componentDidMount() {
-        console.log('EditPage::componentDidMount');
         document.title = title;
-        if (this.state.categories.length === 0 || this.state.inventory.length === 0) {
+        if (this.state.inventory.length == 0) {
             store.dispatch({type: GET_INVENTORY});
-            this.setState({busy: true});
+            this.setState({busy: true, busyMsg: "Refreshing Inventory"});
+        } else {
+            this.updateProps();
         }
     }
 
     componentWillUnmount() {
-        console.log('EditPage::componentWillUnmount');
         this.unsubscribeFunciton();
     }
 
     getCategories() {
-        var checkboxes = this.refs.itemCategories.getElementsByTagName('input'),
+        var checkboxes = this.refs[CATEGORIES_FIELD_REF].getElementsByTagName('input'),
             itemCategories = new Array();
 
         for (var i = 0; i < checkboxes.length; i++) {
@@ -73,16 +82,43 @@ class EditPage extends React.Component {
         return itemCategories;
     }
 
+    updateField(ref) {
+
+        var item = this.state.item;
+
+        switch (ref) {
+            case SKU_FIELD_REF:
+                item.sku = this.refs[ref].value;
+                break;
+            case NAME_FIELD_REF:
+                item.name = this.refs[ref].value;
+                break;
+            case WHOLESALE_FIELD_REF:
+                item.wholesale = this.refs[ref].value;
+                break;
+            case MSRP_FIELD_REF:
+                item.msrp = this.refs[ref].value;
+                break;
+        }
+
+        item.categories = this.getCategories();
+
+        this.setState({
+            item: item
+        });
+
+    }
+
     updateItem(e) {
 
         e.preventDefault();
 
         var item = {
-                sku: this.refs.itemSKU.value || '',
-                name: this.refs.itemName.value || '',
-                wholeSale: this.refs.itemWholesalePrice.value || 0,
-                categories: this.state.itemCategories,
-                msrp: this.refs.itemMSRP.value || 0
+                sku: this.state.item.sku,
+                name: this.refs[NAME_FIELD_REF].value || '',
+                categories: this.getCategories().join(','),
+                wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
+                msrp: this.refs[MSRP_FIELD_REF].value || 0
             },
             newState = {
                 error: '',
@@ -101,63 +137,68 @@ class EditPage extends React.Component {
             this.setState(newState);
         } else {
 
+            console.log(item);
+            return;
             store.dispatch({
                 type: UPDATE_ITEM,
                 item: item
             });
-
-            this.refs.itemSKU.value = '';
-            this.refs.itemName.value = '';
-            this.refs.itemWholesalePrice.value = '';
-            this.refs.itemMSRP.value = '';
-
-            var checkboxes = new Array();
-            checkboxes = this.refs.itemCategories.getElementsByTagName('input');
-
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].type == 'checkbox') {
-                    checkboxes[i].checked = false;
-                }
-            }
-
-            this.setState(newState);
-
         }
 
     }
 
-    updateProps() {
-        var appState = store.getState();
+    toggleCategory(id){
+        var item = this.state.item,
+            categories = this.state.item.categories,
+            index = categories.indexOf(id);
 
+        if(index == -1){
+            categories.push(id);
+        }else{
+            categories.splice(index, 1)
+        }
+        item.categories = categories;
         this.setState({
-            ...this.state,
-            inventory: appState.inventory || [],
-            categories: appState.categories || []
+            item: item
         });
 
     }
 
-    render() {
-
-        console.log('HomePage::render state:', this.state);
-
-        var sku = this.state.sku,
-            item = this.state.inventory.filter((item) => {
-                    return item.sku === sku;
-                }).pop() || {
-                    "sku": "",
-                    "name": "",
-                    "wholesale": "",
-                    "msrp": ""
+    updateProps() {
+        var appState = store.getState(),
+            filteredInventory = (appState.inventory || []).filter((inventoryItem) => {
+                return inventoryItem.sku === this.state.item.sku
+            }),
+            currentItem;
+        if (filteredInventory.length > 0) {
+            currentItem = filteredInventory.pop();
+            this.setState({
+                ...this.state,
+                item: {
+                    ...currentItem,
+                    categories: currentItem.categories.split(',') || []
                 },
-            categories = (item.categories || "").split(",");
+                categories: appState.categories || [],
+                inventory: appState.inventory || [],
+                busy: false
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                categories: appState.categories || [],
+                inventory: appState.inventory || []
+            });
+        }
+    }
+
+    render() {
 
         return (
             <Layout className={s.content}>
                 <section>
-
                     <div dangerouslySetInnerHTML={{__html: html}}/>
-
+                </section>
+                <section>
                     <form onSubmit={this.updateItem}>
                         <ul className={s.formItems}>
                             <li>
@@ -167,9 +208,13 @@ class EditPage extends React.Component {
                                     id="Item_SKU"
                                     name="item_sku"
                                     placeholder="SKU"
-                                    ref="itemSKU"
+                                    ref={SKU_FIELD_REF}
                                     className={this.state.error === ERROR_SKU ? s.error__input : ""}
-                                    defaultValue={item.sku}
+                                    value={this.state.item.sku}
+                                    disabled
+                                    onChange={(e) => {
+                                        this.updateField(SKU_FIELD_REF);
+                                    }}
                                 />
                             </li>
                             <li>
@@ -179,24 +224,32 @@ class EditPage extends React.Component {
                                     id="Item_Name"
                                     name="item_name"
                                     placeholder="Item Name"
-                                    ref="itemName"
+                                    ref={NAME_FIELD_REF}
                                     className={this.state.error === ERROR_NAME ? s.error__input : ""}
-                                    defaultValue={item.name}
+                                    value={this.state.item.name}
+                                    onChange={(e) => {
+                                        this.updateField(NAME_FIELD_REF);
+                                    }}
                                 />
                             </li>
                             <li>
                                 <label htmlFor="Category_Name">Product Category</label>
-                                <div>
+                                <div ref={CATEGORIES_FIELD_REF}>
                                     {
-                                        this.state.categories.map((category, index) => {
+                                        (this.state.categories || []).map((category, index) => {
                                             return <CategorySelect
                                                 id={category.id}
                                                 name={category.name}
                                                 index={index}
                                                 key={"category-" + index}
-                                                isSelected={categories.filter(catId => {
-                                                    return catId === category.id
-                                                }).length > 0}
+                                                checked={(this.state.item.categories || [])
+                                                    .filter(catId => {
+                                                        return catId === category.id
+                                                    })
+                                                    .length > 0}
+                                                change={(e, id) => {
+                                                    this.toggleCategory(id);
+                                                }}
                                             />
                                         })
                                     }
@@ -208,8 +261,11 @@ class EditPage extends React.Component {
                                        id="Item_Wholesale"
                                        name="item_wholesale"
                                        placeholder="$0.00"
-                                       ref="itemWholesalePrice"
-                                       defaultValue={item.wholeSale}
+                                       ref={WHOLESALE_FIELD_REF}
+                                       value={this.state.item.wholesale}
+                                       onChange={(e) => {
+                                           this.updateField(WHOLESALE_FIELD_REF);
+                                       }}
                                 />
                             </li>
                             <li>
@@ -219,8 +275,11 @@ class EditPage extends React.Component {
                                     id="Item_MSRP"
                                     name="item_msrp"
                                     placeholder="$0.00"
-                                    ref="itemMSRP"
-                                    defaultValue={item.msrp}
+                                    ref={MSRP_FIELD_REF}
+                                    value={this.state.item.msrp}
+                                    onChange={(e) => {
+                                        this.updateField(MSRP_FIELD_REF);
+                                    }}
                                 />
                             </li>
                             <li className={s.as__row + " " + s.align__right}>
@@ -245,9 +304,8 @@ class EditPage extends React.Component {
                             </li>
                         </ul>
                     </form>
-
                 </section>
-            </Layout >
+            </Layout>
         );
     }
 
