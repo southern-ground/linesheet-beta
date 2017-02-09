@@ -34,6 +34,11 @@ import Cookies from 'js-cookie';
 // Centralized application state
 // For more information visit http://redux.js.org/
 
+
+/*
+TODO: Add CombineReducers?
+* */
+
 const initialState = {
     inventory: [],
     categories: [],
