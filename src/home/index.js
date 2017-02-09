@@ -39,13 +39,16 @@ class HomePage extends React.Component {
             store.dispatch({
                 type: GET_INVENTORY
             });
+        }else{
+            this.setState({
+                inventory: appState.inventory,
+                categories: appState.categories
+            });
         }
     }
 
     componentWillUnmount() {
-
         this.unsubscribeFunciton();
-
     }
 
     refreshInventory() {
