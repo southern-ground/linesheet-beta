@@ -29,13 +29,9 @@ import {
 */
 
 const initialState = {
-    cookieLoaded: false,
-    initialized: false,
-    inventory: [],
-    categories: [],
-    openInventoryForm: false,
     busy: false,
-    busyMsg: ""
+    busyMsg: "",
+    openInventoryForm: false
 };
 
 const store = createStore((state = initialState, action) => {
