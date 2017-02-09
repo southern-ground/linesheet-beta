@@ -25,49 +25,26 @@ import {
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
-    LOAD_COOKIE,
-    LOAD_COOKIE_RESPONSE,
     OPEN_FORM
 } from './constants';
 import request from 'superagent';
-import Cookies from 'js-cookie';
-
-// Centralized application state
-// For more information visit http://redux.js.org/
-
+import {
+    loadCookie,
+    writeCookie
+} from './cookies';
 
 /*
-TODO: Add CombineReducers?
-* */
+ TODO: Add CombineReducers?
+*/
 
 const initialState = {
+    cookieLoaded: false,
+    initialized: false,
     inventory: [],
     categories: [],
-    cookieLoaded: false,
     openInventoryForm: false,
     busy: false,
     busyMsg: ""
-};
-
-const getBlankCookie = () => {
-    // Generates a cookie from a known template.
-    return {
-        date: new Date().getTime(),
-        inventory: [],
-        categories: []
-    };
-};
-
-const getCookie = ((data) => {
-    return Object.assign({}, getBlankCookie(), data);
-});
-
-const loadCookie = () => {
-    return Cookies.get(COOKIE_NAME) ? JSON.parse(Cookies.get(COOKIE_NAME)) : getBlankCookie();
-};
-
-const writeCookie = (data) => {
-    Cookies.set(COOKIE_NAME, getCookie(...data, {date: new Date().getTime()}), {expires: 7});
 };
 
 const store = createStore((state = initialState, action) => {
