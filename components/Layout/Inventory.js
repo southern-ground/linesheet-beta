@@ -10,16 +10,11 @@ class Inventory extends React.Component {
         name: PropTypes.string.isRequired,
         categories: PropTypes.array.isRequired,
         allCategories: PropTypes.array.isRequired,
-        onDelete: PropTypes.func.isRequired,
-        onEdit: PropTypes.func.isRequired
+        onDelete: PropTypes.func.isRequired/**/
     };
 
     constructor(props) {
         super(props);
-
-        this.editStart = this.editStart.bind(this);
-        this.editSave = this.editSave.bind(this);
-        this.editCancel = this.editCancel.bind(this);
 
         this.getCategoryList = this.getCategoryList.bind(this);
 
@@ -27,21 +22,6 @@ class Inventory extends React.Component {
             editActive: false
         }
 
-    }
-
-    editStart() {
-        // this.setState({editActive: true});
-        console.log(history);
-        history.push('./edit/' + this.props.sku);
-    }
-
-    editSave() {
-        this.setState({editActive: false});
-        this.props.onEdit(this.props.id, this.refs.itemNameInput.value);
-    }
-
-    editCancel() {
-        this.setState({editActive: false});
     }
 
     getCategoryList(itemCategories, allCategories) {
@@ -60,7 +40,6 @@ class Inventory extends React.Component {
 
         return (
             <div className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
-
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     {this.props.sku}
                 </div>
@@ -88,7 +67,6 @@ class Inventory extends React.Component {
                         })}
                     </ul>
                 </div>
-
                 <div className={s.table_cell}>
                     <Link
                         className={s.button + " " + s.button__edit}

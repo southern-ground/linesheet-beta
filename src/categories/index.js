@@ -1,13 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
@@ -33,20 +23,30 @@ class CategoriesPage extends React.Component {
 
         this.addItem = this.addItem.bind(this);
         this.addCategory = this.addCategory.bind(this);
-        this.editCategory = this.editCategory.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
         var appState = store.getState(),
-            localState = {categories: [], busy: false, loaded: false, error: '', errorText: ''};
+            localState = {
+                categories: [],
+                busy: false,
+                busyMsg: "",
+                loaded: false,
+                error: '',
+                errorText: ''
+            };
 
-        this.state = {...localState, categories: appState.categories || []};
+        this.state = {
+            ...localState,
+            categories: appState.categories || []
+        };
 
     }
 
     selectedCategories() {
-        var categories = [];
-        var options = this.refs.itemCategories.options;
-        for (var i = 0; i < options.length; i++) {
+        var categories = [],
+            options = this.refs.itemCategories.options,
+            i = 0;
+        for (i; i < options.length; i++) {
             if (options[i].selected) {
                 categories.push(options[i].value);
             }
@@ -57,8 +57,6 @@ class CategoriesPage extends React.Component {
     addItem(e) {
 
         e.preventDefault();
-
-        console.log('AddPage::addItem');
 
         var newItem = {
                 sku: this.refs.itemSKU.value || '',
@@ -105,8 +103,6 @@ class CategoriesPage extends React.Component {
 
         e.preventDefault();
 
-        console.log('AddPage::addCategory');
-
         var newCategory = this.refs.category.value || '';
 
         if (newCategory.length === 0) {
@@ -129,14 +125,6 @@ class CategoriesPage extends React.Component {
         this.refs.category.value = '';
     }
 
-    editCategory(categoryId, categoryName) {
-        store.dispatch({type: EDIT_CATEGORY, categoryId: categoryId, categoryName: categoryName});
-    }
-
-    removeCategory(categoryID) {
-        store.dispatch({type: DELETE_CATEGORY, categoryID: categoryID});
-    }
-
     componentWillMount() {
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
     }
@@ -157,11 +145,11 @@ class CategoriesPage extends React.Component {
 
     updateProps() {
         var appState = store.getState();
-        console.log(appState);
         this.setState({
-            ...this.state, categories: appState.categories.sort((a, b) => {
-                return a.name > b.name ? 1 : -1;
-            }), busy: false, loaded: true
+            ...this.state,
+            categories: appState.categories,
+            busy: false,
+            loaded: true
         });
     }
 
@@ -209,16 +197,12 @@ class CategoriesPage extends React.Component {
                 <section>
                     <h2>Current Categories</h2>
                     <div className={s.category__list}>
-                        {this.state.categories.map((category, index) => {
+                        {this.state.categories.sort((a, b) => {
+                            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                        }).map((category, index) => {
                             return <Category
                                 id={category.id}
                                 name={category.name}
-                                onDelete={(id) => {
-                                    this.removeCategory(id)
-                                }}
-                                onEdit={(id, categoryName) => {
-                                    this.editCategory(id, categoryName);
-                                }}
                                 key={'cat-' + index}
                                 className={index % 2 ? "even" : ""}/>
                         })}

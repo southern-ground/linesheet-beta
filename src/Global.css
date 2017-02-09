@@ -15,6 +15,10 @@ a{
     justify-content: flex-end;
 }
 
+.float__right{
+    float: right;
+}
+
 .blocker{
     z-index: 150;
     background-color: rgba(0,0,0,0.8);

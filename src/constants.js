@@ -39,6 +39,7 @@ export const ADD_ITEM_RESPONSE = "action_add_item_response";
 export const DELETE_ITEM = "action_delete_item";
 export const GET_INVENTORY = "action_get_inventory";
 export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
+export const OPEN_FORM = "action_open_form";
 export const UPDATE_ITEM = "action_update_inventory";
 
 /* COOKIES */

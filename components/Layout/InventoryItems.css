@@ -1,0 +1,12 @@
+@import '../../src/Global.css';
+
+.inventory_list{
+    margin: 10px 0 0 0;
+}
+.inventoryNav{
+    display: flex;
+    justify-content: flex-end;
+}
+.itemTable{
+    margin: 10px 0 0 0;
+}

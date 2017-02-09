@@ -1,5 +1,31 @@
-@import "../Global.css";
+@import "../../src/Global.css";
 
+.addItemFormHeading{
+    cursor:pointer;
+
+}
+.formHeadingIcon{
+    width: 20px;
+    height: auto;
+    pointer:cursor;
+    transform:rotate(0deg);
+    transition-duration: 0.8s;
+    transition-property: transform;
+}
+
+.formHeadingIcon__open{
+    transform:rotate(180deg);
+}
+
+.form{
+    max-height: 0;
+    transition: max-height 0.25s ease-out;
+    overflow:hidden;
+}
+.form__open{
+    max-height: 999px;
+    transition: max-height 0.5s ease-out;
+}
 .formItems{
     list-style:none;
     padding: 0;

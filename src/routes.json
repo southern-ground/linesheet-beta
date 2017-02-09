@@ -18,10 +18,6 @@
     "page": "./about"
   },
   {
-    "path": "/add",
-    "page": "./add"
-  },
-  {
     "path": "/edit/:id",
     "page": "./edit"
   },

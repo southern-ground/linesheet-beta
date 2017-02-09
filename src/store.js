@@ -25,14 +25,23 @@ import {
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
     LOAD_COOKIE,
-    LOAD_COOKIE_RESPONSE
+    LOAD_COOKIE_RESPONSE,
+    OPEN_FORM
 } from './constants';
 import request from 'superagent';
 import Cookies from 'js-cookie';
 
 // Centralized application state
 // For more information visit http://redux.js.org/
-const initialState = {inventory: [], categories: [], cookieLoaded: false, busy: false, busyMsg: ""};
+
+const initialState = {
+    inventory: [],
+    categories: [],
+    cookieLoaded: false,
+    openInventoryForm: false,
+    busy: false,
+    busyMsg: ""
+};
 
 const getBlankCookie = () => {
     // Generates a cookie from a known template.
@@ -56,6 +65,14 @@ const writeCookie = (data) => {
 };
 
 const store = createStore((state = initialState, action) => {
+
+    // Default re-sets:
+    state = {
+        ...state,
+        busy: false,
+        busyMsg: "",
+        openInventoryForm: false
+    };
 
     switch (action.type) {
 
@@ -92,7 +109,7 @@ const store = createStore((state = initialState, action) => {
                     }
                 });
 
-            return {...state, busy: true, busyMsg: "Adding Category"};
+            return {...state, busy: true, busyMsg: "Adding Inventory Item"};
 
         case ADD_CATEGORY:
 
@@ -102,7 +119,6 @@ const store = createStore((state = initialState, action) => {
                     if (err) {
                         console.warn('ADD_CATEGORY Error:', err);
                     } else {
-                        console.log('ADD_CATEGORY response:');
                         var data = JSON.parse(res.text);
                         if (data.response === 200) {
                             // No error:
@@ -119,17 +135,12 @@ const store = createStore((state = initialState, action) => {
         case DELETE_CATEGORY:
 
             request
-                .get(API + API_GATEWAYS[DELETE_CATEGORY] + "&categoryId=" + action.categoryID)
+                .get(API + API_GATEWAYS[DELETE_CATEGORY] + "&categoryId=" + action.categoryId)
                 .end((err, res) => {
                     if (err) {
                         console.warn('DELETE_CATEGORY Error:', err);
                     } else {
-                        console.log('DELETE_CATEGORY response:');
-
                         var data = JSON.parse(res.text);
-
-                        console.log(data);
-
                         if (data.response === 200) {
                             // No error:
                             writeCookie({categories: data.categories});
@@ -190,7 +201,7 @@ const store = createStore((state = initialState, action) => {
 
         case GET_CATEGORIES_RESPONSE:
 
-            return {...state, categories: action.data, busy: false, busyMsg: ""};
+            return {...state, categories: action.data};
 
             break;
 
@@ -255,13 +266,13 @@ const store = createStore((state = initialState, action) => {
                         store.dispatch({action: OK})
                     } else {
                         var data = JSON.parse(res.text);
-                        if(data.response === 200){
+                        if (data.response === 200) {
                             store.dispatch({
                                 type: GET_INVENTORY_RESPONSE,
                                 inventory: data.inventory,
                                 categories: data.categories
                             });
-                        }else{
+                        } else {
                             console.warn('Error on deleting item', data.response);
                             store.dispatch({
                                 type: OK
@@ -273,6 +284,8 @@ const store = createStore((state = initialState, action) => {
 
             return {...state, busy: true, busyMsg: "Deleting Item"};
 
+        case OPEN_FORM:
+            return {...state, openInventoryForm: true};
         default:
             return state;
     }

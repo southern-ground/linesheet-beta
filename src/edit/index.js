@@ -1,13 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
@@ -39,7 +29,12 @@ class EditPage extends React.Component {
         this.state = {
             sku: this.props.route.params.id,
             inventory: appState.inventory,
-            categories: appState.categories
+            categories: appState.categories,
+            itemCategories: [],
+            busy: false,
+            loaded: false,
+            error: '',
+            errorText: ''
         };
 
     }
@@ -60,8 +55,70 @@ class EditPage extends React.Component {
         this.unsubscribeFunciton();
     }
 
-    updateItem() {
-        console.log('EditPage::updateItem');
+    getCategories() {
+        var checkboxes = this.refs.itemCategories.getElementsByTagName('input'),
+            itemCategories = new Array();
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                if (checkboxes[i].checked) {
+                    itemCategories.push(checkboxes[i].getAttribute('data-id'));
+                }
+            }
+        }
+
+        return itemCategories;
+    }
+
+    updateItem(e) {
+
+        e.preventDefault();
+
+        var newItem = {
+                sku: this.refs.itemSKU.value || '',
+                name: this.refs.itemName.value || '',
+                wholeSale: this.refs.itemWholesalePrice.value || 0,
+                categories: this.state.itemCategories,
+                msrp: this.refs.itemMSRP.value || 0
+            },
+            newState = {
+                error: '',
+                itemErrorText: ''
+            };
+
+        if (newItem.sku.length === 0) {
+            newState.error = ERROR_SKU;
+            newState.itemErrorText = "Please enter a valid sku";
+        } else if (newItem.name.length === 0) {
+            newState.error = ERROR_NAME;
+            newState.itemErrorText = "Please enter a valid name";
+        }
+
+        if (newState.error.length) {
+            this.setState(newState);
+        } else {
+
+            store.dispatch({
+                type: ADD_ITEM,
+                item: newItem
+            });
+
+            this.refs.itemSKU.value = '';
+            this.refs.itemName.value = '';
+            this.refs.itemWholesalePrice.value = '';
+            this.refs.itemMSRP.value = '';
+
+            var checkboxes = new Array();
+            checkboxes = this.refs.itemCategories.getElementsByTagName('input');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = false;
+                }
+            }
+
+            this.setState(newState);
+        }
 
     }
 
@@ -121,16 +178,15 @@ class EditPage extends React.Component {
                             </li>
                             <li>
                                 <label htmlFor="Category_Name">Product Category</label>
-
                                 <div>
                                     {
                                         this.state.categories.map((category, index) => {
-
                                             return <CategorySelect
                                                 id={category.id}
                                                 name={category.name}
                                                 index={index}
-                                                selected={categories.filter(catId=>{
+                                                key={"category-" + index}
+                                                isSelected={categories.filter(catId => {
                                                     return catId === category.id
                                                 }).length > 0}
                                             />
@@ -145,7 +201,7 @@ class EditPage extends React.Component {
                                        name="item_wholesale"
                                        placeholder="$0.00"
                                        ref="itemWholesalePrice"
-                                       defaultValue={item.wholesale}
+                                       defaultValue={item.wholeSale}
                                 />
                             </li>
                             <li>
@@ -168,11 +224,7 @@ class EditPage extends React.Component {
                                           s.formSubmit + " " +
                                           s.button__group
                                       }
-                                      onClick={(e) => {
-                                          e.preventDefault();
-                                          e.stopPropagation();
-                                          this.updateItem();
-                                      }}>Update Item</Link>
+                                      onClick={this.updateItem}>Update Item</Link>
 
                                 <Link to={'/'}
                                       className={
