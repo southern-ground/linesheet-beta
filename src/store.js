@@ -8,7 +8,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import {createStore} from 'redux';
+import {combineReducers, createStore} from 'redux';
+
 import {
     API,
     API_GATEWAYS,
