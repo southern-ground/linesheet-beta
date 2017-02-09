@@ -28,8 +28,8 @@ class EditPage extends React.Component {
 
         this.state = {
             sku: this.props.route.params.id,
-            inventory: appState.inventory,
-            categories: appState.categories,
+            inventory: appState.inventory || [],
+            categories: appState.categories || [],
             itemCategories: [],
             busy: false,
             loaded: false,
@@ -40,11 +40,13 @@ class EditPage extends React.Component {
     }
 
     componentWillMount() {
-        document.title = title;
+        console.log('EditPage::componentWillMount');
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
     }
 
     componentDidMount() {
+        console.log('EditPage::componentDidMount');
+        document.title = title;
         if (this.state.categories.length === 0 || this.state.inventory.length === 0) {
             store.dispatch({type: GET_INVENTORY});
             this.setState({busy: true});
@@ -52,6 +54,7 @@ class EditPage extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log('EditPage::componentWillUnmount');
         this.unsubscribeFunciton();
     }
 
@@ -74,7 +77,7 @@ class EditPage extends React.Component {
 
         e.preventDefault();
 
-        var newItem = {
+        var item = {
                 sku: this.refs.itemSKU.value || '',
                 name: this.refs.itemName.value || '',
                 wholeSale: this.refs.itemWholesalePrice.value || 0,
@@ -86,10 +89,10 @@ class EditPage extends React.Component {
                 itemErrorText: ''
             };
 
-        if (newItem.sku.length === 0) {
+        if (item.sku.length === 0) {
             newState.error = ERROR_SKU;
             newState.itemErrorText = "Please enter a valid sku";
-        } else if (newItem.name.length === 0) {
+        } else if (item.name.length === 0) {
             newState.error = ERROR_NAME;
             newState.itemErrorText = "Please enter a valid name";
         }
@@ -99,8 +102,8 @@ class EditPage extends React.Component {
         } else {
 
             store.dispatch({
-                type: ADD_ITEM,
-                item: newItem
+                type: UPDATE_ITEM,
+                item: item
             });
 
             this.refs.itemSKU.value = '';
@@ -118,20 +121,25 @@ class EditPage extends React.Component {
             }
 
             this.setState(newState);
+
         }
 
     }
 
     updateProps() {
-        console.log('EditPage::updateProps');
+        var appState = store.getState();
+
         this.setState({
             ...this.state,
-            inventory: store.getState().inventory,
-            categories: store.getState().categories
+            inventory: appState.inventory || [],
+            categories: appState.categories || []
         });
+
     }
 
     render() {
+
+        console.log('HomePage::render state:', this.state);
 
         var sku = this.state.sku,
             item = this.state.inventory.filter((item) => {
@@ -216,7 +224,6 @@ class EditPage extends React.Component {
                                 />
                             </li>
                             <li className={s.as__row + " " + s.align__right}>
-
                                 <Link to="#"
                                       className={
                                           s.button + " " +
@@ -225,7 +232,6 @@ class EditPage extends React.Component {
                                           s.button__group
                                       }
                                       onClick={this.updateItem}>Update Item</Link>
-
                                 <Link to={'/'}
                                       className={
                                           s.button + " " +
