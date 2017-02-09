@@ -40,7 +40,7 @@ class HomePage extends React.Component {
 
         document.title = title;
 
-        if (store.getState().inventory.length === 0) {
+        if (store.getState().initialized === false) {
             // Inventory hasn't been loaded; go get it.
             store.dispatch({
                 type: GET_INVENTORY
@@ -63,9 +63,9 @@ class HomePage extends React.Component {
 
     updateProps() {
 
-        console.log('Home::updateProps');
-
         var appState = store.getState();
+
+        console.log('Home::updateProps State:', appState);
 
         this.setState({
             ...this.state,
