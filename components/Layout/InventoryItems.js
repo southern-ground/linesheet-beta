@@ -172,7 +172,6 @@ class InventoryItems extends React.Component {
     }
 
     render() {
-
         return (
             <section>
                 <h3>Current Items</h3>
