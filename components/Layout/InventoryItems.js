@@ -3,15 +3,15 @@ import s from './InventoryItems.css';
 import {
     DELETE_ITEM,
     GET_INVENTORY,
-    OPEN_FORM
+    OPEN_FORM,
+    SORT_HOME_INVENTORY_ON,
+    SORT_SKU,
+    SORT_NAME,
+    SORT_WHOLESALE,
+    SORT_MSRP
 } from '../../src/constants';
 import store from '../../src/store';
 import Inventory from './Inventory';
-
-const SORT_SKU = "sort-sku";
-const SORT_NAME = "sort-name";
-const SORT_WHOLESALE = "sort-wholesale";
-const SORT_MSRP = "sort-msrp";
 
 class InventoryItems extends React.Component {
 
