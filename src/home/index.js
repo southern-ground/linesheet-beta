@@ -30,6 +30,16 @@ class HomePage extends React.Component {
 
     componentWillMount() {
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
+        var appState = store.getState();
+        this.setState({
+            ...this.state,
+            loading: false,
+            inventory: appState.inventory || [],
+            categories: (appState.categories || []).sort((a, b) => {
+                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+            }),
+            openItemForm: appState.openInventoryForm
+        });
     }
 
     componentDidMount() {
@@ -40,10 +50,7 @@ class HomePage extends React.Component {
                 type: GET_INVENTORY
             });
         }else{
-            this.setState({
-                inventory: appState.inventory,
-                categories: appState.categories
-            });
+            this.updateProps();
         }
     }
 
