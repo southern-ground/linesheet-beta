@@ -32,9 +32,38 @@ class InventoryItems extends React.Component {
         this.toggleForm = this.toggleForm.bind(this);
 
         this.state = {
+            homeInventorySort: SORT_SKU,
             loading: true
         };
 
+    }
+
+    getSortedInventory(){
+        var inventory = this.props.inventory || [];
+        switch (store.getState().homeInventorySort) {
+            case SORT_SKU:
+                return inventory.sort((a, b) => {
+                    return a.sku.toUpperCase() > b.sku.toUpperCase() ? 1 : -1;
+                });
+                break;
+            case SORT_NAME:
+                return inventory.sort((a, b) => {
+                    return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                });
+                break;
+            case SORT_WHOLESALE:
+                return inventory.sort((a, b) => {
+                    return parseFloat(a.wholesale) > parseFloat(b.wholesale) ? 1 : -1;
+                });
+                break;
+            case SORT_MSRP:
+                return inventory.sort((a, b) => {
+                    return parseFloat(a.msrp) > parseFloat(b.msrp) ? 1 : -1;
+                });
+                break;
+            default:
+                return inventory;
+        }
     }
 
     onDeleteItem(id) {
@@ -45,15 +74,12 @@ class InventoryItems extends React.Component {
     }
 
     refreshInventory() {
-        console.log('InventoryItems::refreshInventory');
         store.dispatch({type: GET_INVENTORY, refresh: true});
         this.setState({...this.state, loading: true});
     }
 
     renderInventory() {
-
         return (<div className={s.table + " " + s.itemTable}>
-
             <div className={s.table_row}>
                 <div className={s.table_cell + " " + s.table_header}>
                     <a href="#"
@@ -97,8 +123,7 @@ class InventoryItems extends React.Component {
                     Edit/Delete
                 </div>
             </div>
-
-            {this.props.inventory.map((item, index) => {
+            {this.getSortedInventory().map((item, index) => {
                 return (<Inventory
                     sku={item.sku}
                     name={item.name}
@@ -111,7 +136,6 @@ class InventoryItems extends React.Component {
                         this.onDeleteItem(id);
                     }}/>)
             })}
-
         </div>);
     }
 
@@ -131,36 +155,10 @@ class InventoryItems extends React.Component {
     }
 
     sortOn(which) {
-        switch (which) {
-            case SORT_SKU:
-                this.setState({
-                    inventory: this.props.inventory.sort((a, b) => {
-                        return a.sku.toUpperCase() > b.sku.toUpperCase() ? 1 : -1;
-                    })
-                });
-                break;
-            case SORT_NAME:
-                this.setState({
-                    inventory: this.props.inventory.sort((a, b) => {
-                        return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-                    })
-                });
-                break;
-            case SORT_WHOLESALE:
-                this.setState({
-                    inventory: this.props.inventory.sort((a, b) => {
-                        return parseFloat(a.wholesale) > parseFloat(b.wholesale) ? 1 : -1;
-                    })
-                });
-                break;
-            case SORT_MSRP:
-                this.setState({
-                    inventory: this.props.inventory.sort((a, b) => {
-                        return parseFloat(a.msrp) > parseFloat(b.msrp) ? 1 : -1;
-                    })
-                });
-                break;
-        }
+        store.dispatch({
+            type: SORT_HOME_INVENTORY_ON,
+            sortOn: which
+        });
     }
 
     toggleForm(e){
