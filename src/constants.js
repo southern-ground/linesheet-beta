@@ -24,6 +24,12 @@ export const ERROR_NAME = "invalid item name";
 
 /* ACTIONS */
 
+// Sort for the Inventory Items
+export const SORT_SKU = "sort-sku";
+export const SORT_NAME = "sort-name";
+export const SORT_WHOLESALE = "sort-wholesale";
+export const SORT_MSRP = "sort-msrp";
+
 // Categories:
 export const OK = "action_ok";
 export const ADD_CATEGORY = "action_add_category";
