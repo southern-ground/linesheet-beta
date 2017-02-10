@@ -33,6 +33,7 @@ class EditPage extends React.Component {
         var appState = store.getState();
 
         this.state = {
+            edited: false,
             initialized: false,
             item: {
                 sku: this.props.route.params.id,
@@ -104,6 +105,7 @@ class EditPage extends React.Component {
         item.categories = this.getCategories();
 
         this.setState({
+            edited: true,
             item: item
         });
 
@@ -136,29 +138,29 @@ class EditPage extends React.Component {
         if (newState.error.length) {
             this.setState(newState);
         } else {
-
-            console.log(item);
-            return;
             store.dispatch({
                 type: UPDATE_ITEM,
                 item: item
             });
+            this.setState({
+                edited: false
+            });
         }
-
     }
 
-    toggleCategory(id){
+    toggleCategory(id) {
         var item = this.state.item,
             categories = this.state.item.categories,
             index = categories.indexOf(id);
 
-        if(index == -1){
+        if (index == -1) {
             categories.push(id);
-        }else{
+        } else {
             categories.splice(index, 1)
         }
         item.categories = categories;
         this.setState({
+            edited: true,
             item: item
         });
 
@@ -170,6 +172,7 @@ class EditPage extends React.Component {
                 return inventoryItem.sku === this.state.item.sku
             }),
             currentItem;
+
         if (filteredInventory.length > 0) {
             currentItem = filteredInventory.pop();
             this.setState({
@@ -192,7 +195,6 @@ class EditPage extends React.Component {
     }
 
     render() {
-
         return (
             <Layout className={s.content}>
                 <section>
@@ -236,22 +238,26 @@ class EditPage extends React.Component {
                                 <label htmlFor="Category_Name">Product Category</label>
                                 <div ref={CATEGORIES_FIELD_REF}>
                                     {
-                                        (this.state.categories || []).map((category, index) => {
-                                            return <CategorySelect
-                                                id={category.id}
-                                                name={category.name}
-                                                index={index}
-                                                key={"category-" + index}
-                                                checked={(this.state.item.categories || [])
-                                                    .filter(catId => {
-                                                        return catId === category.id
-                                                    })
-                                                    .length > 0}
-                                                change={(e, id) => {
-                                                    this.toggleCategory(id);
-                                                }}
-                                            />
-                                        })
+                                        (this.state.categories || [])
+                                            .sort((a, b) => {
+                                                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                                            })
+                                            .map((category, index) => {
+                                                return <CategorySelect
+                                                    id={category.id}
+                                                    name={category.name}
+                                                    index={index}
+                                                    key={"category-" + index}
+                                                    checked={(this.state.item.categories || [])
+                                                        .filter(catId => {
+                                                            return catId === category.id
+                                                        })
+                                                        .length > 0}
+                                                    change={(e, id) => {
+                                                        this.toggleCategory(id);
+                                                    }}
+                                                />
+                                            })
                                     }
                                 </div>
                             </li>
@@ -288,15 +294,18 @@ class EditPage extends React.Component {
                                           s.button + " " +
                                           s.button__save + " " +
                                           s.formSubmit + " " +
-                                          s.button__group
+                                          s.button__group +
+                                          (this.state.edited ? "" : " " + s.button__disabled)
                                       }
-                                      onClick={this.updateItem}>Update Item</Link>
+                                      onClick={this.updateItem}
+                                      disabled={this.state.edited}
+                                >Update Item</Link>
                                 <Link to={'/'}
                                       className={
                                           s.button + " " +
                                           s.button__cancel + " " +
                                           s.button__group}>
-                                    Cancel
+                                    Done
                                 </Link>
                             </li>
                             <li>
