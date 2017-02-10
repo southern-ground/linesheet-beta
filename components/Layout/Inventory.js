@@ -1,7 +1,10 @@
 import React, {PropTypes} from 'react';
 import s from './Inventory.css';
-import history from 'history';
+import store from '../../src/store';
 import Link from '../Link';
+import {
+    SELECT_ITEM
+} from '../../src/constants';
 
 class Inventory extends React.Component {
 
@@ -15,13 +18,10 @@ class Inventory extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.getCategoryList = this.getCategoryList.bind(this);
-
         this.state = {
             editActive: false
         }
-
     }
 
     getCategoryList(itemCategories, allCategories) {
@@ -36,10 +36,24 @@ class Inventory extends React.Component {
 
     render() {
 
+        /*
+         TODO: Add Checkbox for indicating selection
+         */
         var itemCategories = this.getCategoryList(this.props.categories, this.props.allCategories);
 
         return (
             <div className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
+                <div className={s.table_cell + " " + s.inventoryProperty}>
+                    <input
+                        type="checkbox"
+                        defaultChecked={this.props.selected}
+                        onChange={(e)=>{
+                            store.dispatch({
+                                type: SELECT_ITEM,
+                                sku: this.props.sku
+                            })
+                        }} />
+                </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     {this.props.sku}
                 </div>

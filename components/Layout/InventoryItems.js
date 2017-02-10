@@ -3,6 +3,7 @@ import s from './InventoryItems.css';
 import {
     DELETE_ITEM,
     GET_INVENTORY,
+    SELECT_ALL_INVENTORY_ITEMS,
     SORT_HOME_INVENTORY_ON,
     SORT_SKU,
     SORT_NAME,
@@ -32,7 +33,8 @@ class InventoryItems extends React.Component {
 
         this.state = {
             homeInventorySort: SORT_SKU,
-            loading: true
+            loading: true,
+            selectAll:false
         };
 
     }
@@ -78,8 +80,28 @@ class InventoryItems extends React.Component {
     }
 
     renderInventory() {
+        /*
+        * TODO: Add Checkbox for select ALL
+        * */
         return (<div className={s.table + " " + s.itemTable}>
             <div className={s.table_row}>
+                <div className={s.table_cell + " " + s.table_header}>
+                    <input
+                        type="checkbox"
+                        onChange={(e)=>{
+                            store.dispatch({
+                                type: SELECT_ALL_INVENTORY_ITEMS,
+                                value: !this.state.selectAll
+                            });
+                            this.setState({
+                                selectAll: !this.state.selectAll
+                            });
+                        }}
+                        checked={
+                            this.state.selectAll
+                        }
+                    />
+                </div>
                 <div className={s.table_cell + " " + s.table_header}>
                     <a href="#"
                        onClick={(e) => {
@@ -124,6 +146,7 @@ class InventoryItems extends React.Component {
             </div>
             {this.getSortedInventory().map((item, index) => {
                 return (<Inventory
+                    selected={item.selected}
                     sku={item.sku}
                     name={item.name}
                     wholesale={item.wholesale}

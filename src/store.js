@@ -17,6 +17,8 @@ import {
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
+    SELECT_ITEM,
+    SELECT_ALL_INVENTORY_ITEMS,
     SORT_HOME_INVENTORY_ON,
     TOGGLE_ADD_ITEM_FORM,
     UPDATE_ITEM,
@@ -33,7 +35,8 @@ const initialState = {
     busy: false,
     busyMsg: "",
     openInventoryForm: false,
-    homeIndustrySort: SORT_SKU
+    homeIndustrySort: SORT_SKU,
+    allSelected: false
 };
 
 const store = createStore((state = initialState, action) => {
@@ -98,12 +101,12 @@ const store = createStore((state = initialState, action) => {
                             inventory = data.inventory,
                             categories = store.getState().categories;
 
-                        if(data.response === 200){
+                        if (data.response === 200) {
                             store.dispatch({
                                 type: UPDATE_ITEM_RESPONSE,
                                 inventory: data.inventory
                             });
-                        }else{
+                        } else {
                             console.warn('UPDATE_ITEM response:', data.response);
                         }
                     }

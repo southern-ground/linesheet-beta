@@ -97,6 +97,7 @@ class HomePage extends React.Component {
                             return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
                         })}
                     inventory={appState.inventory || []}
+                    allSelected={appState.allSelected}
                 />
 
             </Layout>
