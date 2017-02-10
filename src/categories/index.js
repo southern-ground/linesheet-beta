@@ -25,33 +25,40 @@ class CategoriesPage extends React.Component {
         this.addCategory = this.addCategory.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
-        var appState = store.getState(),
-            localState = {
-                categories: [],
-                busy: false,
-                busyMsg: "",
-                loaded: false,
-                error: '',
-                errorText: ''
-            };
-
         this.state = {
-            ...localState,
-            categories: appState.categories || []
+            busy: false,
+            busyMsg: "",
+            loaded: false,
+            error: '',
+            errorText: ''
         };
 
     }
 
-    selectedCategories() {
-        var categories = [],
-            options = this.refs.itemCategories.options,
-            i = 0;
-        for (i; i < options.length; i++) {
-            if (options[i].selected) {
-                categories.push(options[i].value);
-            }
+    addCategory(e) {
+
+        e.preventDefault();
+
+        var newCategory = this.refs.category.value || '';
+
+        if (newCategory.length === 0) {
+            this.setState({
+                error: ERROR_CATEGORY,
+                categoryErrorText: "Please enter a valid category name"
+            });
+        } else {
+            this.setState({
+                error: '',
+                categoryErrorText: '',
+                busy: true
+            });
+            store.dispatch({
+                type: ADD_CATEGORY,
+                category: newCategory
+            });
         }
-        return categories;
+
+        this.refs.category.value = '';
     }
 
     addItem(e) {
@@ -99,55 +106,38 @@ class CategoriesPage extends React.Component {
 
     }
 
-    addCategory(e) {
-
-        e.preventDefault();
-
-        var newCategory = this.refs.category.value || '';
-
-        if (newCategory.length === 0) {
-            this.setState({
-                error: ERROR_CATEGORY,
-                categoryErrorText: "Please enter a valid category name"
-            });
-        } else {
-            this.setState({
-                error: '',
-                categoryErrorText: '',
-                busy: true
-            });
-            store.dispatch({
-                type: ADD_CATEGORY,
-                category: newCategory
-            });
-        }
-
-        this.refs.category.value = '';
-    }
-
     componentWillMount() {
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
     }
 
     componentDidMount() {
         document.title = title;
-        if (this.state.categories.length === 0 && this.state.loaded === false) {
+        if (!store.getState().categories) {
             store.dispatch({type: GET_CATEGORIES});
             this.setState({busy: true});
         }
     }
 
     componentWillUnmount() {
-
         this.unsubscribeFunciton();
+    }
 
+    selectedCategories() {
+        var categories = [],
+            options = this.refs.itemCategories.options,
+            i = 0;
+        for (i; i < options.length; i++) {
+            if (options[i].selected) {
+                categories.push(options[i].value);
+            }
+        }
+        return categories;
     }
 
     updateProps() {
         var appState = store.getState();
         this.setState({
             ...this.state,
-            categories: appState.categories || [],
             busy: false,
             loaded: true,
             error: appState.error || ""
@@ -199,15 +189,17 @@ class CategoriesPage extends React.Component {
                     <h2>Current Categories</h2>
                     <p className={s.error__message}>{this.state.error}</p>
                     <div className={s.category__list}>
-                        {(this.state.categories || []).sort((a, b) => {
-                            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-                        }).map((category, index) => {
-                            return <Category
-                                id={category.id}
-                                name={category.name}
-                                key={'cat-' + index}
-                                className={index % 2 ? "even" : ""}/>
-                        })}
+                        {(store.getState().categories || [])
+                            .sort((a, b) => {
+                                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                            })
+                            .map((category, index) => {
+                                return <Category
+                                    id={category.id}
+                                    name={category.name}
+                                    key={'cat-' + index}
+                                    className={index % 2 ? "even" : ""}/>
+                            })}
                     </div>
                 </section>
             </Layout >

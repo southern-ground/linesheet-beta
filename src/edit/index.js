@@ -30,8 +30,6 @@ class EditPage extends React.Component {
         this.updateItem = this.updateItem.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
-        var appState = store.getState();
-
         this.state = {
             edited: false,
             initialized: false,
@@ -43,9 +41,7 @@ class EditPage extends React.Component {
                 msrp: ""
             },
             error: "",
-            errorText: "",
-            inventory: appState.inventory || [],
-            categories: appState.categories || []
+            errorText: ""
         };
 
     }
@@ -56,9 +52,15 @@ class EditPage extends React.Component {
 
     componentDidMount() {
         document.title = title;
-        if (this.state.inventory.length == 0) {
-            store.dispatch({type: GET_INVENTORY});
-            this.setState({busy: true, busyMsg: "Refreshing Inventory"});
+        var appState = store.getState();
+        if (!appState.inventory) {
+            store.dispatch({
+                type: GET_INVENTORY
+            });
+            this.setState({
+                busy: true,
+                busyMsg: "Refreshing Inventory"
+            });
         } else {
             this.updateProps();
         }
@@ -181,20 +183,19 @@ class EditPage extends React.Component {
                     ...currentItem,
                     categories: currentItem.categories.split(',') || []
                 },
-                categories: appState.categories || [],
-                inventory: appState.inventory || [],
                 busy: false
             });
         } else {
             this.setState({
-                ...this.state,
-                categories: appState.categories || [],
-                inventory: appState.inventory || []
+                ...this.state
             });
         }
     }
 
     render() {
+
+        var appState = store.getState();
+
         return (
             <Layout className={s.content}>
                 <section>
@@ -238,10 +239,7 @@ class EditPage extends React.Component {
                                 <label htmlFor="Category_Name">Product Category</label>
                                 <div ref={CATEGORIES_FIELD_REF}>
                                     {
-                                        (this.state.categories || [])
-                                            .sort((a, b) => {
-                                                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-                                            })
+                                        (appState.categories || [])
                                             .map((category, index) => {
                                                 return <CategorySelect
                                                     id={category.id}

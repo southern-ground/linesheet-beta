@@ -1,4 +1,3 @@
-
 import React, {PropTypes} from 'react';
 import s from './styles.css';
 import {
@@ -30,26 +29,20 @@ class HomePage extends React.Component {
 
     componentWillMount() {
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
-        var appState = store.getState();
         this.setState({
             ...this.state,
-            loading: false,
-            inventory: appState.inventory || [],
-            categories: (appState.categories || []).sort((a, b) => {
-                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-            }),
-            openItemForm: appState.openInventoryForm
+            loading: false
         });
     }
 
     componentDidMount() {
         document.title = title;
         var appState = store.getState();
-        if(!appState.inventory || !appState.categories){
+        if (!appState.inventory || !appState.categories) {
             store.dispatch({
                 type: GET_INVENTORY
             });
-        }else{
+        } else {
             this.updateProps();
         }
     }
@@ -60,8 +53,11 @@ class HomePage extends React.Component {
 
     refreshInventory() {
         console.log('Home::refreshInventory');
-        store.dispatch({type: GET_INVENTORY, refresh: true})
-        this.setState({...this.state, loading: true});
+        store.dispatch({type: GET_INVENTORY, refresh: true});
+        this.setState({
+            ...this.state,
+            loading: true
+        });
     }
 
     updateProps() {
@@ -70,17 +66,14 @@ class HomePage extends React.Component {
 
         this.setState({
             ...this.state,
-            loading: false,
-            inventory: appState.inventory || [],
-            categories: (appState.categories || []).sort((a, b) => {
-                return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-            }),
-            openItemForm: appState.openInventoryForm
+            loading: false
         });
 
     }
 
     render() {
+
+        var appState = store.getState();
 
         return (
             <Layout className={s.content}>
@@ -90,13 +83,19 @@ class HomePage extends React.Component {
                 </section>
 
                 <AddForm
-                    categories={this.state.categories || []}
-                    openForm={this.state.openItemForm}
+                    categories={(appState.categories || [])
+                        .sort((a, b) => {
+                            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                        })}
+                    openForm={appState.openItemForm}
                 />
 
                 <InventoryItems
-                    categories={this.state.categories || []}
-                    inventory={this.state.inventory || []}
+                    categories={(appState.categories || [])
+                        .sort((a, b) => {
+                            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                        })}
+                    inventory={appState.inventory || []}
                 />
 
             </Layout>
