@@ -75,6 +75,7 @@ class HomePage extends React.Component {
 
         var appState = store.getState();
 
+
         return (
             <Layout className={s.content}>
 
