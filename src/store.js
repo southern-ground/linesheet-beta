@@ -16,7 +16,11 @@ import {
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
-    OPEN_FORM
+    SORT_HOME_INVENTORY_ON,
+    UPDATE_ITEM,
+    UPDATE_ITEM_RESPONSE,
+    OPEN_FORM,
+    SORT_SKU
 } from './constants';
 import request from 'superagent';
 import {
@@ -24,14 +28,11 @@ import {
     writeCookie
 } from './cookies';
 
-/*
- TODO: Add CombineReducers?
-*/
-
 const initialState = {
     busy: false,
     busyMsg: "",
-    openInventoryForm: false
+    openInventoryForm: false,
+    homeIndustrySort: SORT_SKU
 };
 
 const store = createStore((state = initialState, action) => {
@@ -43,6 +44,8 @@ const store = createStore((state = initialState, action) => {
         busyMsg: "",
         openInventoryForm: false
     };
+
+    console.log("Store",action.type);
 
     switch (action.type) {
         case OK:
@@ -63,9 +66,8 @@ const store = createStore((state = initialState, action) => {
                             // No error:
                             // writeCookie({categories: data.categories});
                             store.dispatch({
-                                type: GET_INVENTORY_RESPONSE,
-                                inventory: data.inventory,
-                                categories: data.categories
+                                type: ADD_ITEM_RESPONSE,
+                                inventory: data.inventory
                             });
                         } else {
                             // Error?
@@ -73,6 +75,46 @@ const store = createStore((state = initialState, action) => {
                     }
                 });
             return {...state, busy: true, busyMsg: "Adding Inventory Item"};
+        case ADD_ITEM_RESPONSE:
+            return {
+                ...state,
+                inventory: action.inventory
+            };
+            break;
+        case UPDATE_ITEM:
+            var updateUrl = API + API_GATEWAYS[UPDATE_ITEM] +
+                "&sku=" + action.item.sku +
+                "&name=" + action.item.name +
+                "&categories=" + action.item.categories +
+                "&wholesale=" + action.item.wholesale +
+                "&msrp=" + action.item.msrp;
+            request
+                .get(updateUrl)
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('UPDATE_ITEM Error:', err);
+                    } else {
+
+                        var data = JSON.parse(res.text),
+                            inventory = data.inventory,
+                            categories = store.getState().categories;
+
+                        if(data.response === 200){
+                            store.dispatch({
+                                type: UPDATE_ITEM_RESPONSE,
+                                inventory: data.inventory
+                            });
+                        }else{
+                            console.warn('UPDATE_ITEM response:', data.response);
+                        }
+                    }
+                });
+            return {...state, busy: true, busyMsg: "Updating Item"};
+        case UPDATE_ITEM_RESPONSE:
+            return {
+                ...state,
+                inventory: action.inventory
+            };
         case GET_INVENTORY:
             var inventoryRefresh = action.refresh || false;
             if (!state.cookieLoaded) {
@@ -232,6 +274,11 @@ const store = createStore((state = initialState, action) => {
             break;
         case OPEN_FORM:
             return {...state, openInventoryForm: true};
+        case SORT_HOME_INVENTORY_ON:
+            return {
+                ...state,
+                homeInventorySort: action.sortOn
+            };
         default:
             return state;
     }
