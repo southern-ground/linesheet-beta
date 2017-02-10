@@ -7,6 +7,7 @@ import {
     API_GATEWAYS,
     OK,
     ADD_CATEGORY,
+    ADD_CATEGORY_RESPONSE,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
     ADD_ITEM,
@@ -193,7 +194,7 @@ const store = createStore((state = initialState, action) => {
                         if (data.response === 200) {
                             // No error:
                             writeCookie({categories: data.categories});
-                            store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
+                            store.dispatch({type: ADD_CATEGORY_RESPONSE, data: data.categories});
                         } else {
                             // Error?
                         }
@@ -263,6 +264,7 @@ const store = createStore((state = initialState, action) => {
                 });
             return {...state, busy: true, busyMsg: "Getting Categories"};
         case GET_CATEGORIES_RESPONSE:
+        case ADD_CATEGORY_RESPONSE:
             return {
                 ...state,
                 categories: action.data,
