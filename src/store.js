@@ -45,8 +45,6 @@ const store = createStore((state = initialState, action) => {
         openInventoryForm: false
     };
 
-    console.log("Store",action.type);
-
     switch (action.type) {
         case OK:
             return {...state, busy: false, busyMsg: ''}
