@@ -6,13 +6,10 @@ import store from '../../src/store';
 import {
     ERROR_SKU,
     ERROR_NAME,
-    ERROR_CATEGORY,
     GET_INVENTORY,
     UPDATE_ITEM
 } from '../constants';
-
 import CategorySelect from '../../components/Layout/CategorySelect';
-
 import Link from '../../components/Link';
 
 const SKU_FIELD_REF = "itemSKU";

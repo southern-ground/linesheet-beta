@@ -5,8 +5,6 @@ import {title, html} from './index.md';
 import store from '../store';
 import {
     ADD_CATEGORY,
-    DELETE_CATEGORY,
-    EDIT_CATEGORY,
     GET_CATEGORIES,
     ADD_ITEM,
     ERROR_CATEGORY,
