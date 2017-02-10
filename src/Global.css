@@ -71,6 +71,11 @@ a{
     display: inline;
     width: 40%;
 }
+.button__disabled{
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
 
 .error__input{
     border: 1px solid red;
