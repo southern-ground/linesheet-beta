@@ -3,7 +3,6 @@ import s from './InventoryItems.css';
 import {
     DELETE_ITEM,
     GET_INVENTORY,
-    OPEN_FORM,
     SORT_HOME_INVENTORY_ON,
     SORT_SKU,
     SORT_NAME,
@@ -165,7 +164,8 @@ class InventoryItems extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         store.dispatch({
-            type: OPEN_FORM
+            type: TOGGLE_ADD_ITEM_FORM,
+            value: true
         })
     }
 

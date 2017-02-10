@@ -2,14 +2,10 @@ import React from 'react';
 import s from './AddForm.css';
 import store from '../../src/store';
 import {
-    ADD_CATEGORY,
-    DELETE_CATEGORY,
-    EDIT_CATEGORY,
-    GET_CATEGORIES,
     ADD_ITEM,
-    ERROR_CATEGORY,
     ERROR_NAME,
-    ERROR_SKU
+    ERROR_SKU,
+    TOGGLE_ADD_ITEM_FORM
 } from '../../src/constants';
 import CategorySelect from './CategorySelect';
 
@@ -111,6 +107,7 @@ class AddForm extends React.Component {
     }
 
     toggleCategory(id, checked){
+
         console.log(id,checked);
 
         var itemCategories = this.state.itemCategories;
@@ -138,9 +135,14 @@ class AddForm extends React.Component {
         } catch (error) {
             // Nothing/
         }
-
-        this.refs.headingIcon.classList.toggle(s.formHeadingIcon__open);
-        this.refs.form.classList.toggle(s.form__open);
+        store.dispatch(
+            {
+                type: TOGGLE_ADD_ITEM_FORM,
+                value: !store.getState().openInventoryForm
+            }
+        );
+        // this.refs.headingIcon.classList.toggle(s.formHeadingIcon__open);
+        // this.refs.form.classList.toggle(s.form__open);
     }
 
     componentWillReceiveProps(props) {
@@ -158,12 +160,12 @@ class AddForm extends React.Component {
                     onClick={this.toggleForm}>
                     Add an Item
                     <img
-                        className={s.formHeadingIcon}
+                        className={s.formHeadingIcon + (this.props.formOpen ? " " + s.formHeadingIcon__open : "" )}
                         src="./images/triangle.svg"
                         ref="headingIcon"
                         onClick={this.toggleForm}/>
                 </h3>
-                <form className={s.form} ref="form" onSubmit={this.addItem}>
+                <form className={s.form  + (this.props.formOpen ? " " + s.form__open : "" )} ref="form" onSubmit={this.addItem}>
                     <ul className={s.formItems}>
                         <li>
                             <label htmlFor="Item_SKU">SKU</label>

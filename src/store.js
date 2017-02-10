@@ -17,9 +17,9 @@ import {
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
     SORT_HOME_INVENTORY_ON,
+    TOGGLE_ADD_ITEM_FORM,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE,
-    OPEN_FORM,
     SORT_SKU
 } from './constants';
 import request from 'superagent';
@@ -270,8 +270,11 @@ const store = createStore((state = initialState, action) => {
                 initialized: true
             };
             break;
-        case OPEN_FORM:
-            return {...state, openInventoryForm: true};
+        case TOGGLE_ADD_ITEM_FORM:
+            return {
+                ...state,
+                openInventoryForm: action.value
+            };
         case SORT_HOME_INVENTORY_ON:
             return {
                 ...state,
