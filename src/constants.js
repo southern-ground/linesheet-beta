@@ -48,6 +48,7 @@ export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
 export const OPEN_FORM = "action_open_form";
 export const SORT_HOME_INVENTORY_ON = "action_sort_home_inventory";
 export const UPDATE_ITEM = "action_update_inventory";
+export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 
 /* COOKIES */
 export const COOKIE_NAME = "com.shellybrown.linesheets";
