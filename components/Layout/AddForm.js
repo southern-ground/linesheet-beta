@@ -21,6 +21,7 @@ class AddForm extends React.Component {
 
         this.addItem = this.addItem.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
+        this.toggleCategory = this.toggleCategory.bind(this);
 
         this.state = {
             categories: this.props.categories,
@@ -97,6 +98,37 @@ class AddForm extends React.Component {
             this.setState(newState);
         }
 
+        var checkboxes = this.refs.itemCategories.getElementsByTagName('input');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                if(checkboxes[i].checked){
+                    itemCategories.push(checkboxes[i].getAttribute('data-id'));
+                }
+            }
+        }
+
+    }
+
+    toggleCategory(id, checked){
+        console.log(id,checked);
+
+        var itemCategories = this.state.itemCategories;
+
+        if(checked){
+            if(itemCategories.indexOf(id) === -1){
+                itemCategories.push(id);
+            }else{
+                console.warn('ID was already present in the item categories when trying to add');
+            }
+        }else{
+            itemCategories.splice(itemCategories.indexOf(id), 1);
+        }
+
+        this.setState({
+            itemCategories: itemCategories
+        });
+
     }
 
     toggleForm(e) {
@@ -164,7 +196,8 @@ class AddForm extends React.Component {
                                             id={category.id}
                                             name={category.name}
                                             key={'cat-' + index}
-                                            checked={false}
+                                            checked={this.state.itemCategories.indexOf(category.id) >= 0}
+                                            change={(e)=>{this.toggleCategory(category.id, e.target.checked)}}
                                         />
                                     );
                                 })}
