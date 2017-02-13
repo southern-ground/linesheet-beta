@@ -1,0 +1,13 @@
+@import '../../src/Global.css';
+.saveNav{
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+.selectCount{
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+.inputErrorMsg{
+    padding: 0 10px 0 0;
+}

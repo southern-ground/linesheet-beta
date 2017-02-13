@@ -9,6 +9,7 @@ import {
 } from '../constants';
 import AddForm from '../../components/Layout/AddForm';
 import InventoryItems from '../../components/Layout/InventoryItems';
+import SaveSection from '../../components/Layout/SaveSection';
 import Layout from '../../components/Layout';
 import store from '../store';
 
@@ -60,6 +61,14 @@ class HomePage extends React.Component {
         });
     }
 
+    numItemsSelected() {
+        return (store.getState().inventory || []).map((item) => {
+            return item.selected ? 1 : 0;
+        }).reduce((a, b) => {
+            return a + b;
+        }, 0);
+    }
+
     updateProps() {
 
         var appState = store.getState();
@@ -74,7 +83,6 @@ class HomePage extends React.Component {
     render() {
 
         var appState = store.getState();
-
 
         return (
             <Layout className={s.content}>
@@ -98,6 +106,11 @@ class HomePage extends React.Component {
                         })}
                     inventory={appState.inventory || []}
                     allSelected={appState.allSelected}
+                />
+
+                <SaveSection
+                    numItems={(appState.inventory || []).length}
+                    numItemsSelected={this.numItemsSelected()}
                 />
 
             </Layout>
