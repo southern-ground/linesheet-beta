@@ -80,9 +80,7 @@ class InventoryItems extends React.Component {
     }
 
     renderInventory() {
-        /*
-        * TODO: Add Checkbox for select ALL
-        * */
+
         return (<div className={s.table + " " + s.itemTable}>
             <div className={s.table_row}>
                 <div className={s.table_cell + " " + s.table_header}>
@@ -146,7 +144,7 @@ class InventoryItems extends React.Component {
             </div>
             {this.getSortedInventory().map((item, index) => {
                 return (<Inventory
-                    selected={item.selected}
+                    selected={item.selected || false}
                     sku={item.sku}
                     name={item.name}
                     wholesale={item.wholesale}

@@ -37,23 +37,22 @@ class Inventory extends React.Component {
 
     render() {
 
-        /*
-         TODO: Add Checkbox for indicating selection
-         */
         var itemCategories = this.getCategoryList(this.props.categories, this.props.allCategories);
 
         return (
-            <div className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
+            <div
+                className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     <input
                         type="checkbox"
-                        defaultChecked={this.props.selected}
-                        onChange={(e)=>{
+                        checked={this.props.selected}
+                        onChange={(e) => {
                             store.dispatch({
                                 type: SELECT_ITEM,
-                                sku: this.props.sku
+                                sku: this.props.sku,
+                                value: !this.props.selected
                             })
-                        }} />
+                        }}/>
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     {this.props.sku}
@@ -62,7 +61,7 @@ class Inventory extends React.Component {
                     {this.props.name}
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
-                    <img src={this.props.image || "http://placehold.it/50x50"} className={s.inventoryItemImage} />
+                    <img src={this.props.image || "http://placehold.it/50x50"} className={s.inventoryItemImage}/>
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     ${this.props.wholesale}
@@ -72,13 +71,24 @@ class Inventory extends React.Component {
                 </div>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     <ul className={s.categoriesList}>
-                        {itemCategories.map((category, index)=>{
+                        {itemCategories.map((category, index) => {
                             return (<li
-                                className={s.category}
+                                className={s.category }
                                 data-id={category.id}
                                 key={'cat-' + index}>
-                                {category.name}
-                                </li>)
+                                <button
+                                    className={s.button__category}
+                                    onClick={(e)=>{
+                                        store.dispatch({
+                                            type: SELECT_CATEGORY,
+                                            categoryId: category.id,
+                                            value: !e.shiftKey
+                                        });
+                                    }}>
+
+                                    {category.name}
+                                </button>
+                            </li>)
                         })}
                     </ul>
                 </div>
