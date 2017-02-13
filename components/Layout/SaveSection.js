@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import s from './SaveSection.css';
 import {
+    SAVE_SELECTION,
     sanitizeString
 } from '../../src/constants';
 import store from '../../src/store';
@@ -23,7 +24,10 @@ class SaveSection extends React.Component {
         }
     }
 
-    saveItems() {
+    saveItems(e) {
+
+        e.preventDefault();
+        e.stopPropagation();
 
         var fileName = sanitizeString(this.refs.fileName.value || "").toLowerCase();
 
@@ -53,10 +57,12 @@ class SaveSection extends React.Component {
                         {this.props.numItemsSelected} of {this.props.numItems} selected.
                     </span>
                     <div>
+                        <form onSubmit={this.saveItems}>
                         <span
                             className={s.error__message + " " + s.inputErrorMsg}>
                             {this.state.errorMsg}
                             </span>
+
                         <input
                             ref="fileName"
                             placeholder="File Name"
@@ -64,7 +70,8 @@ class SaveSection extends React.Component {
                             className={this.state.errorMsg !== "" ? " " + s.error__input : ""}
                             onChange={this.updateFileName}
                         />
-                        <button
+                        <input
+                            type="submit"
                             className={s.align__right + " " +
                             s.button + " " +
                             s.button__save +
@@ -73,10 +80,9 @@ class SaveSection extends React.Component {
                                 :
                                 "")}
                             disabled={this.props.numItemsSelected == 0}
-                            onClick={this.saveItems}
-                        >
-                            Save Selection
-                        </button>
+                            value="Save Selection"
+                        />
+                        </form>
                     </div>
                 </div>
             </section>
