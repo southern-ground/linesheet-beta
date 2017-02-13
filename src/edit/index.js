@@ -7,7 +7,8 @@ import {
     ERROR_SKU,
     ERROR_NAME,
     GET_INVENTORY,
-    UPDATE_ITEM
+    UPDATE_ITEM,
+    sanitizeProductName
 } from '../constants';
 import CategorySelect from '../../components/Layout/CategorySelect';
 import Link from '../../components/Link';
@@ -116,7 +117,7 @@ class EditPage extends React.Component {
 
         var item = {
                 sku: this.state.item.sku,
-                name: this.refs[NAME_FIELD_REF].value || '',
+                name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
                 categories: this.getCategories().join(','),
                 wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
                 msrp: this.refs[MSRP_FIELD_REF].value || 0
