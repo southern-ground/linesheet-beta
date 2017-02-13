@@ -57,3 +57,9 @@ export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 export const COOKIE_NAME = "com.shellybrown.linesheets";
 export const LOAD_COOKIE = "action_load_cookie";
 export const LOAD_COOKIE_RESPONSE = "action_load_cookie_response";
+
+export const sanitizeString = (str)=>{
+    return str
+        .replace(/<[^>]*>/gi, '')
+        .replace(/[^\w]/gi, '_');
+};
