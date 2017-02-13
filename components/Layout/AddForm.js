@@ -5,7 +5,8 @@ import {
     ADD_ITEM,
     ERROR_NAME,
     ERROR_SKU,
-    TOGGLE_ADD_ITEM_FORM
+    TOGGLE_ADD_ITEM_FORM,
+    sanitizeProductName
 } from '../../src/constants';
 import CategorySelect from './CategorySelect';
 
@@ -51,7 +52,7 @@ class AddForm extends React.Component {
 
         var newItem = {
                 sku: this.refs.itemSKU.value || '',
-                name: this.refs.itemName.value || '',
+                name: sanitizeProductName(this.refs.itemName.value || ''),
                 categories: this.getCategories(),
                 wholesale: this.refs.itemWholesalePrice.value || 0,
                 msrp: this.refs.itemMSRP.value || 0

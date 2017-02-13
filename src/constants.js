@@ -53,6 +53,8 @@ export const TOGGLE_ADD_ITEM_FORM = "action_inventory_toggle_form";
 export const UPDATE_ITEM = "action_update_inventory";
 export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 
+export const SAVE_SELECTION = "action_update_save_selection";
+
 /* COOKIES */
 export const COOKIE_NAME = "com.shellybrown.linesheets";
 export const LOAD_COOKIE = "action_load_cookie";
@@ -62,4 +64,10 @@ export const sanitizeString = (str)=>{
     return str
         .replace(/<[^>]*>/gi, '')
         .replace(/[^\w]/gi, '_');
+};
+
+export const sanitizeProductName = (str)=>{
+    return str
+        .replace(/<[^>]*>/gi, '')
+        .replace(/[^\w\s]/gi, '_');
 };
