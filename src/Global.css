@@ -67,6 +67,9 @@ a{
 .button__cancel{
     background-color: darkslategray;
 }
+.button__category{
+    text-transform: uppercase;
+}
 .button__group{
     display: inline;
     width: 40%;

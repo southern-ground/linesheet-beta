@@ -45,6 +45,7 @@ export const ADD_ITEM_RESPONSE = "action_add_item_response";
 export const DELETE_ITEM = "action_delete_item";
 export const GET_INVENTORY = "action_get_inventory";
 export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
+export const SELECT_CATEGORY = "action_select_category";
 export const SELECT_ITEM = "action_select_item";
 export const SELECT_ALL_INVENTORY_ITEMS = "action_get_all_inventory_items";
 export const SORT_HOME_INVENTORY_ON = "action_sort_home_inventory";

@@ -3,6 +3,7 @@ import s from './Inventory.css';
 import store from '../../src/store';
 import Link from '../Link';
 import {
+    SELECT_CATEGORY,
     SELECT_ITEM
 } from '../../src/constants';
 
