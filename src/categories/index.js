@@ -21,6 +21,7 @@ class CategoriesPage extends React.Component {
 
         this.addItem = this.addItem.bind(this);
         this.addCategory = this.addCategory.bind(this);
+        this.updateButtonEnable = this.updateButtonEnable.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
         this.state = {
@@ -28,7 +29,8 @@ class CategoriesPage extends React.Component {
             busyMsg: "",
             loaded: false,
             error: '',
-            errorText: ''
+            errorText: '',
+            formDisabled: true
         };
 
     }
@@ -57,6 +59,8 @@ class CategoriesPage extends React.Component {
         }
 
         this.refs.category.value = '';
+
+        this.updateButtonEnable();
     }
 
     addItem(e) {
@@ -132,6 +136,12 @@ class CategoriesPage extends React.Component {
         return categories;
     }
 
+    updateButtonEnable(){
+        this.setState({
+            formDisabled: this.refs.category.value.length === 0
+        })
+    }
+
     updateProps() {
         var appState = store.getState();
         this.setState({
@@ -161,6 +171,7 @@ class CategoriesPage extends React.Component {
                                        placeholder="Category"
                                        ref="category"
                                        className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
+                                       onChange={this.updateButtonEnable}
                                 />
                             </li>
                             <li>
@@ -168,11 +179,13 @@ class CategoriesPage extends React.Component {
                                     s.formSubmit + " " +
                                     s.button + " " +
                                     s.button__save + " " +
-                                    s.align__right
+                                    s.align__right +
+                                    (this.state.formDisabled ? " " + s.button__disabled : "")
+
                                 }
                                        type="submit"
                                        value="Add Category"
-                                       disabled={this.state.busy ? 'disabled' : ''}
+                                       disabled={this.state.busy || this.state.formDisabled ? 'disabled' : ''}
                                        onClick={this.addCategory}/>
                             </li>
                             <li>
