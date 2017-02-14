@@ -39,13 +39,21 @@ class HomePage extends React.Component {
     componentDidMount() {
         document.title = title;
         var appState = store.getState();
-        if (!appState.inventory || !appState.categories) {
+        console.log(appState);
+        if (!appState.initialized) {
             store.dispatch({
                 type: GET_INVENTORY
             });
         } else {
             this.updateProps();
         }
+        /*if (!appState.inventory || !appState.categories) {
+         store.dispatch({
+         type: GET_INVENTORY
+         });
+         } else {
+         this.updateProps();
+         }*/
     }
 
     componentWillUnmount() {
@@ -62,7 +70,11 @@ class HomePage extends React.Component {
     }
 
     numItemsSelected() {
-        return (store.getState().inventory || []).map((item) => {
+
+        console.log('HomePage::numItemsSelected');
+        console.log(store.getState());
+
+        return (store.getState().inventory).map((item) => {
             return item.selected ? 1 : 0;
         }).reduce((a, b) => {
             return a + b;
@@ -94,7 +106,7 @@ class HomePage extends React.Component {
                 <section>
                     <button
                         className={s.button}
-                        onClick={(e)=>{
+                        onClick={(e) => {
                             this.refs.addOverlay.classList.toggle(s.hidden);
                         }}>
                         Add Item
@@ -108,6 +120,7 @@ class HomePage extends React.Component {
                         })}
                     inventory={appState.inventory || []}
                     allSelected={appState.allSelected}
+                    sortOn={appState.homeInventorySort}
                 />
 
                 <SaveSection
@@ -120,10 +133,11 @@ class HomePage extends React.Component {
                     <div className={s.content + " " + s.overlayContent}>
                         <button
                             className={s.button + " " + s.button__close}
-                            onClick={(e)=>{
+                            onClick={(e) => {
                                 console.log('Overlay Close Click');
                                 this.refs.addOverlay.classList.toggle(s.hidden);
-                            }}>Close</button>
+                            }}>Close
+                        </button>
 
                         <AddForm
                             categories={(appState.categories || [])
