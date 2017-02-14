@@ -1,5 +1,8 @@
 @import '../../src/Global.css';
 
+.inventoryPrompt{
+    margin: 40px 0;
+}
 .inventory_list{
     margin: 10px 0 0 0;
 }
@@ -9,4 +12,7 @@
 }
 .itemTable{
     margin: 10px 0 0 0;
+}
+.itemTable button:not(:first-child){
+    margin: 0 0 0 10px;
 }
