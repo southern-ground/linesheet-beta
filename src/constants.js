@@ -59,5 +59,5 @@ export const sanitizeString = (str)=>{
 export const sanitizeProductName = (str)=>{
     return str
         .replace(/<[^>]*>/gi, '')
-        .replace(/[^\w\s]/gi, '_');
+        .replace(/[^\w\s]/gi, '');
 };
