@@ -228,9 +228,10 @@ const store = createStore((state = initialState, action) => {
                 busyMsg: ""
             };
         case DELETE_ITEM:
+
             request
                 .get(API)
-                .request({
+                .query({
                     action: "delete_item",
                     sku: action.sku
                 })
@@ -255,6 +256,7 @@ const store = createStore((state = initialState, action) => {
 
                     }
                 });
+
             return {...state, busy: true, busyMsg: "Deleting Item"};
         case ADD_CATEGORY:
             request
