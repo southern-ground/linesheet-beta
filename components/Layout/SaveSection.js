@@ -51,7 +51,7 @@ class SaveSection extends React.Component {
 
     render() {
         return (
-            <section>
+            <section className={this.props.className}>
                 <div className={s.saveNav}>
                     <span className={s.selectCount}>
                         {this.props.numItemsSelected} of {this.props.numItems} selected.

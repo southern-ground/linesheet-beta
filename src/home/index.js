@@ -111,6 +111,7 @@ class HomePage extends React.Component {
                 />
 
                 <SaveSection
+                    className={(appState.inventory || []).length === 0 ? s.hidden : ""}
                     numItems={(appState.inventory || []).length}
                     numItemsSelected={this.numItemsSelected()}
                 />
