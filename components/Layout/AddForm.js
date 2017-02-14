@@ -19,25 +19,26 @@ class AddForm extends React.Component {
         this.addItem = this.addItem.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
         this.toggleCategory = this.toggleCategory.bind(this);
+        this.updateSaveEnabled = this.updateSaveEnabled.bind(this);
 
         this.state = {
-            categories: this.props.categories,
             itemCategories: [],
             busy: false,
             loaded: false,
             error: '',
-            errorText: ''
+            errorText: '',
+            saveEnabled: false
         };
 
     }
 
-    getCategories(){
+    getCategories() {
         var checkboxes = this.refs.itemCategories.getElementsByTagName('input'),
             itemCategories = new Array();
 
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].type == 'checkbox') {
-                if(checkboxes[i].checked){
+                if (checkboxes[i].checked) {
                     itemCategories.push(checkboxes[i].getAttribute('data-id'));
                 }
             }
@@ -99,7 +100,7 @@ class AddForm extends React.Component {
 
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].type == 'checkbox') {
-                if(checkboxes[i].checked){
+                if (checkboxes[i].checked) {
                     itemCategories.push(checkboxes[i].getAttribute('data-id'));
                 }
             }
@@ -107,19 +108,19 @@ class AddForm extends React.Component {
 
     }
 
-    toggleCategory(id, checked){
+    toggleCategory(id, checked) {
 
-        console.log(id,checked);
+        console.log(id, checked);
 
         var itemCategories = this.state.itemCategories;
 
-        if(checked){
-            if(itemCategories.indexOf(id) === -1){
+        if (checked) {
+            if (itemCategories.indexOf(id) === -1) {
                 itemCategories.push(id);
-            }else{
+            } else {
                 console.warn('ID was already present in the item categories when trying to add');
             }
-        }else{
+        } else {
             itemCategories.splice(itemCategories.indexOf(id), 1);
         }
 
@@ -152,21 +153,22 @@ class AddForm extends React.Component {
         }
     }
 
+    updateSaveEnabled() {
+        this.setState({
+            saveEnabled: ((this.refs.itemSKU.value || '').length > 0)
+            &&
+            (sanitizeProductName(this.refs.itemName.value || '').length > 0)
+        });
+    }
+
     render() {
 
         return (
             <section>
-                <h3
-                    className={s.addItemFormHeading}
-                    onClick={this.toggleForm}>
+                <h3 className={s.addItemFormHeading}>
                     Add an Item
-                    <img
-                        className={s.formHeadingIcon + (this.props.formOpen ? " " + s.formHeadingIcon__open : "" )}
-                        src="./images/triangle.svg"
-                        ref="headingIcon"
-                        onClick={this.toggleForm}/>
                 </h3>
-                <form className={s.form  + (this.props.formOpen ? " " + s.form__open : "" )} ref="form" onSubmit={this.addItem}>
+                <form className={s.form} ref="form" onSubmit={this.addItem}>
                     <ul className={s.formItems}>
                         <li>
                             <label htmlFor="Item_SKU">SKU</label>
@@ -176,6 +178,7 @@ class AddForm extends React.Component {
                                 name="item_sku"
                                 placeholder="SKU"
                                 ref="itemSKU"
+                                onChange={this.updateSaveEnabled}
                                 className={this.state.error === ERROR_SKU ? s.error__input : ""}
                             />
                         </li>
@@ -187,6 +190,7 @@ class AddForm extends React.Component {
                                 name="item_name"
                                 placeholder="Item Name"
                                 ref="itemName"
+                                onChange={this.updateSaveEnabled}
                                 className={this.state.error === ERROR_NAME ? s.error__input : ""}
                             />
                         </li>
@@ -200,7 +204,9 @@ class AddForm extends React.Component {
                                             name={category.name}
                                             key={'cat-' + index}
                                             checked={this.state.itemCategories.indexOf(category.id) >= 0}
-                                            change={(e)=>{this.toggleCategory(category.id, e.target.checked)}}
+                                            change={(e) => {
+                                                this.toggleCategory(category.id, e.target.checked)
+                                            }}
                                         />
                                     );
                                 })}
@@ -230,10 +236,10 @@ class AddForm extends React.Component {
                                 s.formSubmit + " " +
                                 s.button + " " +
                                 s.button__save + " " +
-                                s.align__right
+                                s.align__right +
+                                (this.state.saveEnabled ? "" : " " + s.button__disabled)
                             } type="submit" value="Add Item"
                                    disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
-
                         </li>
                         <li>
                             <p className={s.error__message}>{this.state.itemErrorText}</p>
