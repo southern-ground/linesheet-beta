@@ -169,7 +169,7 @@ class InventoryItems extends React.Component {
                 <span className={s.generic__error}>Error:</span> There doesn't appear to be any inventory in the system.
             </p>
             <p>
-                You can add some by clicking "Add an Item" above, or clicking <a href="#" onClick={this.toggleForm}>here</a>.
+                You can add some by clicking "Add Item" above.
             </p>
         </div>);
     }

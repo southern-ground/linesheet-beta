@@ -2,6 +2,4 @@
 title: Linesheet Generator
 ---
 
-# Items
-
-## Inventory Items
+# Inventory Items
