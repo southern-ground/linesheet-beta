@@ -5,16 +5,6 @@
 /* API */
 
 export const API = "http://shellybrown.com/linesheets/api/";
-export const API_GATEWAYS = {
-    action_get_inventory: "?action=get_inventory",
-    action_get_categories: "?action=get_categories",
-    action_add_category: "?action=add_category",
-    action_delete_category: "?action=delete_category",
-    action_delete_item: "?action=delete_item",
-    action_edit_category: "?action=edit_category",
-    action_add_item: "?action=add_item",
-    action_update_inventory: "?action=update_item"
-};
 
 /* ERRORS */
 
@@ -45,6 +35,7 @@ export const ADD_ITEM_RESPONSE = "action_add_item_response";
 export const DELETE_ITEM = "action_delete_item";
 export const GET_INVENTORY = "action_get_inventory";
 export const GET_INVENTORY_RESPONSE = "action_get_inventory_response";
+export const SAVE_SELECTION = "action_update_save_selection";
 export const SELECT_CATEGORY = "action_select_category";
 export const SELECT_ITEM = "action_select_item";
 export const SELECT_ALL_INVENTORY_ITEMS = "action_get_all_inventory_items";
@@ -53,7 +44,6 @@ export const TOGGLE_ADD_ITEM_FORM = "action_inventory_toggle_form";
 export const UPDATE_ITEM = "action_update_inventory";
 export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 
-export const SAVE_SELECTION = "action_update_save_selection";
 
 /* COOKIES */
 export const COOKIE_NAME = "com.shellybrown.linesheets";
