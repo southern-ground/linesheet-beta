@@ -91,13 +91,15 @@ class HomePage extends React.Component {
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
 
-                <AddForm
-                    categories={(appState.categories || [])
-                        .sort((a, b) => {
-                            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-                        })}
-                    formOpen={appState.openInventoryForm}
-                />
+                <section>
+                    <button
+                        className={s.button}
+                        onClick={(e)=>{
+                            this.refs.addOverlay.classList.toggle(s.hidden);
+                        }}>
+                        Add Item
+                    </button>
+                </section>
 
                 <InventoryItems
                     categories={(appState.categories || [])
@@ -112,6 +114,25 @@ class HomePage extends React.Component {
                     numItems={(appState.inventory || []).length}
                     numItemsSelected={this.numItemsSelected()}
                 />
+
+                <section ref="addOverlay" className={s.overlaySection + " " + s.hidden}>
+                    <div className={s.content + " " + s.overlayContent}>
+                        <button
+                            className={s.button + " " + s.button__close}
+                            onClick={(e)=>{
+                                console.log('Overlay Close Click');
+                                this.refs.addOverlay.classList.toggle(s.hidden);
+                            }}>Close</button>
+
+                        <AddForm
+                            categories={(appState.categories || [])
+                                .sort((a, b) => {
+                                    return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+                                })}
+                            formOpen={appState.openInventoryForm}
+                        />
+                    </div>
+                </section>
 
             </Layout>
         );
