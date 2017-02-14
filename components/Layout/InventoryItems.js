@@ -164,7 +164,7 @@ class InventoryItems extends React.Component {
     }
 
     renderPrompt() {
-        return (<div>
+        return (<div className={s.inventoryPrompt}>
             <p>
                 <span className={s.generic__error}>Error:</span> There doesn't appear to be any inventory in the system.
             </p>
@@ -193,10 +193,6 @@ class InventoryItems extends React.Component {
     render() {
         return (
             <section>
-                <h3>Current Items</h3>
-                <div className={s.inventoryNav} >
-                    <button onClick={this.refreshInventory} className={s.button + " " + s.button__cancel}>Reload Inventory</button>
-                </div>
                 {
                     this.props.inventory && this.props.inventory.length === 0
                         ?
