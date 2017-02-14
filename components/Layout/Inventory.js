@@ -41,7 +41,11 @@ class Inventory extends React.Component {
 
         return (
             <div
-                className={s.table_row + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")}>
+                className={
+                    s.table_row + " " +
+                    s.inventoryItem +
+                    (this.props.className === "even" ? " " + s.even : "")
+                }>
                 <div className={s.table_cell + " " + s.inventoryProperty}>
                     <input
                         type="checkbox"
@@ -93,14 +97,19 @@ class Inventory extends React.Component {
                     </ul>
                 </div>
                 <div className={s.table_cell}>
-                    <Link
-                        className={s.button + " " + s.button__edit}
-                        to={"./edit/" + this.props.sku}>
-                        Edit
-                    </Link>
-
                     <button
-                        className={s.button + " " + s.button__delete + (this.state.editActive ? " hidden" : "")}
+                        className={s.button + " " + s.button__edit}
+                        onClick={(e)=>{
+                            window.location = "./edit/" + this.props.sku;
+                        }}>
+                        Edit
+                    </button>
+                    <button
+                        className={
+                            s.button + " " +
+                            s.button__delete +
+                            (this.state.editActive ? s.hidden : "")
+                        }
                         onClick={(event) => this.props.onDelete(this.props.sku)}>Delete
                     </button>
                 </div>
