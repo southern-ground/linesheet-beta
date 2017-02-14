@@ -23,6 +23,7 @@ class InventoryItems extends React.Component {
 
         super(props);
 
+        // TODO: Weed this list ... seems long.
         this.refreshInventory = this.refreshInventory.bind(this);
         this.renderLoading = this.renderLoading.bind(this);
         this.renderInventory = this.renderInventory.bind(this);
@@ -30,9 +31,9 @@ class InventoryItems extends React.Component {
         this.onDeleteItem = this.onDeleteItem.bind(this);
         this.sortOn = this.sortOn.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
+        this.getSortedInventory = this.getSortedInventory.bind(this);
 
         this.state = {
-            homeInventorySort: SORT_SKU,
             loading: true,
             selectAll:false
         };
@@ -40,8 +41,10 @@ class InventoryItems extends React.Component {
     }
 
     getSortedInventory(){
-        var inventory = this.props.inventory || [];
-        switch (store.getState().homeInventorySort) {
+        console.log('getSortedInventory', this.props);
+        var inventory = this.props.inventory,
+            sortOn = this.props.sortOn;
+        switch (sortOn) {
             case SORT_SKU:
                 return inventory.sort((a, b) => {
                     return a.sku.toUpperCase() > b.sku.toUpperCase() ? 1 : -1;

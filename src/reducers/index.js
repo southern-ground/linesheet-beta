@@ -9,6 +9,7 @@ import error from './error';
 import busy from './busy';
 import busyMsg from './busyMsg';
 import openInventoryFile from './openInventoryFile';
+import homeInventorySort from './homeInventorySort';
 
 export default combineReducers({
     inventory,
@@ -17,5 +18,6 @@ export default combineReducers({
     error,
     busy,
     busyMsg,
-    openInventoryFile
+    openInventoryFile,
+    homeInventorySort
 })

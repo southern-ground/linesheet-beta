@@ -6,7 +6,7 @@ import {
     SORT_SKU
 } from '../constants';
 
-export default function homeIndustrySort(state = SORT_SKU, action) {
+export default function homeInventorySort(state = SORT_SKU, action) {
     switch (action.type) {
         case SORT_HOME_INVENTORY_ON:
             return action.sortOn;
