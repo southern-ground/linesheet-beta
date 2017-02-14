@@ -5,15 +5,17 @@
 import {
     ADD_CATEGORY,
     ADD_CATEGORY_RESPONSE,
+    ADD_ITEM,
+    ADD_ITEM_RESPONSE,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
-    ADD_ITEM,
     DELETE_ITEM,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     SAVE_SELECTION,
-    UPDATE_ITEM
+    UPDATE_ITEM,
+    UPDATE_ITEM_RESPONSE
 } from '../constants';
 
 export default function busyMsg(state = '', action) {
@@ -37,7 +39,9 @@ export default function busyMsg(state = '', action) {
         case UPDATE_ITEM:
             return "Updating Item";
         case ADD_CATEGORY_RESPONSE:
+        case ADD_ITEM_RESPONSE:
         case GET_CATEGORIES_RESPONSE:
+        case UPDATE_ITEM_RESPONSE:
         default:
             return state;
     }

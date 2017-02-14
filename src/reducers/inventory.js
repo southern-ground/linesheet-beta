@@ -133,9 +133,7 @@ export default function inventory(state = [], action) {
                         console.warn('UPDATE_ITEM Error:', err);
                     } else {
 
-                        var data = JSON.parse(res.text),
-                            inventory = data.inventory,
-                            categories = store.getState().categories;
+                        var data = JSON.parse(res.text);
 
                         if (data.response === 200) {
                             store.dispatch({

@@ -19,7 +19,6 @@ class CategoriesPage extends React.Component {
 
         super(props);
 
-        this.addItem = this.addItem.bind(this);
         this.addCategory = this.addCategory.bind(this);
         this.updateButtonEnable = this.updateButtonEnable.bind(this);
         this.updateProps = this.updateProps.bind(this);
@@ -33,6 +32,22 @@ class CategoriesPage extends React.Component {
             formDisabled: true
         };
 
+    }
+
+    componentWillMount() {
+        this.unsubscribeFunciton = store.subscribe(this.updateProps);
+    }
+
+    componentDidMount() {
+        document.title = title;
+        if (!store.getState().initialized) {
+            store.dispatch({type: GET_CATEGORIES});
+            this.setState({busy: true});
+        }
+    }
+
+    componentWillUnmount() {
+        this.unsubscribeFunciton();
     }
 
     addCategory(e) {
@@ -61,79 +76,6 @@ class CategoriesPage extends React.Component {
         this.refs.category.value = '';
 
         this.updateButtonEnable();
-    }
-
-    addItem(e) {
-
-        e.preventDefault();
-
-        var newItem = {
-                sku: this.refs.itemSKU.value || '',
-                name: this.refs.itemName.value || '',
-                wholesale: this.refs.itemWholesalePrice.value || 0,
-                categories: this.selectedCategories(),
-                msrp: this.refs.itemMSRP.value || 0
-            },
-            newState = {
-                error: '',
-                itemErrorText: ''
-            };
-
-        if (newItem.sku.length === 0) {
-            // Error.
-            newState.error = ERROR_SKU;
-            newState.itemErrorText = "Please enter a valid sku";
-        } else if (newItem.name.length === 0) {
-            newState.error = ERROR_NAME;
-            newState.itemErrorText = "Please enter a valid name";
-        }
-
-        if (newState.error.length) {
-            this.setState(newState);
-        } else {
-            store.dispatch({
-                type: ADD_ITEM,
-                item: newItem
-            });
-
-            this.refs.itemSKU.value = '';
-            this.refs.itemName.value = '';
-            this.refs.itemWholesalePrice.value = '';
-            this.refs.itemMSRP.value = '';
-            for (var i = 0; i < this.refs.itemCategories.options.length; i++) {
-                this.refs.itemCategories.options[i].selected = false;
-            }
-            this.setState(newState);
-        }
-
-    }
-
-    componentWillMount() {
-        this.unsubscribeFunciton = store.subscribe(this.updateProps);
-    }
-
-    componentDidMount() {
-        document.title = title;
-        if (!store.getState().initialized) {
-            store.dispatch({type: GET_CATEGORIES});
-            this.setState({busy: true});
-        }
-    }
-
-    componentWillUnmount() {
-        this.unsubscribeFunciton();
-    }
-
-    selectedCategories() {
-        var categories = [],
-            options = this.refs.itemCategories.options,
-            i = 0;
-        for (i; i < options.length; i++) {
-            if (options[i].selected) {
-                categories.push(options[i].value);
-            }
-        }
-        return categories;
     }
 
     updateButtonEnable(){

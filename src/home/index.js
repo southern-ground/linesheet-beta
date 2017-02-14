@@ -39,7 +39,6 @@ class HomePage extends React.Component {
     componentDidMount() {
         document.title = title;
         var appState = store.getState();
-        console.log(appState);
         if (!appState.initialized) {
             store.dispatch({
                 type: GET_INVENTORY
@@ -61,7 +60,6 @@ class HomePage extends React.Component {
     }
 
     refreshInventory() {
-        console.log('Home::refreshInventory');
         store.dispatch({type: GET_INVENTORY, refresh: true});
         this.setState({
             ...this.state,
@@ -70,10 +68,6 @@ class HomePage extends React.Component {
     }
 
     numItemsSelected() {
-
-        console.log('HomePage::numItemsSelected');
-        console.log(store.getState());
-
         return (store.getState().inventory).map((item) => {
             return item.selected ? 1 : 0;
         }).reduce((a, b) => {
@@ -134,7 +128,6 @@ class HomePage extends React.Component {
                         <button
                             className={s.button + " " + s.button__close}
                             onClick={(e) => {
-                                console.log('Overlay Close Click');
                                 this.refs.addOverlay.classList.toggle(s.hidden);
                             }}>Close
                         </button>

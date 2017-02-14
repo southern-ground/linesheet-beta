@@ -51,13 +51,12 @@ class EditPage extends React.Component {
     componentDidMount() {
         document.title = title;
         var appState = store.getState();
-        if (!appState.inventory) {
+        if (!appState.initialized) {
             store.dispatch({
                 type: GET_INVENTORY
             });
             this.setState({
-                busy: true,
-                busyMsg: "Refreshing Inventory"
+                busy: true
             });
         } else {
             this.updateProps();

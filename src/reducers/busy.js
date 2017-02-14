@@ -4,9 +4,10 @@
 import {
     ADD_CATEGORY,
     ADD_CATEGORY_RESPONSE,
+    ADD_ITEM,
+    ADD_ITEM_RESPONSE,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
-    ADD_ITEM,
     DELETE_ITEM,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
@@ -14,6 +15,7 @@ import {
     GET_INVENTORY_RESPONSE,
     SAVE_SELECTION,
     UPDATE_ITEM,
+    UPDATE_ITEM_RESPONSE
 } from '../constants';
 
 export default function busy(state = false, action) {
@@ -28,9 +30,11 @@ export default function busy(state = false, action) {
         case SAVE_SELECTION:
         case UPDATE_ITEM:
             return true;
+        case ADD_ITEM_RESPONSE:
         case ADD_CATEGORY_RESPONSE:
         case GET_CATEGORIES_RESPONSE:
         case GET_INVENTORY_RESPONSE:
+        case UPDATE_ITEM_RESPONSE:
             return false;
         default:
             return state;
