@@ -114,7 +114,7 @@ class CategoriesPage extends React.Component {
 
     componentDidMount() {
         document.title = title;
-        if (!store.getState().categories) {
+        if (!store.getState().initialized) {
             store.dispatch({type: GET_CATEGORIES});
             this.setState({busy: true});
         }
