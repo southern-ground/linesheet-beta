@@ -41,7 +41,6 @@ class InventoryItems extends React.Component {
     }
 
     getSortedInventory(){
-        console.log('getSortedInventory', this.props);
         var inventory = this.props.inventory,
             sortOn = this.props.sortOn;
         switch (sortOn) {

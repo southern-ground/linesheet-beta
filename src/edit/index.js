@@ -19,6 +19,8 @@ const CATEGORIES_FIELD_REF = "itemCategories";
 const WHOLESALE_FIELD_REF = "itemWholesale";
 const MSRP_FIELD_REF = "itemMSRP";
 
+// TODO: Fix issue where going to THIS page resets the sort on the Home Page.
+
 class EditPage extends React.Component {
 
     constructor(props) {
@@ -49,8 +51,11 @@ class EditPage extends React.Component {
     }
 
     componentDidMount() {
+
         document.title = title;
+
         var appState = store.getState();
+
         if (!appState.initialized) {
             store.dispatch({
                 type: GET_INVENTORY
