@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import s from './Inventory.css';
+import s from './InventoryItem.css';
 import store from '../../src/store';
 import Link from '../Link';
 import {
@@ -7,7 +7,7 @@ import {
     SELECT_ITEM
 } from '../../src/constants';
 
-class Inventory extends React.Component {
+class InventoryItem extends React.Component {
 
     static propTypes = {
         sku: PropTypes.string.isRequired,
@@ -119,4 +119,4 @@ class Inventory extends React.Component {
 
 }
 
-export default Inventory;
+export default InventoryItem;

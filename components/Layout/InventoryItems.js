@@ -11,7 +11,7 @@ import {
     SORT_MSRP
 } from '../../src/constants';
 import store from '../../src/store';
-import Inventory from './Inventory';
+import InventoryItem from './InventoryItem';
 
 class InventoryItems extends React.Component {
 
@@ -146,7 +146,7 @@ class InventoryItems extends React.Component {
                 </div>
             </div>
             {this.getSortedInventory().map((item, index) => {
-                return (<Inventory
+                return (<InventoryItem
                     selected={item.selected || false}
                     sku={item.sku}
                     name={item.name}
