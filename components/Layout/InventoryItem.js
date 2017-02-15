@@ -97,21 +97,28 @@ class InventoryItem extends React.Component {
                     </ul>
                 </div>
                 <div className={s.table_cell}>
-                    <button
-                        className={s.button + " " + s.button__edit}
-                        onClick={(e)=>{
-                            window.location = "./edit/" + this.props.sku;
-                        }}>
+                    <Link
+                        to={'/edit/' + this.props.sku}
+                        className={
+                            s.button + " " +
+                            s.button__edit
+                        }>
                         Edit
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                        to={'/delete/' + this.props.sku}
                         className={
                             s.button + " " +
                             s.button__delete +
                             (this.state.editActive ? s.hidden : "")
                         }
-                        onClick={(event) => this.props.onDelete(this.props.sku)}>Delete
-                    </button>
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            this.props.onDelete(this.props.sku);
+                        }}>
+                        Delete
+                    </Link>
                 </div>
             </div>
         );

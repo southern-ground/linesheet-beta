@@ -13,6 +13,9 @@
 .itemTable{
     margin: 10px 0 0 0;
 }
+.itemTable a:not(:first-child){
+    margin: 0 0 0 10px;
+}
 .itemTable button:not(:first-child){
     margin: 0 0 0 10px;
 }
