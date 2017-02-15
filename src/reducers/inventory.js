@@ -4,15 +4,12 @@
 
 import {
     API,
+    JSON_FILE,
     OK,
-    ADD_CATEGORY,
-    ADD_CATEGORY_RESPONSE,
-    DELETE_CATEGORY,
     ADD_ITEM,
     ADD_ITEM_RESPONSE,
     DELETE_ITEM,
     GET_CATEGORIES,
-    GET_CATEGORIES_RESPONSE,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
     SAVE_SELECTION,
@@ -63,7 +60,7 @@ export default function inventory(state = [], action) {
             request
                 .get(API)
                 .query({
-                    action: "delete_item",
+                    action: DELETE_ITEM,
                     sku: action.sku
                 })
                 .end((err, res) => {
@@ -91,10 +88,7 @@ export default function inventory(state = [], action) {
         case GET_CATEGORIES:
         case GET_INVENTORY:
             request
-                .get(API)
-                .query({
-                    action: GET_INVENTORY
-                })
+                .get(JSON_FILE)
                 .end((err, res) => {
                     if (err) {
                         console.warn('GET_INVENTORY Error:', err);
