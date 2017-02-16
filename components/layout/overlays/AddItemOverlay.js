@@ -1,16 +1,16 @@
 import React from 'react';
-import s from './AddForm.css';
-import store from '../../src/store';
+import s from './AddItemOverlay.css';
+import store from '../../../src/store';
 import {
     ADD_ITEM,
     ERROR_NAME,
     ERROR_SKU,
     TOGGLE_ADD_ITEM_FORM,
     sanitizeProductName
-} from '../../src/constants';
-import CategorySelect from './CategorySelect';
+} from '../../../src/constants';
+import CategorySelect from '../CategorySelect';
 
-class AddForm extends React.Component {
+class AddItemOverlay extends React.Component {
 
     constructor(props) {
 
@@ -54,7 +54,10 @@ class AddForm extends React.Component {
         var newItem = {
                 sku: this.refs.itemSKU.value || '',
                 name: sanitizeProductName(this.refs.itemName.value || ''),
-                categories: this.getCategories(),
+                material: sanitizeProductName(this.refs.itemMaterial.value || ''),
+                swarovski: sanitizeProductName(this.refs.itemSwarovski.value || ''),
+                natural: sanitizeProductName(this.refs.itemNatural.value || ''),
+                categories: this.getCategories().join(','),
                 wholesale: this.refs.itemWholesalePrice.value || 0,
                 msrp: this.refs.itemMSRP.value || 0
             },
@@ -75,15 +78,24 @@ class AddForm extends React.Component {
             this.setState(newState);
         } else {
 
+            console.log(newItem);
+
             store.dispatch({
                 type: ADD_ITEM,
                 item: newItem
             });
 
-            this.refs.itemSKU.value = '';
-            this.refs.itemName.value = '';
-            this.refs.itemWholesalePrice.value = '';
-            this.refs.itemMSRP.value = '';
+            ["itemSKU",
+                "itemName",
+                "itemMaterial",
+                "itemSwarovski",
+                "itemNatural",
+                "itemWholesalePrice",
+                "itemMSRP"].map((ref) => {
+                    this.refs[ref].value = '';
+                }
+            )
+            ;
 
             var checkboxes = this.refs.itemCategories.getElementsByTagName('input');
 
@@ -92,6 +104,8 @@ class AddForm extends React.Component {
                     checkboxes[i].checked = false;
                 }
             }
+
+            newState["itemCategories"] = "";
 
             this.setState(newState);
         }
@@ -195,13 +209,44 @@ class AddForm extends React.Component {
                             />
                         </li>
                         <li>
+                            <label htmlFor="Item_Material">Material</label>
+                            <input
+                                type="text"
+                                id="Item_Material"
+                                name="item_material"
+                                placeholder="Material"
+                                ref="itemMaterial"
+                            />
+                        </li>
+                        <li>
+                            <label htmlFor="Item_Swarovski_Stones">Swarovski Stones</label>
+                            <input
+                                type="text"
+                                id="Item_Swarovski_Stones"
+                                name="item_swarovski"
+                                placeholder="Swarovski Stones"
+                                ref="itemSwarovski"
+                            />
+                        </li>
+                        <li>
+                            <label htmlFor="Item_Natural_Stones">Natural Stones</label>
+                            <input
+                                type="text"
+                                id="Item_Natural_Stones"
+                                name="item_natural"
+                                placeholder="Natural Stones"
+                                ref="itemNatural"
+                            />
+                        </li>
+                        <li>
                             <label htmlFor="Category_Name">Product Category</label>
-                            <div ref="itemCategories">
+                            <ul ref="itemCategories" className={s.categoriesList}>
                                 {this.props.categories.map((category, index) => {
                                     return (
                                         <CategorySelect
                                             id={category.id}
                                             name={category.name}
+                                            index={index}
                                             key={'cat-' + index}
                                             checked={this.state.itemCategories.indexOf(category.id) >= 0}
                                             change={(e) => {
@@ -210,7 +255,7 @@ class AddForm extends React.Component {
                                         />
                                     );
                                 })}
-                            </div>
+                            </ul>
                         </li>
                         <li>
                             <label htmlFor="Item_Wholesale">Wholesale Price </label>
@@ -252,4 +297,4 @@ class AddForm extends React.Component {
 
 }
 
-export default AddForm;
+export default AddItemOverlay;

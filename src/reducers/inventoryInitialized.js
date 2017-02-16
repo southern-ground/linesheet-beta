@@ -6,7 +6,7 @@ import {
     GET_INVENTORY_RESPONSE
 } from '../constants';
 
-export default function initialized(state = false,action){
+export default function inventoryInitialized(state = false,action){
     switch(action.type){
         case ADD_CATEGORY_RESPONSE:
         case GET_INVENTORY_RESPONSE:

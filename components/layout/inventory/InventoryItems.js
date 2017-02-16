@@ -3,15 +3,17 @@ import s from './InventoryItems.css';
 import {
     DELETE_ITEM,
     GET_INVENTORY,
+    ITEM_IMAGE_PATH,
     SELECT_ALL_INVENTORY_ITEMS,
     SORT_HOME_INVENTORY_ON,
     SORT_SKU,
     SORT_NAME,
     SORT_WHOLESALE,
     SORT_MSRP
-} from '../../src/constants';
-import store from '../../src/store';
+} from '../../../src/constants';
+import store from '../../../src/store';
 import InventoryItem from './InventoryItem';
+import InventoryItemCategories from './InventoryItemCategories';
 
 class InventoryItems extends React.Component {
 
@@ -83,7 +85,99 @@ class InventoryItems extends React.Component {
 
     renderInventory() {
 
-        return (<div className={s.table + " " + s.itemTable}>
+        return (
+
+            <div>
+                <InventoryItemCategories
+                    cateogories={this.props.categories} />
+
+                <h1>FLEXY BASTARD</h1>
+
+                <div className={s.flexBox + " " + s.flexBoxHeader}>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        <input
+                            type="checkbox"
+                            onChange={(e)=>{
+                                store.dispatch({
+                                    type: SELECT_ALL_INVENTORY_ITEMS,
+                                    value: !this.state.selectAll
+                                });
+                                this.setState({
+                                    selectAll: !this.state.selectAll
+                                });
+                            }}
+                            checked={
+                                this.state.selectAll
+                            }
+                        />
+                    </div>
+                    <div className={s.flexItem + " " + s.flexItem__2 + " " + s.table_header}>
+                        <a href="#"
+                           onClick={(e) => {
+                               e.preventDefault();
+                               e.stopPropagation();
+                               this.sortOn(SORT_SKU);
+                           }}>SKU</a>
+                    </div>
+                    <div className={s.flexItem + " " + s.flexItem__2 + " " + s.table_header}>
+                        <a href="#"
+                           onClick={(e) => {
+                               e.preventDefault();
+                               e.stopPropagation();
+                               this.sortOn(SORT_NAME)
+                           }}>Name</a>
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Image
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Material
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Swarovski Stones
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Natural Stones
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        <a href="#"
+                           onClick={(e) => {
+                               e.preventDefault();
+                               e.stopPropagation();
+                               this.sortOn(SORT_WHOLESALE);
+                           }}>Wholesame</a>
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        <a href="#"
+                           onClick={(e) => {
+                               e.preventDefault();
+                               e.stopPropagation();
+                               this.sortOn(SORT_MSRP);
+                           }}>MSRP</a>
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Categories
+                    </div>
+                    <div className={s.flexItem + " " + s.table_header}>
+                        Edit/Delete
+                    </div>
+                </div>
+
+                {this.getSortedInventory().map((item, index) => {
+                    return (<InventoryItem
+                        selected={item.selected || false}
+                        itemProps={item}
+                        allCategories={store.getState().categories}
+                        key={"inventory-" + index}
+                        flexy={true}
+                        onDelete={(id) => {
+                            this.onDeleteItem(id);
+                        }}/>)
+                })}
+
+                <h1>END FLEXY BASTARD</h1>
+
+
             <div className={s.table_row}>
                 <div className={s.table_cell + " " + s.table_header}>
                     <input
@@ -122,6 +216,15 @@ class InventoryItems extends React.Component {
                     Image
                 </div>
                 <div className={s.table_cell + " " + s.table_header}>
+                    Material
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Swarovski Stones
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
+                    Natural Stones
+                </div>
+                <div className={s.table_cell + " " + s.table_header}>
                     <a href="#"
                        onClick={(e) => {
                            e.preventDefault();
@@ -147,11 +250,7 @@ class InventoryItems extends React.Component {
             {this.getSortedInventory().map((item, index) => {
                 return (<InventoryItem
                     selected={item.selected || false}
-                    sku={item.sku}
-                    name={item.name}
-                    wholesale={item.wholesale}
-                    msrp={item.msrp}
-                    categories={(item.categories || "").split(",")}
+                    itemProps={item}
                     allCategories={store.getState().categories}
                     key={"inventory-" + index}
                     onDelete={(id) => {
