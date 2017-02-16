@@ -7,8 +7,8 @@ import {
 import {
     GET_INVENTORY
 } from '../constants';
-import AddForm from '../../components/Layout/AddForm';
-import InventoryItems from '../../components/Layout/InventoryItems';
+import AddItemOverlay from '../../components/layout/overlays/AddItemOverlay';
+import InventoryItems from '../../components/layout/inventory/InventoryItems';
 import SaveSection from '../../components/Layout/SaveSection';
 import Layout from '../../components/Layout';
 import store from '../store';
@@ -39,7 +39,7 @@ class HomePage extends React.Component {
     componentDidMount() {
         document.title = title;
         var appState = store.getState();
-        if (!appState.initialized) {
+        if (!appState.inventoryInitialized) {
             store.dispatch({
                 type: GET_INVENTORY
             });
@@ -132,13 +132,14 @@ class HomePage extends React.Component {
                             }}>Close
                         </button>
 
-                        <AddForm
+                        <AddItemOverlay
                             categories={(appState.categories || [])
                                 .sort((a, b) => {
                                     return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
                                 })}
                             formOpen={appState.openInventoryForm}
                         />
+
                     </div>
                 </section>
 
