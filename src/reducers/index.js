@@ -4,7 +4,9 @@
 import { combineReducers } from 'redux'
 import inventory from './inventory';
 import categories from './categories';
-import initialized from './initialized';
+import imagesInitialized from './imagesInitialized';
+import images from './images';
+import inventoryInitialized from './inventoryInitialized';
 import error from './error';
 import busy from './busy';
 import busyMsg from './busyMsg';
@@ -13,8 +15,10 @@ import homeInventorySort from './homeInventorySort';
 
 export default combineReducers({
     inventory,
+    inventoryInitialized,
     categories,
-    initialized,
+    images,
+    imagesInitialized,
     error,
     busy,
     busyMsg,

@@ -88,7 +88,10 @@ export default function inventory(state = [], action) {
         case GET_CATEGORIES:
         case GET_INVENTORY:
             request
-                .get(JSON_FILE)
+                .get(API)
+                .query({
+                    action: GET_INVENTORY
+                })
                 .end((err, res) => {
                     if (err) {
                         console.warn('GET_INVENTORY Error:', err);
