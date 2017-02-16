@@ -6,20 +6,26 @@ import store from '../../src/store';
 import {
     ERROR_SKU,
     ERROR_NAME,
+    GET_IMAGES,
     GET_INVENTORY,
+    ITEM_IMAGE_PATH,
+    ITEM_IMAGE_PLACEHOLDER,
     UPDATE_ITEM,
     sanitizeProductName
 } from '../constants';
-import CategorySelect from '../../components/Layout/CategorySelect';
+import CategorySelect from '../../components/layout/CategorySelect';
 import Link from '../../components/Link';
+import ImageOverlay from '../../components/layout/overlays/ImagesOverlay';
 
 const SKU_FIELD_REF = "itemSKU";
 const NAME_FIELD_REF = "itemName";
+const IMAGE_SRC_REF = "itemImage";
+const MATERIAL_FIELD_REF = "itemMaterial";
+const SWAROVSKI_FIELD_REF = "itemSwarovski";
+const NAT_FIELD_REF = "itemNatural";
 const CATEGORIES_FIELD_REF = "itemCategories";
 const WHOLESALE_FIELD_REF = "itemWholesale";
 const MSRP_FIELD_REF = "itemMSRP";
-
-// TODO: Fix issue where going to THIS page resets the sort on the Home Page.
 
 class EditPage extends React.Component {
 
@@ -27,7 +33,9 @@ class EditPage extends React.Component {
 
         super(props);
 
+        this.selectImage = this.selectImage.bind(this);
         this.updateItem = this.updateItem.bind(this);
+        this.updateImage = this.updateImage.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
         this.state = {
@@ -36,6 +44,10 @@ class EditPage extends React.Component {
             item: {
                 sku: this.props.route.params.id,
                 name: "",
+                image: "",
+                material: "",
+                swavoski: "",
+                natural: "",
                 categories: [],
                 wholesale: "",
                 msrp: ""
@@ -56,7 +68,7 @@ class EditPage extends React.Component {
 
         var appState = store.getState();
 
-        if (!appState.initialized) {
+        if (!appState.inventoryInitialized) {
             store.dispatch({
                 type: GET_INVENTORY
             });
@@ -87,6 +99,17 @@ class EditPage extends React.Component {
         return itemCategories;
     }
 
+    selectImage(img) {
+        this.setState({
+            ...this.state,
+            item: {
+                ... this.state.item,
+                image: img
+            },
+            edited: true
+        })
+    }
+
     updateField(ref) {
 
         var item = this.state.item;
@@ -97,6 +120,15 @@ class EditPage extends React.Component {
                 break;
             case NAME_FIELD_REF:
                 item.name = this.refs[ref].value;
+                break;
+            case MATERIAL_FIELD_REF:
+                item.material = this.refs[ref].value;
+                break;
+            case SWAROVSKI_FIELD_REF:
+                item.swavoski = this.refs[ref].value;
+                break;
+            case NAME_FIELD_REF:
+                item.natural = this.refs[ref].value;
                 break;
             case WHOLESALE_FIELD_REF:
                 item.wholesale = this.refs[ref].value;
@@ -115,6 +147,17 @@ class EditPage extends React.Component {
 
     }
 
+    updateImage(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.refs.imageOverlay.classList.toggle(s.hidden);
+        if (!store.getState().imagesInitialized) {
+            store.dispatch({
+                type: GET_IMAGES
+            });
+        }
+    }
+
     updateItem(e) {
 
         e.preventDefault();
@@ -122,6 +165,10 @@ class EditPage extends React.Component {
         var item = {
                 sku: this.state.item.sku,
                 name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
+                image: this.state.item.image,
+                material: this.refs[MATERIAL_FIELD_REF].value || '',
+                swarovski: this.refs[SWAROVSKI_FIELD_REF].value || '',
+                natural: this.refs[NAME_FIELD_REF].value || '',
                 categories: this.getCategories().join(','),
                 wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
                 msrp: this.refs[MSRP_FIELD_REF].value || 0
@@ -163,6 +210,7 @@ class EditPage extends React.Component {
             categories.splice(index, 1)
         }
         item.categories = categories;
+
         this.setState({
             edited: true,
             item: item
@@ -175,23 +223,25 @@ class EditPage extends React.Component {
             filteredInventory = (appState.inventory || []).filter((inventoryItem) => {
                 return inventoryItem.sku === this.state.item.sku
             }),
-            currentItem;
-
+            currentItem,
+            newState = {
+                ...this.state
+            };
         if (filteredInventory.length > 0) {
             currentItem = filteredInventory.pop();
-            this.setState({
-                ...this.state,
+            newState = {
+                ...newState,
                 item: {
                     ...currentItem,
                     categories: currentItem.categories.split(',') || []
                 },
                 busy: false
-            });
-        } else {
-            this.setState({
-                ...this.state
-            });
+            };
         }
+
+        console.log('EditPage::updateProps state:',newState);
+        this.setState(newState);
+
     }
 
     render() {
@@ -204,7 +254,7 @@ class EditPage extends React.Component {
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
                 <section>
-                    <form onSubmit={this.updateItem}>
+                    <form className={s.itemEditForm} onSubmit={this.updateItem}>
                         <ul className={s.formItems}>
                             <li>
                                 <label htmlFor="Item_SKU">SKU</label>
@@ -238,8 +288,68 @@ class EditPage extends React.Component {
                                 />
                             </li>
                             <li>
+                                <label htmlFor="Item_Image">Item Image</label>
+                                <img
+                                    className={s.itemImage}
+                                    ref={IMAGE_SRC_REF}
+                                    src={ this.state.item.image
+                                        ?
+                                        ITEM_IMAGE_PATH + this.state.item.image
+                                        :
+                                        ITEM_IMAGE_PLACEHOLDER}/>
+                                <button
+                                    className={s.button}
+                                    onClick={this.updateImage}>
+                                    Change
+                                </button>
+                            </li>
+                            <li>
+                                <label htmlFor="Item_Material">Material</label>
+                                <input
+                                    type="text"
+                                    id="Item_Material"
+                                    name="item_material"
+                                    placeholder="Item Material"
+                                    ref={MATERIAL_FIELD_REF}
+                                    value={this.state.item.material}
+                                    onChange={(e) => {
+                                        this.updateField(MATERIAL_FIELD_REF);
+                                    }}
+                                />
+                            </li>
+                            <li>
+                                <label htmlFor="Item_Swavoski">Swavoski Stones</label>
+                                <input
+                                    type="text"
+                                    id="Item_Name"
+                                    name="item_swavoski"
+                                    placeholder="Swavoski Stones"
+                                    ref={SWAROVSKI_FIELD_REF}
+                                    value={this.state.item.swavoski}
+                                    onChange={(e) => {
+                                        this.updateField(SWAROVSKI_FIELD_REF);
+                                    }}
+                                />
+                            </li>
+                            <li>
+                                <label htmlFor="Item_Natural">Natural Stones</label>
+                                <input
+                                    type="text"
+                                    id="Item_Natural"
+                                    name="item_natural"
+                                    placeholder="Natural Stones"
+                                    ref={NAT_FIELD_REF}
+                                    value={this.state.item.natural}
+                                    onChange={(e) => {
+                                        this.updateField(NAT_FIELD_REF);
+                                    }}
+                                />
+                            </li>
+                            <li>
                                 <label htmlFor="Category_Name">Product Category</label>
-                                <div ref={CATEGORIES_FIELD_REF}>
+                                <ul
+                                    ref={CATEGORIES_FIELD_REF}
+                                    className={s.categoriesList}>
                                     {
                                         (appState.categories || [])
                                             .map((category, index) => {
@@ -259,7 +369,7 @@ class EditPage extends React.Component {
                                                 />
                                             })
                                     }
-                                </div>
+                                </ul>
                             </li>
                             <li>
                                 <label htmlFor="Item_Wholesale">Wholesale Price </label>
@@ -313,6 +423,21 @@ class EditPage extends React.Component {
                             </li>
                         </ul>
                     </form>
+                </section>
+                <section ref="imageOverlay" className={s.overlaySection + " " + s.hidden}>
+                    <div className={s.content + " " + s.overlayContent}>
+                        <button
+                            className={s.button + " " + s.button__close}
+                            onClick={(e) => {
+                                this.refs.imageOverlay.classList.toggle(s.hidden);
+                            }}>Close
+                        </button>
+                        <ImageOverlay
+                            images={appState.images}
+                            selectedImage={this.state.item.image}
+                            selectImage={this.selectImage}
+                        />
+                    </div>
                 </section>
             </Layout>
         );
