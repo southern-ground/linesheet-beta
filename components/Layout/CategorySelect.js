@@ -15,9 +15,10 @@ class CategorySelect extends React.Component {
 
     render() {
         return (
-        <div>
+        <li>
             <input type="checkbox"
                    data-id={this.props.id}
+                   id={'cat-' + this.props.index}
                    key={"cat-" + this.props.index}
                    ref="checkbox"
                    checked={this.props.checked}
@@ -25,8 +26,8 @@ class CategorySelect extends React.Component {
                        this.props.change(e, this.props.id);
                    }}
             />
-            <span>{this.props.name}</span>
-        </div>
+            <label htmlFor={'cat-' + this.props.index}>{this.props.name}</label>
+        </li>
         );
     }
 

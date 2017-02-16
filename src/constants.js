@@ -47,11 +47,14 @@ export const TOGGLE_ADD_ITEM_FORM = "action_inventory_toggle_form";
 export const UPDATE_ITEM = "action_update_inventory";
 export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 
+/* IMAGES */
+export const GET_IMAGES = "images";
+export const GET_IMAGES_RESPONSE = "images_response";
+export const ITEM_IMAGE_PATH = "http://shellybrown.com/linesheets/img/products/";
 
-/* COOKIES */
-export const COOKIE_NAME = "com.shellybrown.linesheets";
-export const LOAD_COOKIE = "action_load_cookie";
-export const LOAD_COOKIE_RESPONSE = "action_load_cookie_response";
+/* SUNDRY */
+export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "http://placehold.it/50/ff00ff/000";
+export const ITEM_IMAGE_PLACEHOLDER = "http://placehold.it/640/ff00ff/000";
 
 export const sanitizeString = (str)=>{
     return str
