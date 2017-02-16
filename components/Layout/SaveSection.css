@@ -4,9 +4,6 @@
     display: flex;
     justify-content: space-between;
 }
-.saveNav input, button:not(:first-child){
-    margin: 0 0 0 10px;
-}
 .selectCount{
     text-transform: uppercase;
     font-size: 0.8rem;
