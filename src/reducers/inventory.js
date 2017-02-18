@@ -159,15 +159,16 @@ export default function inventory(state = [], action) {
          CATEGORIES
          */
         case SELECT_CATEGORY:
+            var selectedCategories = store.getState().selectedCategories ||[];
             return state.map((item) => {
-                return item.categories.indexOf(action.categoryId) !== -1
-                    ?
-                    {
-                        ...item,
-                        selected: action.value
-                    }
-                    :
-                    {...item};
+                var catCount = 0;
+                item.categories.split(',').forEach(cat=>{
+                    catCount += (selectedCategories.indexOf(cat) > -1) ? 1 : 0;
+                });
+                return {
+                    ...item,
+                    selected: catCount > 0
+                }
             });
         /*
          SELECTIONS

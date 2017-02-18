@@ -20,10 +20,10 @@ export default class InventoryItemCategory extends React.Component{
         return <li>
             <input
                 type="checkbox"
+                id={this.props.elementId}
                 onChange={(e)=>{
                     this.props.onChange(this.props.categoryId);
-                }}
-                id={this.props.elementId} />
+                }} />
             <label htmlFor={this.props.elementId}>{this.props.categoryName}</label>
         </li>
     }

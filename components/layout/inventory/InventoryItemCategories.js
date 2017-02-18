@@ -4,6 +4,11 @@
 import React, {PropTypes} from 'react';
 import InventoryItemCategory from './InventoryItemCategory';
 import s from './InventoryItemCategories.css';
+import store from '../../../src/store';
+import {
+    SELECT_CATEGORY
+} from '../../../src/constants';
+
 export default class InventoryItemCategories extends React.Component {
 
     static propTypes = {
@@ -26,7 +31,11 @@ export default class InventoryItemCategories extends React.Component {
                             categoryName={ category.name }
                             key={'category-' + index}
                             onChange={(id) => {
-                                console.log('InventoyrItemCategories::onChange', id)
+                                store.dispatch({
+                                    type: SELECT_CATEGORY,
+                                    categoryId: id,
+                                    value: document.getElementById('category-' + index).checked
+                                });
                             }}/>
                     })
                 }
