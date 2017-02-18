@@ -48,13 +48,26 @@ export const UPDATE_ITEM = "action_update_inventory";
 export const UPDATE_ITEM_RESPONSE = "action_update_inventory_response";
 
 /* IMAGES */
+export const CLOSE_IMAGE_OVERLAY = "close_image_overlay";
 export const GET_IMAGES = "images";
 export const GET_IMAGES_RESPONSE = "images_response";
 export const ITEM_IMAGE_PATH = "http://shellybrown.com/linesheets/img/products/";
+export const OPEN_IMAGE_OVERLAY = "open_image_overlay";
 
 /* SUNDRY */
 export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "http://placehold.it/50/ff00ff/000";
 export const ITEM_IMAGE_PLACEHOLDER = "http://placehold.it/640/ff00ff/000";
+
+/* INVENTORY ITEMS */
+export const SKU_FIELD_REF = "itemSKU";
+export const NAME_FIELD_REF = "itemName";
+export const IMAGE_SRC_REF = "itemImage";
+export const MATERIAL_FIELD_REF = "itemMaterial";
+export const SWAROVSKI_FIELD_REF = "itemSwarovski";
+export const NAT_FIELD_REF = "itemNatural";
+export const CATEGORIES_FIELD_REF = "itemCategories";
+export const WHOLESALE_FIELD_REF = "itemWholesale";
+export const MSRP_FIELD_REF = "itemMSRP";
 
 export const sanitizeString = (str)=>{
     return str

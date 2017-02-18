@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import s from './InventoryItems.css';
+import i from './InventoryItems.css';
 import {
     DELETE_ITEM,
     GET_INVENTORY,
@@ -37,12 +38,12 @@ class InventoryItems extends React.Component {
 
         this.state = {
             loading: true,
-            selectAll:false
+            selectAll: false
         };
 
     }
 
-    getSortedInventory(){
+    getSortedInventory() {
         var inventory = this.props.inventory,
             sortOn = this.props.sortOn;
         switch (sortOn) {
@@ -89,80 +90,7 @@ class InventoryItems extends React.Component {
 
             <div>
                 <InventoryItemCategories
-                    cateogories={this.props.categories} />
-
-                <h1>FLEXY BASTARD</h1>
-
-                <div className={s.flexBox + " " + s.flexBoxHeader}>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        <input
-                            type="checkbox"
-                            onChange={(e)=>{
-                                store.dispatch({
-                                    type: SELECT_ALL_INVENTORY_ITEMS,
-                                    value: !this.state.selectAll
-                                });
-                                this.setState({
-                                    selectAll: !this.state.selectAll
-                                });
-                            }}
-                            checked={
-                                this.state.selectAll
-                            }
-                        />
-                    </div>
-                    <div className={s.flexItem + " " + s.flexItem__2 + " " + s.table_header}>
-                        <a href="#"
-                           onClick={(e) => {
-                               e.preventDefault();
-                               e.stopPropagation();
-                               this.sortOn(SORT_SKU);
-                           }}>SKU</a>
-                    </div>
-                    <div className={s.flexItem + " " + s.flexItem__2 + " " + s.table_header}>
-                        <a href="#"
-                           onClick={(e) => {
-                               e.preventDefault();
-                               e.stopPropagation();
-                               this.sortOn(SORT_NAME)
-                           }}>Name</a>
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Image
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Material
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Swarovski Stones
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Natural Stones
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        <a href="#"
-                           onClick={(e) => {
-                               e.preventDefault();
-                               e.stopPropagation();
-                               this.sortOn(SORT_WHOLESALE);
-                           }}>Wholesame</a>
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        <a href="#"
-                           onClick={(e) => {
-                               e.preventDefault();
-                               e.stopPropagation();
-                               this.sortOn(SORT_MSRP);
-                           }}>MSRP</a>
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Categories
-                    </div>
-                    <div className={s.flexItem + " " + s.table_header}>
-                        Edit/Delete
-                    </div>
-                </div>
-
+                    cateogories={this.props.categories}/>
                 {this.getSortedInventory().map((item, index) => {
                     return (<InventoryItem
                         selected={item.selected || false}
@@ -174,90 +102,7 @@ class InventoryItems extends React.Component {
                             this.onDeleteItem(id);
                         }}/>)
                 })}
-
-                <h1>END FLEXY BASTARD</h1>
-
-
-            <div className={s.table_row}>
-                <div className={s.table_cell + " " + s.table_header}>
-                    <input
-                        type="checkbox"
-                        onChange={(e)=>{
-                            store.dispatch({
-                                type: SELECT_ALL_INVENTORY_ITEMS,
-                                value: !this.state.selectAll
-                            });
-                            this.setState({
-                                selectAll: !this.state.selectAll
-                            });
-                        }}
-                        checked={
-                            this.state.selectAll
-                        }
-                    />
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    <a href="#"
-                       onClick={(e) => {
-                           e.preventDefault();
-                           e.stopPropagation();
-                           this.sortOn(SORT_SKU);
-                       }}>SKU</a>
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    <a href="#"
-                       onClick={(e) => {
-                           e.preventDefault();
-                           e.stopPropagation();
-                           this.sortOn(SORT_NAME)
-                       }}>Name</a>
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Image
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Material
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Swarovski Stones
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Natural Stones
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    <a href="#"
-                       onClick={(e) => {
-                           e.preventDefault();
-                           e.stopPropagation();
-                           this.sortOn(SORT_WHOLESALE);
-                       }}>Wholesame</a>
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    <a href="#"
-                       onClick={(e) => {
-                           e.preventDefault();
-                           e.stopPropagation();
-                           this.sortOn(SORT_MSRP);
-                       }}>MSRP</a>
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Categories
-                </div>
-                <div className={s.table_cell + " " + s.table_header}>
-                    Edit/Delete
-                </div>
-            </div>
-            {this.getSortedInventory().map((item, index) => {
-                return (<InventoryItem
-                    selected={item.selected || false}
-                    itemProps={item}
-                    allCategories={store.getState().categories}
-                    key={"inventory-" + index}
-                    onDelete={(id) => {
-                        this.onDeleteItem(id);
-                    }}/>)
-            })}
-        </div>);
+            </div>);
     }
 
     renderLoading() {
@@ -282,7 +127,7 @@ class InventoryItems extends React.Component {
         });
     }
 
-    toggleForm(e){
+    toggleForm(e) {
         e.preventDefault();
         e.stopPropagation();
         store.dispatch({

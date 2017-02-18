@@ -5,7 +5,19 @@ import {
     ADD_ITEM,
     ERROR_NAME,
     ERROR_SKU,
+    GET_IMAGES,
+    IMAGE_SRC_REF,
+    ITEM_IMAGE_PATH,
+    ITEM_IMAGE_PLACEHOLDER,
+    MATERIAL_FIELD_REF,
+    MSRP_FIELD_REF,
+    NAME_FIELD_REF,
+    NAT_FIELD_REF,
+    OPEN_IMAGE_OVERLAY,
+    SKU_FIELD_REF,
+    SWAROVSKI_FIELD_REF,
     TOGGLE_ADD_ITEM_FORM,
+    WHOLESALE_FIELD_REF,
     sanitizeProductName
 } from '../../../src/constants';
 import CategorySelect from '../CategorySelect';
@@ -52,14 +64,15 @@ class AddItemOverlay extends React.Component {
         e.preventDefault();
 
         var newItem = {
-                sku: this.refs.itemSKU.value || '',
-                name: sanitizeProductName(this.refs.itemName.value || ''),
-                material: sanitizeProductName(this.refs.itemMaterial.value || ''),
-                swarovski: sanitizeProductName(this.refs.itemSwarovski.value || ''),
-                natural: sanitizeProductName(this.refs.itemNatural.value || ''),
+                sku: this.refs[SKU_FIELD_REF].value || '',
+                name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
+                image: this.refs[IMAGE_SRC_REF].value || "",
+                material: sanitizeProductName(this.refs[MATERIAL_FIELD_REF].value || ''),
+                swarovski: sanitizeProductName(this.refs[SWAROVSKI_FIELD_REF].value || ''),
+                natural: sanitizeProductName(this.refs[NAT_FIELD_REF].value || ''),
                 categories: this.getCategories().join(','),
-                wholesale: this.refs.itemWholesalePrice.value || 0,
-                msrp: this.refs.itemMSRP.value || 0
+                wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
+                msrp: this.refs[MSRP_FIELD_REF].value || 0
             },
             newState = {
                 error: '',
@@ -78,20 +91,18 @@ class AddItemOverlay extends React.Component {
             this.setState(newState);
         } else {
 
-            console.log(newItem);
-
             store.dispatch({
                 type: ADD_ITEM,
                 item: newItem
             });
 
-            ["itemSKU",
-                "itemName",
-                "itemMaterial",
-                "itemSwarovski",
-                "itemNatural",
-                "itemWholesalePrice",
-                "itemMSRP"].map((ref) => {
+            [SKU_FIELD_REF,
+                NAME_FIELD_REF,
+                MATERIAL_FIELD_REF,
+                SWAROVSKI_FIELD_REF,
+                NAT_FIELD_REF,
+                WHOLESALE_FIELD_REF,
+                MSRP_FIELD_REF].map((ref) => {
                     this.refs[ref].value = '';
                 }
             )
@@ -157,8 +168,6 @@ class AddItemOverlay extends React.Component {
                 value: !store.getState().openInventoryForm
             }
         );
-        // this.refs.headingIcon.classList.toggle(s.formHeadingIcon__open);
-        // this.refs.form.classList.toggle(s.form__open);
     }
 
     componentWillReceiveProps(props) {
@@ -176,7 +185,6 @@ class AddItemOverlay extends React.Component {
     }
 
     render() {
-
         return (
             <section>
                 <h3 className={s.addItemFormHeading}>
@@ -191,7 +199,7 @@ class AddItemOverlay extends React.Component {
                                 id="Item_SKU"
                                 name="item_sku"
                                 placeholder="SKU"
-                                ref="itemSKU"
+                                ref={SKU_FIELD_REF}
                                 onChange={this.updateSaveEnabled}
                                 className={this.state.error === ERROR_SKU ? s.error__input : ""}
                             />
@@ -203,10 +211,43 @@ class AddItemOverlay extends React.Component {
                                 id="Item_Name"
                                 name="item_name"
                                 placeholder="Item Name"
-                                ref="itemName"
+                                ref={NAME_FIELD_REF}
                                 onChange={this.updateSaveEnabled}
                                 className={this.state.error === ERROR_NAME ? s.error__input : ""}
                             />
+                        </li>
+                        <li>
+                            <label htmlFor="Item_Image">Image</label>
+                            <div className={
+                                s.categoriesList + " " +
+                                s.inputGroup
+                            }>
+                                <img
+                                    className={s.itemImage}
+                                    src={
+                                        this.props.selectedImage.length === 0
+                                            ?
+                                            ITEM_IMAGE_PLACEHOLDER
+                                            :
+                                            ITEM_IMAGE_PATH + this.props.selectedImage
+                                    } />
+                                <button
+                                    className={
+                                        s.halfWidth + " " +
+                                        s.button
+
+                                    }
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+
+                                        store.dispatch({
+                                            type: OPEN_IMAGE_OVERLAY
+                                        });
+                                    }}>
+                                    Choose
+                                </button>
+                            </div>
                         </li>
                         <li>
                             <label htmlFor="Item_Material">Material</label>
@@ -215,7 +256,7 @@ class AddItemOverlay extends React.Component {
                                 id="Item_Material"
                                 name="item_material"
                                 placeholder="Material"
-                                ref="itemMaterial"
+                                ref={MATERIAL_FIELD_REF}
                             />
                         </li>
                         <li>
@@ -225,7 +266,7 @@ class AddItemOverlay extends React.Component {
                                 id="Item_Swarovski_Stones"
                                 name="item_swarovski"
                                 placeholder="Swarovski Stones"
-                                ref="itemSwarovski"
+                                ref={SWAROVSKI_FIELD_REF}
                             />
                         </li>
                         <li>
@@ -235,7 +276,7 @@ class AddItemOverlay extends React.Component {
                                 id="Item_Natural_Stones"
                                 name="item_natural"
                                 placeholder="Natural Stones"
-                                ref="itemNatural"
+                                ref={NAT_FIELD_REF}
                             />
                         </li>
                         <li>
@@ -263,7 +304,7 @@ class AddItemOverlay extends React.Component {
                                    id="Item_Wholesale"
                                    name="item_wholesale"
                                    placeholder="$0.00"
-                                   ref="itemWholesalePrice"
+                                   ref={WHOLESALE_FIELD_REF}
                             />
                         </li>
                         <li>
@@ -273,7 +314,7 @@ class AddItemOverlay extends React.Component {
                                 id="Item_MSRP"
                                 name="item_msrp"
                                 placeholder="$0.00"
-                                ref="itemMSRP"
+                                ref={MSRP_FIELD_REF}
                             />
                         </li>
                         <li>

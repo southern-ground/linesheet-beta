@@ -5,13 +5,20 @@ import {
     API,
     GET_IMAGES,
     GET_IMAGES_RESPONSE,
-    OK
+    OK,
+    OPEN_IMAGE_OVERLAY
 } from '../constants';
 import request from 'superagent';
 import store from '../store';
 
 export default function images(state = [], action) {
     switch (action.type) {
+        case OPEN_IMAGE_OVERLAY:
+            console.log('images::OPEN_IMAGE_OVERLAY', store.getState().imagesInitialized);
+            if(store.getState().imagesInitialized){
+                return state;
+                break;
+            }
         case GET_IMAGES:
             request
                 .get(API)

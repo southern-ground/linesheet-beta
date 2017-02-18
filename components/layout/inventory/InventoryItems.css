@@ -13,21 +13,3 @@
 .itemTable{
     margin: 10px 0 0 0;
 }
-
-.flexBox{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%;
-    justify-content: space-between;
-}
-.flexBoxHeader{
-    background: darkgray;
-}
-.flexItem{
-    flex-grow:0;
-    padding: 4px;
-}
-.flexItem__double{
-    flex-grow:2;
-}

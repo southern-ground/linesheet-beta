@@ -38,6 +38,7 @@ class ImagesOverlay extends React.Component {
                             imageName={image}
                             key={'product-image-'+index}
                             selectImage={this.props.selectImage}
+                            selectedImage={this.props.selectedImage}
                         />);
                     })}
                 </ul>

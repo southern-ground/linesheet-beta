@@ -1,7 +1,28 @@
 @import '../../../src/Global.css';
 
 .inventoryItem{
-    padding: 5px 10px;
+    font-size:0.8rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inventoryItemProperty{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.inventoryItemSelect{
+    margin: 0 10px;
+}
+
+.inventoryItemSku{
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.inventoryItemName{
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .inventoryItemControlButton{
@@ -15,10 +36,21 @@
     max-height: 50px;
 }
 
-.inventoryItem:nth-child(even) {
-    background: #c5c5c5;
+.inventoryItemControls{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
 }
 
+.inventoryItemDelete{
+    cursor: pointer;
+}
+.inventoryItemDelete img{
+    width: 20px;
+    height: auto;
+}
 .inventoryItem div{
     flex-grow: 0;
     flex-basis: 150px;
@@ -32,22 +64,13 @@
 
 .categoriesList{
     list-style: none;
+    font-size: inherit;
     padding: 0;
     margin: 0;
-}
-
-
-.categoriesList li:nth-child(even){
-    background-color: inherit;
-}
-
-.category{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     white-space: nowrap;
-    padding: 0;
-    margin: 0;
     text-transform: uppercase;
 }
 

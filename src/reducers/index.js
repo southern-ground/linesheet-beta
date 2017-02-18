@@ -6,6 +6,7 @@ import inventory from './inventory';
 import categories from './categories';
 import imagesInitialized from './imagesInitialized';
 import images from './images';
+import openImageOverlay from './OpenImageOverlay';
 import inventoryInitialized from './inventoryInitialized';
 import error from './error';
 import busy from './busy';
@@ -18,6 +19,7 @@ export default combineReducers({
     inventoryInitialized,
     categories,
     images,
+    openImageOverlay,
     imagesInitialized,
     error,
     busy,

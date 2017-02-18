@@ -11,21 +11,20 @@ import {
     ITEM_IMAGE_PATH,
     ITEM_IMAGE_PLACEHOLDER,
     UPDATE_ITEM,
+    SKU_FIELD_REF,
+    NAME_FIELD_REF,
+    IMAGE_SRC_REF,
+    MATERIAL_FIELD_REF,
+    SWAROVSKI_FIELD_REF,
+    NAT_FIELD_REF,
+    CATEGORIES_FIELD_REF,
+    WHOLESALE_FIELD_REF,
+    MSRP_FIELD_REF,
     sanitizeProductName
 } from '../constants';
 import CategorySelect from '../../components/layout/CategorySelect';
 import Link from '../../components/Link';
 import ImageOverlay from '../../components/layout/overlays/ImagesOverlay';
-
-const SKU_FIELD_REF = "itemSKU";
-const NAME_FIELD_REF = "itemName";
-const IMAGE_SRC_REF = "itemImage";
-const MATERIAL_FIELD_REF = "itemMaterial";
-const SWAROVSKI_FIELD_REF = "itemSwarovski";
-const NAT_FIELD_REF = "itemNatural";
-const CATEGORIES_FIELD_REF = "itemCategories";
-const WHOLESALE_FIELD_REF = "itemWholesale";
-const MSRP_FIELD_REF = "itemMSRP";
 
 class EditPage extends React.Component {
 
@@ -100,6 +99,7 @@ class EditPage extends React.Component {
     }
 
     selectImage(img) {
+        console.log('EditPage::selectImage', img);
         this.setState({
             ...this.state,
             item: {
@@ -125,9 +125,9 @@ class EditPage extends React.Component {
                 item.material = this.refs[ref].value;
                 break;
             case SWAROVSKI_FIELD_REF:
-                item.swavoski = this.refs[ref].value;
+                item.swarovski = this.refs[ref].value;
                 break;
-            case NAME_FIELD_REF:
+            case NAT_FIELD_REF:
                 item.natural = this.refs[ref].value;
                 break;
             case WHOLESALE_FIELD_REF:
@@ -168,7 +168,7 @@ class EditPage extends React.Component {
                 image: this.state.item.image,
                 material: this.refs[MATERIAL_FIELD_REF].value || '',
                 swarovski: this.refs[SWAROVSKI_FIELD_REF].value || '',
-                natural: this.refs[NAME_FIELD_REF].value || '',
+                natural: this.refs[NAT_FIELD_REF].value || '',
                 categories: this.getCategories().join(','),
                 wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
                 msrp: this.refs[MSRP_FIELD_REF].value || 0
@@ -189,6 +189,8 @@ class EditPage extends React.Component {
         if (newState.error.length) {
             this.setState(newState);
         } else {
+
+            console.log('EditPage::updateItem item:',item);
             store.dispatch({
                 type: UPDATE_ITEM,
                 item: item
@@ -248,6 +250,7 @@ class EditPage extends React.Component {
 
         var appState = store.getState();
 
+        console.log('EditPage::render image:', this.state.item.image);
         return (
             <Layout className={s.content}>
                 <section>
@@ -325,7 +328,7 @@ class EditPage extends React.Component {
                                     name="item_swavoski"
                                     placeholder="Swavoski Stones"
                                     ref={SWAROVSKI_FIELD_REF}
-                                    value={this.state.item.swavoski}
+                                    value={this.state.item.swarovski}
                                     onChange={(e) => {
                                         this.updateField(SWAROVSKI_FIELD_REF);
                                     }}

@@ -1,8 +1,7 @@
 @import "../../../src/Global.css";
 
 .addItemFormHeading {
-    cursor: pointer;
-
+    pointer-events: none;
 }
 
 .form {
@@ -41,6 +40,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     list-style: none;
+    align-items: center;
     padding: 0;
     margin: 0;
 }
@@ -56,8 +56,17 @@
 .categoriesList li label{
     cursor: pointer;
 }
+.itemImage{
+    height: auto;
+    max-height: 100px;
+    width: auto;
+}
 .as__row {
     flex-direction: row;
+}
+
+.inputGroup{
+    justify-content: space-between;
 }
 
 .category__list {

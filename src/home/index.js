@@ -5,9 +5,11 @@ import {
     html
 } from './index.md';
 import {
+    CLOSE_IMAGE_OVERLAY,
     GET_INVENTORY
 } from '../constants';
 import AddItemOverlay from '../../components/layout/overlays/AddItemOverlay';
+import ImagesOverlay from '../../components/layout/overlays/ImagesOverlay';
 import InventoryItems from '../../components/layout/inventory/InventoryItems';
 import SaveSection from '../../components/Layout/SaveSection';
 import Layout from '../../components/Layout';
@@ -23,7 +25,8 @@ class HomePage extends React.Component {
         this.updateProps = this.updateProps.bind(this);
 
         this.state = {
-            loading: true
+            loading: true,
+            selectedImage: ""
         };
 
     }
@@ -90,6 +93,7 @@ class HomePage extends React.Component {
 
         var appState = store.getState();
 
+        console.log(appState.openImageOverlay);
         return (
             <Layout className={s.content}>
 
@@ -126,10 +130,14 @@ class HomePage extends React.Component {
                 <section ref="addOverlay" className={s.overlaySection + " " + s.hidden}>
                     <div className={s.content + " " + s.overlayContent}>
                         <button
-                            className={s.button + " " + s.button__close}
+                            className={
+                                s.button + " " +
+                                s.button__close
+                            }
                             onClick={(e) => {
                                 this.refs.addOverlay.classList.toggle(s.hidden);
-                            }}>Close
+                            }}>
+                            Close
                         </button>
 
                         <AddItemOverlay
@@ -138,8 +146,40 @@ class HomePage extends React.Component {
                                     return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
                                 })}
                             formOpen={appState.openInventoryForm}
+                            selectedImage={this.state.selectedImage}
                         />
 
+                    </div>
+                </section>
+
+                <section
+                    ref="addImageOverlay"
+                    className={
+                        s.overlaySection +
+                        (!appState.openImageOverlay ? " " + s.hidden : "")
+                    }>
+                    <div className={s.content + " " + s.overlayContent}>
+                        <button
+                            className={
+                                s.button + " " +
+                                s.button__close
+                            }
+                            onClick={(e) => {
+                                store.dispatch({
+                                    type: CLOSE_IMAGE_OVERLAY
+                                })
+                            }}>Close
+                        </button>
+
+                        <ImagesOverlay
+                            images={appState.images}
+                            selectImage={(image) => {
+                                this.setState({
+                                    selectedImage: image
+                                });
+                            }}
+                            selectedImage={this.state.selectedImage}
+                        />
                     </div>
                 </section>
 

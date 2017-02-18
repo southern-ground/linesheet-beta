@@ -2,6 +2,7 @@ body,html{
     margin: 0;
     padding: 0;
 }
+
 *, html, body, h1, h2, h3, h4 {
     font-family: 'Raleway', sans-serif;
 }
@@ -9,7 +10,6 @@ body,html{
 a{
     color: red;
 }
-
 .align__right{
     text-align: right;
     justify-content: flex-end;
@@ -49,11 +49,13 @@ a{
     padding: 4px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: block;
     font-size: 1.1rem;
     text-transform: uppercase;
 }
-
+.button__close{
+    background-color: red;
+}
 .button__delete{
     background-color: red;
 }
@@ -94,36 +96,35 @@ a{
     font-weight: 700;
     text-transform: uppercase;
 }
+
 .hidden{
     display: none !important;
 }
 
-.table{
-    display: table;
+.flexBox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid #cccccc;
 }
-.table_row{
-    display: table-row;
+
+.flexBoxHeader{
+    background: darkgray;
 }
-.table_header{
+
+.flexItem{
+    padding: 5px 10px;
+    border: 1px solid red;
+    flex-basis: 150px;
+    flex-grow:0;
+    align-items: center;
+    justify-content: center;
+}
+
+.uppercase{
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.8rem;
-    background-color: darkgray;
-    color: white;
-}
-.table_header a{
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.8rem;
-    background-color: darkgray;
-    color: white;
-    text-decoration: none;
-}
-.table_cell{
-    display: table-cell;
-    padding: 4px 8px;
-    vertical-align: middle;
 }
 
 /* OVERLAYS */
@@ -139,19 +140,25 @@ a{
     justify-content: center;
     align-items: center;
 }
+
 .overlayContent{
     background: white;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items:flex-end;
     border-radius: 10px;
+    height: 100%;
+    max-height: 65vh;
+    overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 @media screen and (max-width: 1024px) {
 
     .content {
         margin: 0 16px;
+    }
+
+    .content section{
+        padding: 0 20px;
     }
 
 }

@@ -1,14 +1,13 @@
 import React, {PropTypes} from 'react';
 import s from './InventoryItem.css';
 import store from '../../../src/store';
-import Link from '../../Link';
 import {
     ITEM_IMAGE_PATH,
     ITEM_IMAGE_THUMBNAIL_PLACEHOLDER,
-    SELECT_CATEGORY,
     SELECT_ITEM
 } from '../../../src/constants';
 import history from '../../../src/history';
+import Link from '../../../components/Link';
 
 class InventoryItem extends React.Component {
 
@@ -43,20 +42,17 @@ class InventoryItem extends React.Component {
         return (
             <div
                 className={
-                    this.props.flexy ?
-                        s.flexItem + " " + s.inventoryItem + (this.props.className === "even" ? " " + s.even : "")
-                        :
-                        s.table_row + " " + s.inventoryItem +
-                    (this.props.className === "even" ? " " + s.even : "")
+                    s.flexBox + " " +
+                    s.inventoryItem
                 }>
-                <div className={
-                    this.props.flexy ?
-                        s.flexItem + " " + s.inventoryProperty
-                        :
-                        s.table_cell + " " + s.inventoryProperty}>
+
+                <div>
                     <input
                         type="checkbox"
                         checked={this.props.selected}
+                        className={
+                            s.inventoryItemSelect
+                        }
                         onChange={(e) => {
                             store.dispatch({
                                 type: SELECT_ITEM,
@@ -64,15 +60,28 @@ class InventoryItem extends React.Component {
                                 value: !this.props.selected
                             })
                         }}/>
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    {this.props.itemProps.sku}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    {this.props.itemProps.name}
+                    <span
+                        className={
+                            s.inventoryItemSku + " " +
+                            s.uppercase
+                        }>
+                            {this.props.itemProps.sku}
+                    </span>
                 </div>
 
-                <div className={s.table_cell + " " + s.inventoryProperty}>
+                <div>
+                    <span
+                        className={
+                            s.inventoryItemName + " " +
+                            s.uppercase
+                        }>
+                        {this.props.itemProps.name}
+                    </span>
+                </div>
+
+                {/* PRODUCT IMAGE */}
+
+                <div>
                     <img
                         className={s.inventoryItemImage}
                         src={(this.props.itemProps.image || "").length === 0
@@ -80,71 +89,85 @@ class InventoryItem extends React.Component {
                             ITEM_IMAGE_THUMBNAIL_PLACEHOLDER
                             :
                             ITEM_IMAGE_PATH + this.props.itemProps.image
-                            }/>
+                        }/>
                 </div>
 
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    {this.props.itemProps.material}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    {this.props.itemProps.swarovskiStones}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    {this.props.itemProps.naturalStones}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    ${this.props.itemProps.wholesale}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    ${this.props.itemProps.msrp}
-                </div>
-                <div className={s.table_cell + " " + s.inventoryProperty}>
-                    <ul className={s.categoriesList}>
-                        {itemCategories.map((category, index) => {
-                            return (<li
-                                className={s.category}
-                                data-id={category.id}
-                                key={'cat-' + index}>
-                                {category.name}
-                                {/*<button
-                                    className={s.button__category}
-                                    onClick={(e) => {
-                                        store.dispatch({
-                                            type: SELECT_CATEGORY,
-                                            categoryId: category.id,
-                                            value: !e.shiftKey
-                                        });
-                                    }}>
+                {/* MATERIAL */}
 
+                <div>
+                    <span className={s.inventoryItemProperty}>Material:</span>
+                    <div>
+                        {this.props.itemProps.material || "n/a"}
+                    </div>
+                </div>
+
+                {/* STONES */}
+
+                <div>
+                    <div>
+                        <span
+                            className={s.inventoryItemProperty}>Swarovski Stones:</span>
+                        <div>
+                            {this.props.itemProps.swarovski  || "n/a"}
+                        </div>
+                    </div>
+                    <div>
+                        <span
+                            className={s.inventoryItemProperty}>Natural Stones:</span>
+                        <div>
+                            {this.props.itemProps.natural || "n/a"}
+                        </div>
+                    </div>
+                </div>
+
+                {/* PRICES */}
+
+                <div>
+                    <div>
+                        <span className={s.inventoryItemProperty}>Wholesale:</span> ${this.props.itemProps.wholesale}
+                    </div>
+                    <div>
+                        <span className={s.inventoryItemProperty}>MSRP:</span> ${this.props.itemProps.msrp}
+                    </div>
+                </div>
+                < div>
+                    <span className={s.inventoryItemProperty}>Categories:</span>
+                    <
+                        ul
+                        className={s.categoriesList
+                        }>
+                        {
+                            itemCategories.map((category, index) => {
+                                return (<li
+                                    className={s.category}
+                                    data-id={category.id}
+                                    key={'cat-' + index}>
                                     {category.name}
-                                </button>*/}
-                            </li>)
-                        })}
+                                </li>)
+                            })
+                        }
                     </ul>
                 </div>
-                <div className={s.table_cell}>
+                <div className={s.inventoryItemControls}>
                     <button
                         className={
                             s.button + " " +
                             s.button__edit + " " +
                             s.inventoryItemControlButton
                         }
-                        onClick={()=>{
+                        onClick={() => {
                             history.push('/edit/' + this.props.itemProps.sku);
                         }}>
                         Edit
                     </button>
-                    <button
-                        className={
-                            s.button + " " +
-                            s.button__delete + " " +
-                            s.inventoryItemControlButton
-                        }
-                        onClick={()=>{
+
+                    <a
+                        className={s.inventoryItemDelete}
+                        onClick={() => {
                             this.props.onDelete(this.props.itemProps.sku);
                         }}>
-                        Delete
-                    </button>
+                        <img src="images/delete.svg"/>
+                    </a>
                 </div>
             </div>
         );

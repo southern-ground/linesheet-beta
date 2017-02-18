@@ -18,12 +18,21 @@ export default class EditItemImage extends React.Component {
 
     render() {
         return <li className={s.itemImageWrapper}>
-            <img className={s.itemImage}
+            <img className={
+                s.itemImage +
+                (this.props.selectedImage === this.props.imageName ? " selected " + s.selectedImage : "") +
+                " productImage"
+            }
                  src={this.props.imagePath + this.props.imageName}
+                 data-id={this.props.imageName}
                  onClick={(e) => {
                      this.props.selectImage(this.props.imageName)
                  }}
             />
+            <img className={
+                (this.props.selectedImage === this.props.imageName ? s.selectedImageMarker : s.hidden)
+            }
+                 src="../images/selected.svg" />
         </li>
     }
 
