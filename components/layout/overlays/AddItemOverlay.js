@@ -66,7 +66,7 @@ class AddItemOverlay extends React.Component {
         var newItem = {
                 sku: this.refs[SKU_FIELD_REF].value || '',
                 name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
-                image: this.refs[IMAGE_SRC_REF].value || "",
+                image: this.props.selectedImage || "",
                 material: sanitizeProductName(this.refs[MATERIAL_FIELD_REF].value || ''),
                 swarovski: sanitizeProductName(this.refs[SWAROVSKI_FIELD_REF].value || ''),
                 natural: sanitizeProductName(this.refs[NAT_FIELD_REF].value || ''),
