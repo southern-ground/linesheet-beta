@@ -93,7 +93,6 @@ class HomePage extends React.Component {
 
         var appState = store.getState();
 
-        console.log(appState.openImageOverlay);
         return (
             <Layout className={s.content}>
 

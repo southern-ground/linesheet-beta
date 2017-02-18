@@ -7,7 +7,6 @@ import {
 } from '../constants';
 
 export default function openImageOverlay(state = false,action){
-    console.log('openImageOverlay', state);
     switch(action.type){
         case OPEN_IMAGE_OVERLAY:
             return true;
