@@ -14,6 +14,10 @@
     "page": "./categories"
   },
   {
+    "path": "/organize",
+    "page": "./organize"
+  },
+  {
     "path": "/about",
     "page": "./about"
   },

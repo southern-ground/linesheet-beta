@@ -9,7 +9,7 @@ import {
     GET_INVENTORY
 } from '../constants';
 import InventoryItems from '../../components/layout/inventory/InventoryItems';
-import SaveSection from '../../components/Layout/SaveSection';
+import InventoryItemsFooter from '../../components/layout/InventoryItemsFooter';
 import Layout from '../../components/Layout';
 import Link from '../../components/Link';
 import store from '../store';
@@ -96,7 +96,7 @@ class HomePage extends React.Component {
                     sortOn={appState.homeInventorySort}
                 />
 
-                <SaveSection
+                <InventoryItemsFooter
                     className={(appState.inventory || []).length === 0 ? s.hidden : ""}
                     numItems={(appState.inventory || []).length}
                     numItemsSelected={this.numItemsSelected()}
