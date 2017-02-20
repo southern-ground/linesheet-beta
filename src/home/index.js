@@ -8,11 +8,10 @@ import {
     CLOSE_IMAGE_OVERLAY,
     GET_INVENTORY
 } from '../constants';
-import AddItemOverlay from '../../components/layout/overlays/AddItemOverlay';
-import ImagesOverlay from '../../components/layout/overlays/ImagesOverlay';
 import InventoryItems from '../../components/layout/inventory/InventoryItems';
 import SaveSection from '../../components/Layout/SaveSection';
 import Layout from '../../components/Layout';
+import Link from '../../components/Link';
 import store from '../store';
 
 class HomePage extends React.Component {
@@ -21,12 +20,10 @@ class HomePage extends React.Component {
 
         super(props);
 
-        this.refreshInventory = this.refreshInventory.bind(this);
         this.updateProps = this.updateProps.bind(this);
 
         this.state = {
-            loading: true,
-            selectedImage: ""
+            loading: true
         };
 
     }
@@ -49,25 +46,10 @@ class HomePage extends React.Component {
         } else {
             this.updateProps();
         }
-        /*if (!appState.inventory || !appState.categories) {
-         store.dispatch({
-         type: GET_INVENTORY
-         });
-         } else {
-         this.updateProps();
-         }*/
     }
 
     componentWillUnmount() {
         this.unsubscribeFunciton();
-    }
-
-    refreshInventory() {
-        store.dispatch({type: GET_INVENTORY, refresh: true});
-        this.setState({
-            ...this.state,
-            loading: true
-        });
     }
 
     numItemsSelected() {
@@ -79,14 +61,10 @@ class HomePage extends React.Component {
     }
 
     updateProps() {
-
-        var appState = store.getState();
-
         this.setState({
             ...this.state,
             loading: false
         });
-
     }
 
     render() {
@@ -101,13 +79,11 @@ class HomePage extends React.Component {
                 </section>
 
                 <section>
-                    <button
-                        className={s.button}
-                        onClick={(e) => {
-                            this.refs.addOverlay.classList.toggle(s.hidden);
-                        }}>
+                    <Link
+                        className={s.button + " " + s.button__addItem}
+                        to={'/add'}>
                         Add Item
-                    </button>
+                    </Link>
                 </section>
 
                 <InventoryItems
@@ -125,62 +101,6 @@ class HomePage extends React.Component {
                     numItems={(appState.inventory || []).length}
                     numItemsSelected={this.numItemsSelected()}
                 />
-
-                <section ref="addOverlay" className={s.overlaySection + " " + s.hidden}>
-                    <div className={s.content + " " + s.overlayContent}>
-                        <button
-                            className={
-                                s.button + " " +
-                                s.button__close
-                            }
-                            onClick={(e) => {
-                                this.refs.addOverlay.classList.toggle(s.hidden);
-                            }}>
-                            Close
-                        </button>
-
-                        <AddItemOverlay
-                            categories={(appState.categories || [])
-                                .sort((a, b) => {
-                                    return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-                                })}
-                            formOpen={appState.openInventoryForm}
-                            selectedImage={this.state.selectedImage}
-                        />
-
-                    </div>
-                </section>
-
-                <section
-                    ref="addImageOverlay"
-                    className={
-                        s.overlaySection +
-                        (!appState.openImageOverlay ? " " + s.hidden : "")
-                    }>
-                    <div className={s.content + " " + s.overlayContent}>
-                        <button
-                            className={
-                                s.button + " " +
-                                s.button__close
-                            }
-                            onClick={(e) => {
-                                store.dispatch({
-                                    type: CLOSE_IMAGE_OVERLAY
-                                })
-                            }}>Close
-                        </button>
-
-                        <ImagesOverlay
-                            images={appState.images}
-                            selectImage={(image) => {
-                                this.setState({
-                                    selectedImage: image
-                                });
-                            }}
-                            selectedImage={this.state.selectedImage}
-                        />
-                    </div>
-                </section>
 
             </Layout>
         );
