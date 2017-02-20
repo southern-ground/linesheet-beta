@@ -221,6 +221,7 @@ class EditPage extends React.Component {
     }
 
     updateProps() {
+
         var appState = store.getState(),
             filteredInventory = (appState.inventory || []).filter((inventoryItem) => {
                 return inventoryItem.sku === this.state.item.sku
@@ -229,19 +230,18 @@ class EditPage extends React.Component {
             newState = {
                 ...this.state
             };
+
         if (filteredInventory.length > 0) {
             currentItem = filteredInventory.pop();
             newState = {
                 ...newState,
                 item: {
-                    ...currentItem,
-                    categories: currentItem.categories.split(',') || []
+                    ... currentItem
                 },
                 busy: false
             };
         }
 
-        console.log('EditPage::updateProps state:',newState);
         this.setState(newState);
 
     }
@@ -250,7 +250,10 @@ class EditPage extends React.Component {
 
         var appState = store.getState();
 
-        console.log('EditPage::render image:', this.state.item.image);
+        console.log('EditPage::render state:',this.state);
+
+        var itemCategories = (typeof this.state.item.categories === "string" ? this.state.item.categories.split(',') : this.state.item.categories || []);
+
         return (
             <Layout className={s.content}>
                 <section>
@@ -268,8 +271,8 @@ class EditPage extends React.Component {
                                     placeholder="SKU"
                                     ref={SKU_FIELD_REF}
                                     className={this.state.error === ERROR_SKU ? s.error__input : ""}
-                                    value={this.state.item.sku}
                                     disabled
+                                    value={this.state.item.sku}
                                     onChange={(e) => {
                                         this.updateField(SKU_FIELD_REF);
                                     }}
@@ -364,12 +367,12 @@ class EditPage extends React.Component {
                                                     name={category.name}
                                                     index={index}
                                                     key={"category-" + index}
-                                                    checked={(this.state.item.categories || [])
+                                                    isChecked={itemCategories
                                                         .filter(catId => {
                                                             return catId === category.id
                                                         })
                                                         .length > 0}
-                                                    change={(e, id) => {
+                                                    changeCallback={(e, id) => {
                                                         this.toggleCategory(id);
                                                     }}
                                                 />
