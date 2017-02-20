@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './AddItemForm.css';
-import store from '../../../src/store';
+import store from '../../src/store';
 import {
     ADD_ITEM,
     ERROR_NAME,
@@ -17,10 +17,10 @@ import {
     TOGGLE_ADD_ITEM_FORM,
     WHOLESALE_FIELD_REF,
     sanitizeProductName
-} from '../../../src/constants';
-import CategorySelect from '../CategorySelect';
+} from '../../src/constants';
+import CategorySelect from './categories/CategorySelect';
 
-class AddItemOverlay extends React.Component {
+class AddItemForm extends React.Component {
 
     constructor(props) {
 
@@ -185,9 +185,6 @@ class AddItemOverlay extends React.Component {
     render() {
         return (
             <section>
-                <h3 className={s.addItemFormHeading}>
-                    Add an Item
-                </h3>
                 <form className={s.form} ref="form" onSubmit={this.addItem}>
                     <ul className={s.formItems}>
                         <li>
@@ -238,7 +235,6 @@ class AddItemOverlay extends React.Component {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
-
                                         store.dispatch({
                                             type: OPEN_IMAGE_OVERLAY
                                         });
@@ -336,4 +332,4 @@ class AddItemOverlay extends React.Component {
 
 }
 
-export default AddItemOverlay;
+export default AddItemForm;

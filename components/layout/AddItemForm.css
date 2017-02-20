@@ -1,4 +1,4 @@
-@import "../../../src/Global.css";
+@import "../../src/Global.css";
 
 .addItemFormHeading {
     pointer-events: none;
