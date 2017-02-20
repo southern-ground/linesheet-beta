@@ -1,12 +1,10 @@
 import React from 'react';
-import s from './AddItemOverlay.css';
+import s from './AddItemForm.css';
 import store from '../../../src/store';
 import {
     ADD_ITEM,
     ERROR_NAME,
     ERROR_SKU,
-    GET_IMAGES,
-    IMAGE_SRC_REF,
     ITEM_IMAGE_PATH,
     ITEM_IMAGE_PLACEHOLDER,
     MATERIAL_FIELD_REF,
