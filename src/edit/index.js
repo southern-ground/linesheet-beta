@@ -301,7 +301,10 @@ class EditPage extends React.Component {
                                         :
                                         ITEM_IMAGE_PLACEHOLDER}/>
                                 <button
-                                    className={s.button}
+                                    className={
+                                        s.button + " " +
+                                        s.button__image
+                                    }
                                     onClick={this.updateImage}>
                                     Change
                                 </button>
