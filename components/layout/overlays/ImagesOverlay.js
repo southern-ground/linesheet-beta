@@ -27,10 +27,10 @@ class ImagesOverlay extends React.Component {
 
     render() {
         return (
-            <section>
-                <h3 className={s.addItemFormHeading}>
+            <div>
+                <h2 className={s.addItemFormHeading}>
                     Images
-                </h3>
+                </h2>
                 <ul className={s.imagesList}>
                     {this.props.images.map((image, index) => {
                         return (<EditItemImage
@@ -42,7 +42,7 @@ class ImagesOverlay extends React.Component {
                         />);
                     })}
                 </ul>
-            </section>
+            </div>
         );
     }
 
