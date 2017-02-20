@@ -53,6 +53,10 @@ a{
     font-size: 1.1rem;
     text-transform: uppercase;
 }
+.button__addItem{
+    display: inline-block;
+    background: darkgreen;
+}
 .button__close{
     background-color: red;
 }
@@ -61,6 +65,9 @@ a{
 }
 .button__edit{
     background-color: darkgreen;
+}
+.button__image{
+    display: inline-block;
 }
 .button__save{
     background-color: blue;
@@ -147,8 +154,6 @@ a{
     border-radius: 10px;
     height: 100%;
     max-height: 65vh;
-    overflow-y: scroll;
-    overflow-y: scroll;
 }
 
 @media screen and (max-width: 1024px) {
