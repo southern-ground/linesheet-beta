@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import s from './AddItemForm.css';
 import store from '../../src/store';
 import {
@@ -21,6 +21,10 @@ import {
 import CategorySelect from './categories/CategorySelect';
 
 class AddItemForm extends React.Component {
+
+    static propTypes = {
+        clearSelectedImage: PropTypes.func.isRequired
+    }
 
     constructor(props) {
 
@@ -119,6 +123,8 @@ class AddItemForm extends React.Component {
             this.setState(newState);
         }
 
+        this.props.clearSelectedImage();
+
         var checkboxes = this.refs.itemCategories.getElementsByTagName('input');
 
         for (var i = 0; i < checkboxes.length; i++) {
@@ -132,8 +138,6 @@ class AddItemForm extends React.Component {
     }
 
     toggleCategory(id, checked) {
-
-        console.log(id, checked);
 
         var itemCategories = this.state.itemCategories;
 
@@ -166,12 +170,6 @@ class AddItemForm extends React.Component {
                 value: !store.getState().openInventoryForm
             }
         );
-    }
-
-    componentWillReceiveProps(props) {
-        if (props.openForm) {
-            this.toggleForm();
-        }
     }
 
     updateSaveEnabled() {
@@ -283,8 +281,8 @@ class AddItemForm extends React.Component {
                                             name={category.name}
                                             index={index}
                                             key={'cat-' + index}
-                                            checked={this.state.itemCategories.indexOf(category.id) >= 0}
-                                            change={(e) => {
+                                            isChecked={this.state.itemCategories.indexOf(category.id) >= 0}
+                                            changeCallback={(e) => {
                                                 this.toggleCategory(category.id, e.target.checked)
                                             }}
                                         />
