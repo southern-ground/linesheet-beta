@@ -35,7 +35,7 @@ class SaveSection extends React.Component {
             this.setState({
                 errorMsg: FILE_NAME_ERROR
             });
-        }else{
+        } else {
             store.dispatch({
                 type: SAVE_SELECTION,
                 fileName: fileName
@@ -43,7 +43,7 @@ class SaveSection extends React.Component {
         }
     }
 
-    updateFileName(){
+    updateFileName() {
         this.setState({
             errorMsg: (this.refs.fileName.value || "").length > 0 ? "" : FILE_NAME_ERROR
         });
@@ -58,30 +58,22 @@ class SaveSection extends React.Component {
                     </span>
                     <div>
                         <form onSubmit={this.saveItems}>
-                        <span
-                            className={s.error__message + " " + s.inputErrorMsg}>
-                            {this.state.errorMsg}
+                            <span
+                                className={s.error__message + " " + s.inputErrorMsg}>
+                                {this.state.errorMsg}
                             </span>
-
-                        <input
-                            ref="fileName"
-                            placeholder="File Name"
-                            disabled={this.props.numItemsSelected == 0}
-                            className={this.state.errorMsg !== "" ? " " + s.error__input : ""}
-                            onChange={this.updateFileName}
-                        />
-                        <input
-                            type="submit"
-                            className={s.align__right + " " +
-                            s.button + " " +
-                            s.button__save +
-                            (this.props.numItemsSelected == 0
-                                ? " " + s.button__disabled
-                                :
-                                "")}
-                            disabled={this.props.numItemsSelected == 0}
-                            value="Save Selection"
-                        />
+                            <input
+                                type="submit"
+                                className={s.align__right + " " +
+                                s.button + " " +
+                                s.button__save +
+                                (this.props.numItemsSelected == 0
+                                    ? " " + s.button__disabled
+                                    :
+                                    "")}
+                                disabled={this.props.numItemsSelected == 0}
+                                value="Save Selection"
+                            />
                         </form>
                     </div>
                 </div>

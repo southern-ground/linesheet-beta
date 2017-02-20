@@ -22,7 +22,7 @@ import {
     MSRP_FIELD_REF,
     sanitizeProductName
 } from '../constants';
-import CategorySelect from '../../components/layout/CategorySelect';
+import CategorySelect from '../../components/layout/categories/CategorySelect';
 import Link from '../../components/Link';
 import ImageOverlay from '../../components/layout/overlays/ImagesOverlay';
 

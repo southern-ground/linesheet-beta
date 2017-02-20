@@ -6,12 +6,9 @@ import store from '../store';
 import {
     ADD_CATEGORY,
     GET_CATEGORIES,
-    ADD_ITEM,
-    ERROR_CATEGORY,
-    ERROR_NAME,
-    ERROR_SKU
+    ERROR_CATEGORY
 } from '../constants';
-import Category from '../../components/Layout/Category';
+import Category from '../../components/layout/categories/Category';
 
 class CategoriesPage extends React.Component {
 
