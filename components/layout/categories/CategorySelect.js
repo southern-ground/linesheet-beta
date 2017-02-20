@@ -6,7 +6,8 @@ class CategorySelect extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        checked: PropTypes.bool.isRequired
+        isChecked: PropTypes.bool.isRequired,
+        changeCallback: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -21,9 +22,9 @@ class CategorySelect extends React.Component {
                    id={'cat-' + this.props.index}
                    key={"cat-" + this.props.index}
                    ref="checkbox"
-                   checked={this.props.checked}
+                   checked={this.props.isChecked}
                    onChange={(e)=>{
-                       this.props.change(e, this.props.id);
+                       this.props.changeCallback(e, this.props.id);
                    }}
             />
             <label htmlFor={'cat-' + this.props.index}>{this.props.name}</label>
