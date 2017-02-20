@@ -56,10 +56,7 @@ class AddPage extends React.Component {
     selectImage(img) {
         this.setState({
             ...this.state,
-            item: {
-                ... this.state.item,
-                selectedImage: img
-            },
+            selectedImage: img,
             edited: true
         })
     }
@@ -86,7 +83,12 @@ class AddPage extends React.Component {
 
                 <AddItemForm
                     categories={appState.categories}
-                    selectedImage=""
+                    selectedImage={this.state.selectedImage || ""}
+                    clearSelectedImage={(e)=>{
+                        this.setState({
+                            selectedImage: ""
+                        })
+                    }}
                 />
 
                 <section ref="imageOverlay" className={
