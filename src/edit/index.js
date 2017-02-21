@@ -199,8 +199,13 @@ class EditPage extends React.Component {
     }
 
     toggleCategory(id) {
+
         var item = this.state.item,
-            categories = this.state.item.categories,
+            categories = typeof this.state.item.categories === "string"
+                ?
+                this.state.item.categories.split(',')
+                :
+                this.state.item.categories || [],
             index = categories.indexOf(id);
 
         if (index == -1) {
@@ -208,6 +213,7 @@ class EditPage extends React.Component {
         } else {
             categories.splice(index, 1)
         }
+
         item.categories = categories;
 
         this.setState({
@@ -245,11 +251,12 @@ class EditPage extends React.Component {
 
     render() {
 
-        var appState = store.getState();
-
-        console.log('EditPage::render state:',this.state);
-
-        var itemCategories = (typeof this.state.item.categories === "string" ? this.state.item.categories.split(',') : this.state.item.categories || []);
+        var appState = store.getState(),
+            itemCategories = (typeof this.state.item.categories === "string"
+                ?
+                this.state.item.categories.split(',')
+                :
+                this.state.item.categories || []);
 
         return (
             <Layout className={s.content}>
