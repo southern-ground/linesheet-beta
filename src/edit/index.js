@@ -317,7 +317,7 @@ class EditPage extends React.Component {
                                     name="item_material"
                                     placeholder="Item Material"
                                     ref={MATERIAL_FIELD_REF}
-                                    value={this.state.item.material}
+                                    value={this.state.item.material || ""}
                                     onChange={(e) => {
                                         this.updateField(MATERIAL_FIELD_REF);
                                     }}
@@ -327,13 +327,13 @@ class EditPage extends React.Component {
                                 <label htmlFor="Item_Swavoski">Swavoski Stones</label>
                                 <input
                                     type="text"
-                                    id="Item_Name"
+                                    id="Item_Swavoski"
                                     name="item_swavoski"
                                     placeholder="Swavoski Stones"
-                                    ref={SWAROVSKI_FIELD_REF}
-                                    value={this.state.item.swarovski}
+                                    ref={SWAVOSKI_FIELD_REF}
+                                    value={this.state.item.swarovski || ""}
                                     onChange={(e) => {
-                                        this.updateField(SWAROVSKI_FIELD_REF);
+                                        this.updateField(SWAVOSKI_FIELD_REF);
                                     }}
                                 />
                             </li>
@@ -345,7 +345,7 @@ class EditPage extends React.Component {
                                     name="item_natural"
                                     placeholder="Natural Stones"
                                     ref={NAT_FIELD_REF}
-                                    value={this.state.item.natural}
+                                    value={this.state.item.natural || ""}
                                     onChange={(e) => {
                                         this.updateField(NAT_FIELD_REF);
                                     }}
