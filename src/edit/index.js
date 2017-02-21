@@ -166,7 +166,7 @@ class EditPage extends React.Component {
                 name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
                 image: this.state.item.image,
                 material: this.refs[MATERIAL_FIELD_REF].value || '',
-                swarovski: this.refs[SWAROVSKI_FIELD_REF].value || '',
+                swarovski: this.refs[SWAVOSKI_FIELD_REF].value || '',
                 natural: this.refs[NAT_FIELD_REF].value || '',
                 categories: this.getCategories().join(','),
                 wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
