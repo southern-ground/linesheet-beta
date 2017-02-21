@@ -15,7 +15,7 @@ import {
     NAME_FIELD_REF,
     IMAGE_SRC_REF,
     MATERIAL_FIELD_REF,
-    SWAROVSKI_FIELD_REF,
+    SWAVOSKI_FIELD_REF,
     NAT_FIELD_REF,
     CATEGORIES_FIELD_REF,
     WHOLESALE_FIELD_REF,
@@ -99,7 +99,6 @@ class EditPage extends React.Component {
     }
 
     selectImage(img) {
-        console.log('EditPage::selectImage', img);
         this.setState({
             ...this.state,
             item: {
@@ -124,7 +123,7 @@ class EditPage extends React.Component {
             case MATERIAL_FIELD_REF:
                 item.material = this.refs[ref].value;
                 break;
-            case SWAROVSKI_FIELD_REF:
+            case SWAVOSKI_FIELD_REF:
                 item.swarovski = this.refs[ref].value;
                 break;
             case NAT_FIELD_REF:
@@ -189,8 +188,6 @@ class EditPage extends React.Component {
         if (newState.error.length) {
             this.setState(newState);
         } else {
-
-            console.log('EditPage::updateItem item:',item);
             store.dispatch({
                 type: UPDATE_ITEM,
                 item: item
