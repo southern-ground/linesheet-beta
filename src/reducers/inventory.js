@@ -4,7 +4,6 @@
 
 import {
     API,
-    JSON_FILE,
     OK,
     ADD_ITEM,
     ADD_ITEM_RESPONSE,
@@ -12,7 +11,6 @@ import {
     GET_CATEGORIES,
     GET_INVENTORY,
     GET_INVENTORY_RESPONSE,
-    SAVE_SELECTION,
     SELECT_CATEGORY,
     SELECT_ITEM,
     SELECT_ALL_INVENTORY_ITEMS,
@@ -170,18 +168,6 @@ export default function inventory(state = [], action) {
                     selected: catCount > 0
                 }
             });
-        /*
-         SELECTIONS
-         */
-        case SAVE_SELECTION:
-            var saveUrl = API;
-            request
-                .get('saveUrl')
-                .query({action: SAVE_SELECTION, data: {}})
-                .end(function (err, res) {
-                    // Do something
-                });
-            return state;
         default:
             return state;
     }

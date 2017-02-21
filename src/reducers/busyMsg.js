@@ -14,7 +14,6 @@ import {
     GET_CATEGORIES_RESPONSE,
     GET_IMAGES,
     GET_INVENTORY,
-    SAVE_SELECTION,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE
 } from '../constants';
@@ -44,9 +43,6 @@ export default function busyMsg(state = '', action) {
             break;
         case GET_INVENTORY:
             return "Getting Inventory";
-            break;
-        case SAVE_SELECTION:
-            return "Saving file " + action.fileName;
             break;
         case UPDATE_ITEM:
             return "Updating Item";

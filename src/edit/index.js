@@ -407,7 +407,7 @@ class EditPage extends React.Component {
                                     }}
                                 />
                             </li>
-                            <li className={s.as__row + " " + s.align__right}>
+                            <li className={s.asRow + " " + s.align__right}>
                                 <Link to="#"
                                       className={
                                           s.button + " " +

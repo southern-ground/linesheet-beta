@@ -138,7 +138,7 @@ class CategoriesPage extends React.Component {
                 <section>
                     <h2>Current Categories</h2>
                     <p className={s.error__message}>{this.state.error}</p>
-                    <div className={s.category__list}>
+                    <div className={s.categoryList}>
                         {(store.getState().categories || [])
                             .sort((a, b) => {
                                 return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
