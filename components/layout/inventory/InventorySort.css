@@ -1,0 +1,25 @@
+.sortGroup{
+    padding: 4px;
+    margin: 10px 0;
+}
+.sortField{
+    margin: 0 10px;
+    position: relative;
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.active{
+    text-decoration: none;
+    pointer-events: none;
+}
+.sortLabel{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.sortField:not(:last-of-type):after{
+    content: "|";
+    position: absolute;
+    right: -10px;
+}
