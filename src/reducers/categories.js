@@ -52,16 +52,23 @@ export default function categories(state = [], action) {
                     if (err) {
                         console.warn('DELETE_CATEGORY Error:', err);
                     } else {
-                        var data = JSON.parse(res.text);
+                        var data = JSON.parse(res.text),
+                            category;
                         if (data.response === 200) {
                             // No error:
                             store.dispatch({type: GET_CATEGORIES_RESPONSE, data: data.categories});
                         } else {
+                            category = store.getState().categories.filter(cat=>{
+                                if(cat.id === data.removedCategoryId){
+                                    return cat.name;
+                                }
+                            }).pop().name;
+
                             store.dispatch(
                                 {
                                     type: GET_CATEGORIES_RESPONSE,
                                     data: data.categories,
-                                    error: "That category is in use by a product. Please un-assign the category from all products before deleting it."
+                                    error: "The category \"" + category + "\" is in use by a product. Please un-assign the category from all products before deleting it."
                                 });
                         }
                     }
@@ -82,7 +89,6 @@ export default function categories(state = [], action) {
                         console.warn('EDIT_CATEGORY Error:', err);
                     } else {
                         var data = JSON.parse(res.text);
-                        console.log(data);
                         if (data.response === 200) {
                             store.dispatch({
                                 type: GET_CATEGORIES_RESPONSE,
