@@ -1,5 +1,9 @@
 @import "../../src/Global.css";
 
+.backButton{
+    display: inline-block;
+}
+
 .addItemFormHeading {
     pointer-events: none;
 }
@@ -27,18 +31,16 @@
 }
 
 .formSubmit {
-    margin: 20px 0 0;
     text-transform: uppercase;
     padding: 5px;
     font-weight: bold !important;
-    width: 80vw;
-    max-width: 200px;
 }
 
 .categoriesList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
     list-style: none;
     align-items: center;
     padding: 0;
@@ -53,23 +55,42 @@
     justify-content: center;
     align-items: center;
 }
+
 .categoriesList li label{
     cursor: pointer;
 }
+
+.addItemImage{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.addItemImage button{
+    margin: 10px 0;
+}
+
 .itemImage{
     height: auto;
     max-height: 100px;
     width: auto;
+    border: 1px solid darkgray;
 }
-.as__row {
-    flex-direction: row;
-}
-
-.inputGroup{
-    justify-content: space-between;
+.itemControl{
+    margin: 10px 0;
+    justify-content: flex-end;
 }
 
-.category__list {
+.itemControl input[type="submit"]{
+    display: inline-block;
+    margin: 0 20px 0 0;
+}
+.itemControl button{
+    display: inline-block;
+}
+.categoryList {
     width: 400px;
 }
 

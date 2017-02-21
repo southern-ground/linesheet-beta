@@ -57,10 +57,6 @@
     margin: 0 0 10px;
     border: 1px solid darkgray;
 }
-.as__row{
-    flex-direction: row !important;
-}
-
 .button__group{
     display: inline-block !important;
     width: auto !important;

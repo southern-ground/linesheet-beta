@@ -1,1 +1,68 @@
 @import '../Global.css';
+
+.backButton{
+    display: inline-block;
+}
+[draggable]{
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+.filterGroup{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.filterGroupTitle{
+    font-weight: bold;
+    margin: 0 10px 0 0;
+}
+.fieldsList{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+
+}
+.field{
+    margin: 0 10px 0 0;
+}
+.fieldLabel{
+    font-weight: bold;
+    margin: 0 0 0 5px;
+}
+.itemList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0 auto 10px auto;
+    width: 100%;
+    max-width: 1024px;
+    overflow:hidden;
+
+}
+.sortType{
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    position: relative;
+}
+.sortType:not(:last-of-type){
+    margin: 0 20px 0 0;
+}
+.sortType:not(:last-of-type):after{
+    content: "|";
+    position: absolute;
+    right: -10px;
+}

@@ -46,12 +46,13 @@ a{
     color: white;
     font-weight: bold;
     border-radius:5px;
-    padding: 4px 10px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: block;
     font-size: 1.1rem;
     text-transform: uppercase;
+    line-height: normal;
 }
 .button__addItem{
     display: inline-block;
@@ -128,6 +129,15 @@ a{
     flex-grow:0;
     align-items: center;
     justify-content: center;
+}
+
+.asRow {
+    flex-direction: row !important;
+    align-items: flex-start;
+}
+
+.asColumn {
+    flex-direction: column;
 }
 
 .uppercase{
