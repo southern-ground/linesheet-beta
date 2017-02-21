@@ -94,7 +94,7 @@ class InventoryItems extends React.Component {
                 <InventorySort/>
                 <InventoryItemCategories
                     cateogories={this.props.categories}/>
-                
+
                 {this.getSortedInventory().map((item, index) => {
                     return (<InventoryItem
                         selected={item.selected || false}

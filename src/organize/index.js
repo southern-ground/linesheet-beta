@@ -28,6 +28,9 @@ class OrganizePage extends React.Component {
             loading: true,
             orderedInventory: [],
             sortOn: SORT_SKU,
+            title: "",
+            fileName: "",
+            items: [],
             fields: [
                 {name: "Materials", field: "material", selected: true},
                 {name: "MSRP", field: "msrp", selected: true},
@@ -70,23 +73,52 @@ class OrganizePage extends React.Component {
 
     orderUpdate(e) {
 
-        var els = ((htmlCollection) => {
-                var a = [], i = 0;
-                for (i; i < htmlCollection.length; i++) {
-                    a.push(htmlCollection[i]);
-                }
-                return a;
-            })(e.to.children),
-            inventory = store.getState().inventory,
-            newOrder = [];
+        /*var els = ((htmlCollection) => {
+         var a = [], i = 0;
+         for (i; i < htmlCollection.length; i++) {
+         a.push(htmlCollection[i]);
+         }
+         return a;
+         })(e.to.children),
+         inventory = store.getState().inventory,
+         newOrder = [];
 
-        els.forEach(item => {
-            /*var match = inventory.filter
-             newOrder.push(
-             inventory.filter(ii=>{
-             return ii.sku === item.getAttribute('data-sku');
-             }).pop());*/
+         els.forEach(item => {
+         /!*var match = inventory.filter
+         newOrder.push(
+         inventory.filter(ii=>{
+         return ii.sku === item.getAttribute('data-sku');
+         }).pop());*!/
+         });*/
+
+    }
+
+    save() {
+        console.log('OrganizePage::save');
+        var payload = {
+            title: this.refs.title.value,
+            fileName: this.refs.fileName.value,
+            fields:{},
+            items:[]
+        };
+
+        this.state.fields.forEach((field) => {
+            payload.fields[field.field] = field.selected;
         });
+
+        var items = (htmlCollection => {
+            var a = [], i = 0;
+            for (i; i < htmlCollection.length; i++) {
+                a.push(htmlCollection[i]);
+            }
+            return a;
+        })(document.getElementById('SelectedItems').children)
+            .forEach(item => {
+                payload.items.push(item.getAttribute('data-sku'));
+            });
+
+        console.log(payload);
+
 
     }
 
@@ -204,6 +236,7 @@ class OrganizePage extends React.Component {
                     </div>
 
                     {/* ITEMS */}
+
                     <div
                         id="SelectedItems"
                         className={s.itemList + " sortable"} ref={this.sortableContainersDecorator}>
@@ -216,6 +249,61 @@ class OrganizePage extends React.Component {
                         })}
                     </div>
 
+                    <form
+                        method="GET"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            this.save();
+                        }}
+                        className={s.saveForm + " " + s.flexBox}
+                    >
+                        <div>
+                            <label
+                                htmlFor="Title">
+                                Line Sheet <strong>Title</strong>:
+                            </label>
+                            <input
+                                id="Title"
+                                type="text"
+                                ref="title"
+                                placeholder="Title"
+                                value={this.state.title}
+                                onChange={e => {
+                                    this.setState({
+                                        title: this.refs.title.value
+                                    })
+                                }}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="FileName">
+                                Line Sheet <strong>File Name</strong>:
+                            </label>
+                            <input
+                                id="FileName"
+                                type="text"
+                                ref="fileName"
+                                placeholder="File Name"
+                                value={this.state.fileName}
+                                onChange={e => {
+                                    this.setState({
+                                        fileName: this.refs.fileName.value
+                                    })
+                                }}
+                            />
+                        </div>
+                        <input
+                            className={
+                                s.button + " " +
+                                s.button__save +
+                                ((this.state.title || "").length > 0 &&
+                                (this.state.fileName || "").length > 0
+                                    ? "" : " " + s.button__disabled)
+                            }
+                            type="submit"
+                            value="Save"/>
+                    </form>
                 </section>
 
                 <Link
