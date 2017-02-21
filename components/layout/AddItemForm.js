@@ -13,12 +13,13 @@ import {
     NAT_FIELD_REF,
     OPEN_IMAGE_OVERLAY,
     SKU_FIELD_REF,
-    SWAROVSKI_FIELD_REF,
+    SWAVOSKI_FIELD_REF,
     TOGGLE_ADD_ITEM_FORM,
     WHOLESALE_FIELD_REF,
     sanitizeProductName
 } from '../../src/constants';
 import CategorySelect from './categories/CategorySelect';
+import Link from '../../components/Link';
 
 class AddItemForm extends React.Component {
 
@@ -70,7 +71,7 @@ class AddItemForm extends React.Component {
                 name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
                 image: this.props.selectedImage || "",
                 material: sanitizeProductName(this.refs[MATERIAL_FIELD_REF].value || ''),
-                swarovski: sanitizeProductName(this.refs[SWAROVSKI_FIELD_REF].value || ''),
+                swarovski: sanitizeProductName(this.refs[SWAVOSKI_FIELD_REF].value || ''),
                 natural: sanitizeProductName(this.refs[NAT_FIELD_REF].value || ''),
                 categories: this.getCategories().join(','),
                 wholesale: this.refs[WHOLESALE_FIELD_REF].value || 0,
@@ -101,7 +102,7 @@ class AddItemForm extends React.Component {
             [SKU_FIELD_REF,
                 NAME_FIELD_REF,
                 MATERIAL_FIELD_REF,
-                SWAROVSKI_FIELD_REF,
+                SWAVOSKI_FIELD_REF,
                 NAT_FIELD_REF,
                 WHOLESALE_FIELD_REF,
                 MSRP_FIELD_REF].map((ref) => {
@@ -212,8 +213,7 @@ class AddItemForm extends React.Component {
                         <li>
                             <label htmlFor="Item_Image">Image</label>
                             <div className={
-                                s.categoriesList + " " +
-                                s.inputGroup
+                                s.addItemImage
                             }>
                                 <img
                                     className={s.itemImage}
@@ -223,7 +223,7 @@ class AddItemForm extends React.Component {
                                             ITEM_IMAGE_PLACEHOLDER
                                             :
                                             ITEM_IMAGE_PATH + this.props.selectedImage
-                                    } />
+                                    }/>
                                 <button
                                     className={
                                         s.halfWidth + " " +
@@ -258,7 +258,7 @@ class AddItemForm extends React.Component {
                                 id="Item_Swarovski_Stones"
                                 name="item_swarovski"
                                 placeholder="Swarovski Stones"
-                                ref={SWAROVSKI_FIELD_REF}
+                                ref={SWAVOSKI_FIELD_REF}
                             />
                         </li>
                         <li>
@@ -309,7 +309,7 @@ class AddItemForm extends React.Component {
                                 ref={MSRP_FIELD_REF}
                             />
                         </li>
-                        <li>
+                        <li className={s.asRow + " " + s.itemControl}>
                             <input className={
                                 s.formSubmit + " " +
                                 s.button + " " +
@@ -318,6 +318,16 @@ class AddItemForm extends React.Component {
                                 (this.state.saveEnabled ? "" : " " + s.button__disabled)
                             } type="submit" value="Add Item"
                                    disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
+
+                            <Link
+                                to={'/'}
+                                className={
+                                    s.button + " " +
+                                    s.button__cancel
+                                }>
+                                Back
+                            </Link>
+
                         </li>
                         <li>
                             <p className={s.error__message}>{this.state.itemErrorText}</p>
