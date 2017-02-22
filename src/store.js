@@ -3,8 +3,7 @@ import {
 } from 'redux';
 
 /*
- * TODO: Add image support
- * TODO: Get selections working
+ * TODO: Add image upload support
  * TODO: Hook up saving
  * TODO: Save send to PDF
  */
