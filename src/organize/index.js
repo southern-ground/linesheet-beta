@@ -13,6 +13,7 @@ import history from '../history';
 import store from '../store';
 import ArrangableItem from '../../components/layout/inventory/ArrangableItem';
 import {
+    SAVE_FILE,
     SORT_SKU,
     SORT_NAME
 } from '../../src/constants';
@@ -35,7 +36,8 @@ class OrganizePage extends React.Component {
                 {name: "Materials", field: "material", selected: true},
                 {name: "MSRP", field: "msrp", selected: true},
                 {name: "Wholesale", field: "wholesale", selected: true}
-            ]
+            ],
+            status: ""
         };
 
     }
@@ -94,12 +96,12 @@ class OrganizePage extends React.Component {
     }
 
     save() {
-        console.log('OrganizePage::save');
+
         var payload = {
             title: this.refs.title.value,
             fileName: this.refs.fileName.value,
-            fields:{},
-            items:[]
+            fields: {},
+            items: []
         };
 
         this.state.fields.forEach((field) => {
@@ -117,8 +119,15 @@ class OrganizePage extends React.Component {
                 payload.items.push(item.getAttribute('data-sku'));
             });
 
-        console.log(payload);
+        store.dispatch({
+            type: SAVE_FILE,
+            data: payload
+        });
 
+        this.setState({
+            title: "",
+            fileName: "",
+        });
 
     }
 
@@ -133,22 +142,52 @@ class OrganizePage extends React.Component {
         }
     };
 
+    status() {
+        if (this.state.status === "") {
+            return (
+                <p className={s.fileMessage}><Link to={"./sheets"}>View All Files</Link></p>
+            );
+        } else {
+            return (
+                <p className={s.fileMessage}>
+                    <strong>SUCCESS:</strong> {this.state.status} was {
+                    this.state.fileExists === 1
+                        ?
+                        "updated"
+                        :
+                        "written"
+                } successfully. <a
+                    href={
+                        "http://shellybrown.com/linesheets/pdf/?data=" +
+                        store.getState().savedFiles.lastSavedFile
+                    }
+                    target="_blank">
+                    View as PDF
+                </a>
+                    <br />
+                    <Link to={"./sheets"}>View All Files</Link>
+                </p>
+            )
+        }
+    }
+
     updateProps() {
 
-        console.log('OrganizePage::updateProps parity:', (store.getState().inventory === this.state.orderedInventory));
+        var fileInfo = store.getState().savedFiles;
 
         this.setState({
             ...this.state,
-            loading: false
+            loading: false,
+            status: fileInfo.lastSavedFile,
+            fileExists: fileInfo.fileExists
         });
 
     }
 
     render() {
 
-        console.log('OrganizePage::render');
-
         var items = store.getState().inventory
+            .slice(0)
             .filter((item) => {
                 return item.selected;
             }).sort((a, b) => {
@@ -304,6 +343,10 @@ class OrganizePage extends React.Component {
                             type="submit"
                             value="Save"/>
                     </form>
+                </section>
+
+                <section>
+                    {this.status()}
                 </section>
 
                 <Link
