@@ -78,11 +78,13 @@ export const MSRP_FIELD_REF = "itemMSRP";
 export const sanitizeString = (str)=>{
     return str
         .replace(/<[^>]*>/gi, '')
-        .replace(/[^\w]/gi, '_');
+        .replace(/[^\w]/gi, '_')
+        .replace(/_$/, '');
 };
 
 export const sanitizeProductName = (str)=>{
     return str
         .replace(/<[^>]*>/gi, '')
-        .replace(/[^\w\s]/gi, '');
+        .replace(/[^\w\s]/gi, '')
+        .replace(/_$/, '');
 };
