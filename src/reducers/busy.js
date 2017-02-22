@@ -8,8 +8,10 @@ import {
     EDIT_CATEGORY,
     DELETE_ITEM,
     GET_CATEGORIES,
+    GET_FILE_LIST,
     GET_IMAGES,
     GET_INVENTORY,
+    SAVE_FILE,
     UPDATE_ITEM
 } from '../constants';
 
@@ -21,8 +23,10 @@ export default function busy(state = false, action) {
         case DELETE_ITEM:
         case EDIT_CATEGORY:
         case GET_CATEGORIES:
+        case GET_FILE_LIST:
         case GET_IMAGES:
         case GET_INVENTORY:
+        case SAVE_FILE:
         case UPDATE_ITEM:
             return true;
             break;

@@ -18,6 +18,10 @@
     "page": "./organize"
   },
   {
+    "path": "/sheets",
+    "page": "./sheets"
+  },
+  {
     "path": "/about",
     "page": "./about"
   },

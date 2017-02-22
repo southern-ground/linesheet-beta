@@ -12,8 +12,10 @@ import {
     DELETE_ITEM,
     GET_CATEGORIES,
     GET_CATEGORIES_RESPONSE,
+    GET_FILE_LIST,
     GET_IMAGES,
     GET_INVENTORY,
+    SAVE_FILE,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE
 } from '../constants';
@@ -38,11 +40,17 @@ export default function busyMsg(state = '', action) {
         case GET_CATEGORIES:
             return "Getting Categories";
             break;
+        case GET_FILE_LIST:
+            return "Getting Saved Files";
+            break;
         case GET_IMAGES:
             return "Getting Images";
             break;
         case GET_INVENTORY:
             return "Getting Inventory";
+            break;
+        case SAVE_FILE:
+            return "Saving File";
             break;
         case UPDATE_ITEM:
             return "Updating Item";

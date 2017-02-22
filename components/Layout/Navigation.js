@@ -28,6 +28,7 @@ class Navigation extends React.Component {
                 <Link to="/">Items</Link>
                 <Link to="/add">Add Item</Link>
                 <Link to="/categories">Categories</Link>
+                <Link to="/sheets">Saved Sheets</Link>
                 <Link to="/about">About</Link>
             </nav>
         );
