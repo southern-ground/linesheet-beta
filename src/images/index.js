@@ -8,9 +8,12 @@ import {
     html
 } from './index.md';
 import {
-    GET_IMAGES
+    DELETE_IMAGE,
+    GET_IMAGES,
+    ITEM_IMAGE_PATH
 } from '../constants';
 import Layout from '../../components/Layout';
+import ItemImage from '../../components/layout/images/ItemImage';
 import Link from '../../components/Link';
 import store from '../store';
 
@@ -19,44 +22,52 @@ class ImagePage extends React.Component {
     constructor(props) {
 
         super(props);
-
         this.updateProps = this.updateProps.bind(this);
-
-        this.state = {};
+        this.deleteImage = this.deleteImage.bind(this);
+        this.state = {
+            images: []
+        };
 
     }
 
     componentWillMount() {
         this.unsubscribeFunciton = store.subscribe(this.updateProps);
-        this.setState({
-            ...this.state
-        });
     }
 
     componentDidMount() {
         document.title = title;
-        /*var appState = store.getState();
-         if (!appState.inventoryInitialized) {
-         store.dispatch({
-         type: GET_INVENTORY
-         });
-         } else {
-         this.updateProps();
-         }*/
+        var imageStore = store.getState().imageStore;
+        if (!imageStore.initialized) {
+            store.dispatch({
+                type: GET_IMAGES
+            })
+        } else {
+            this.setState({
+                images: imageStore.images
+            })
+        }
     }
 
     componentWillUnmount() {
         this.unsubscribeFunciton();
     }
 
-    updateProps(){
-        console.log('ImagePage::updateProps');
+    deleteImage(id) {
+        console.log('ImagePage::deleteImage', id);
+        store.dispatch({
+            type: DELETE_IMAGE,
+            imageName: id
+        });
+    }
+
+    updateProps() {
+        this.setState({
+            ...this.state,
+            images: store.getState().imageStore.images
+        });
     }
 
     render() {
-        console.log('ImagePage::render');
-
-        var appState = store.getState();
 
         return (
             <Layout className={s.content}>
@@ -66,7 +77,16 @@ class ImagePage extends React.Component {
                 </section>
 
                 <section>
-                    <h2>Eat your images here</h2>
+                    <ul className={s.imagesList}>
+                        {this.state.images.map((image, index) => {
+                            return <ItemImage
+                                key={"image_" + index}
+                                imageName={image}
+                                imagePath={ITEM_IMAGE_PATH}
+                                deleteFunc={this.deleteImage}
+                            />
+                        })}
+                    </ul>
                 </section>
 
             </Layout>

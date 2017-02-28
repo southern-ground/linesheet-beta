@@ -3,8 +3,8 @@
  */
 import React, {PropTypes} from 'react';
 import s from './ImagesOverlay.css';
+import EditItemImage from '../images/EditItemImage';
 import store from '../../../src/store';
-import EditItemImage from '../../../components/layout/images/EditItemImage';
 import {
     ITEM_IMAGE_PATH,
     UPLOAD_IMAGES
@@ -21,7 +21,8 @@ class ImagesOverlay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uploadFormOpen: false
+            uploadFormOpen: false,
+            files: []
         }
     }
 
@@ -43,7 +44,7 @@ class ImagesOverlay extends React.Component {
                 ?
                 "Upload 1 file"
                 :
-                "Upload " + this.state.files.length + " files";
+                "Upload " + Math.min(this.state.files.length, 20)  + " files";
     }
 
     render() {
@@ -86,6 +87,10 @@ class ImagesOverlay extends React.Component {
                     onClick={(e) => {
                         this.refs["uploadForm"].classList.toggle(s.uploadFormOpen);
                         this.refs["imagesList"].classList.toggle(s.imagesListOpen);
+                        this.refs.files.value = "";
+                        this.setState({
+                            files: []
+                        });
                         this.setState({uploadFormOpen: false})
                     }}>
                     Close
@@ -145,18 +150,17 @@ class ImagesOverlay extends React.Component {
                         data-multiple-caption="{count} files selected" multiple
                         className={this.isAdvancedUpload() ? s.hidden : ""}
                         onChange={(e) => {
-
                             this.setState({
                                 files: e.target.files
                             });
-
                         }}/>
                     <label
                         htmlFor="file"
-                        className={this.isAdvancedUpload() ? "" : s.hidden}>
+                        className={this.isAdvancedUpload() ? s.chooseFiles : s.hidden}>
                         <strong>Choose a file</strong>
-                        <span className="box__dragndrop"> or drag it here</span>.
+                        <span className="box__dragndrop"> or drag it here</span>. (Up to 20)
                     </label>
+                    <div className={this.state.files.length > 20 ? s.uploadLimit : s.hidden}>Only the first 20 files will be uploaded</div>
                     <button
                         className={
                             s.button + " " +
@@ -173,6 +177,10 @@ class ImagesOverlay extends React.Component {
                                 form: this.refs.uploadForm,
                                 files: this.state.files
                             });
+                            this.refs.files.value = "";
+                            this.setState({
+                                files: []
+                            });
                         }}
                     >
                         {this.uploadButtonLabel()}
@@ -180,6 +188,8 @@ class ImagesOverlay extends React.Component {
 
                     <div className={s.status}>{store.getState().imageUploadStatus}</div>
                 </form>
+
+
 
                 <ul className={s.imagesList}
                     ref="imagesList">
