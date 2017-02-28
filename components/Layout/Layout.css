@@ -6,3 +6,8 @@
     max-width: 1024px;
     font-size:1rem !important;
 }
+@media screen and (max-width: 1024px){
+    .content{
+        width: auto;
+    }
+}

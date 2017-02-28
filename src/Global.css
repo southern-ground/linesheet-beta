@@ -167,7 +167,7 @@ a{
 }
 
 @media screen and (max-width: 1024px) {
-    .content section{
+    .content{
         padding: 0 20px;
     }
 
