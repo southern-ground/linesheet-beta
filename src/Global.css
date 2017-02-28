@@ -167,11 +167,6 @@ a{
 }
 
 @media screen and (max-width: 1024px) {
-
-    .content {
-        margin: 0 16px;
-    }
-
     .content section{
         padding: 0 20px;
     }
