@@ -24,10 +24,13 @@ class Navigation extends React.Component {
 
     render() {
         return (
-            <nav ref={node => (this.root = node)}>
+            <nav
+                className={s.nav}
+                ref={node => (this.root = node)}>
                 <Link to="/">Items</Link>
                 <Link to="/add">Add Item</Link>
                 <Link to="/categories">Categories</Link>
+                <Link to="/images">Images</Link>
                 <Link to="/sheets">Saved Sheets</Link>
                 <Link to="/about">About</Link>
             </nav>
