@@ -4,10 +4,7 @@
 import { combineReducers } from 'redux'
 import inventory from './inventory';
 import categories from './categories';
-import imagesInitialized from './imagesInitialized';
-import images from './images';
-import imageUploadStatus from './imageUploadStatus';
-import openImageOverlay from './OpenImageOverlay';
+import imageStore from './images';
 import inventoryInitialized from './inventoryInitialized';
 import selectedCategories from './selectedCategories';
 import savedFiles from './savedFiles';
@@ -23,10 +20,7 @@ export default combineReducers({
     inventory,
     inventoryInitialized,
     categories,
-    images,
-    imageUploadStatus,
-    openImageOverlay,
-    imagesInitialized,
+    imageStore,
     error,
     busy,
     busyMsg,

@@ -93,7 +93,7 @@ class AddPage extends React.Component {
 
                 <section ref="imageOverlay" className={
                     s.overlaySection +
-                    (appState.openImageOverlay ? "" : " " + s.hidden)
+                    (appState.imageStore.openOverlay ? "" : " " + s.hidden)
                 }>
                     <div className={s.content + " " + s.overlayContent}>
                         <button
@@ -105,7 +105,7 @@ class AddPage extends React.Component {
                             }}>Close
                         </button>
                         <ImagesOverlay
-                            images={appState.images}
+                            images={appState.imageStore.images}
                             selectedImage={this.state.selectedImage}
                             selectImage={this.selectImage}
                         />

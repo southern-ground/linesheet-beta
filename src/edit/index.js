@@ -446,7 +446,7 @@ class EditPage extends React.Component {
                             }}>Close
                         </button>
                         <ImageOverlay
-                            images={appState.images}
+                            images={appState.imageStore.images}
                             selectedImage={this.state.item.image}
                             selectImage={this.selectImage}
                         />
