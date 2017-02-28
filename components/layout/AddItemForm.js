@@ -5,6 +5,7 @@ import {
     ADD_ITEM,
     ERROR_NAME,
     ERROR_SKU,
+    GET_IMAGES,
     ITEM_IMAGE_PATH,
     ITEM_IMAGE_PLACEHOLDER,
     MATERIAL_FIELD_REF,
@@ -236,6 +237,11 @@ class AddItemForm extends React.Component {
                                         store.dispatch({
                                             type: OPEN_IMAGE_OVERLAY
                                         });
+                                        if(!store.getState().imageStore.initialized){
+                                            store.dispatch({
+                                                type: GET_IMAGES
+                                            });
+                                        }
                                     }}>
                                     Choose
                                 </button>
