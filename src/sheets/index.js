@@ -46,7 +46,7 @@ class SheetsPage extends React.Component {
             store.dispatch({
                 type: GET_FILE_LIST
             })
-        }else{
+        } else {
             this.updateProps();
         }
 
@@ -58,7 +58,8 @@ class SheetsPage extends React.Component {
 
     updateProps() {
 
-        var files = store.getState().savedFiles.allFiles.slice(0);
+        var state = store.getState().savedFiles,
+            files = state.allFiles.slice(0);
 
         this.setState({
             ...this.state,
@@ -68,13 +69,13 @@ class SheetsPage extends React.Component {
                 :
                 files.sort((a, b) => {
                     return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
-                })
+                }),
+            msg: state.msg
         });
 
     }
 
     render() {
-
         return (
             <Layout className={s.content}>
 
@@ -82,7 +83,8 @@ class SheetsPage extends React.Component {
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
 
-                <section>
+                <section
+                    className={this.state.files.length === 0 ? s.hidden : ""}>
                     <strong>Order by:</strong> <Link
                     to={'#'}
                     onClick={e => {
@@ -117,10 +119,13 @@ class SheetsPage extends React.Component {
                                 target="_blank"
                                 href={"http://shellybrown.com/linesheets/pdf/?data=" + file}>
                                 {file.replace(/\.json/gi, '')}
-                                </a>
+                            </a>
                             </li>
                         })}
                     </ul>
+                </section>
+                <section>
+                    <div className={s.filesMessage}>{this.state.msg}</div>
                 </section>
 
             </Layout>

@@ -14,3 +14,12 @@
     pointer-events: none;
     color: darkgray;
 }
+.filesMessage{
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: darkgray;
+}
+.hidden{
+    display: none;
+}
