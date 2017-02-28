@@ -1,0 +1,65 @@
+@import '../../../src/Global.css';
+
+.itemImageWrapper{
+    width: 23%;
+    padding: 1%;
+    position: relative;
+    box-shadow: inset 0 0 0 0px darkgray;
+    transition: box-shadow 0.25s ease-in-out;
+    -moz-transition: box-shadow .25s ease-in-out;
+    -webkit-transition: box-shadow .25s ease-in-out;
+}
+.itemImageWrapper .deleteImage {
+    display: none;
+}
+.itemImageWrapper:hover{
+    box-shadow: inset 0 0 0 3px darkgray;
+    transition: box-shadow 0.25s ease-in-out;
+    -moz-transition: box-shadow .25s ease-in-out;
+    -webkit-transition: box-shadow .25s ease-in-out;
+}
+.itemImageWrapper:hover .deleteImage{
+    display: block;
+}
+.itemImage{
+    width: 100%;
+    height: auto;
+    opacity: .8;
+    transition: opacity .25s 0.25s ease-in-out;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -webkit-transition: opacity 0.25s ease-in-out;
+}
+.itemImage:hover{
+    opacity: 1;
+}
+.selectedImage{
+    border: 1px solid darkgray;
+    box-shadow: 4px 4px 5px darkgray;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.deleteImage{
+    width: 20px;
+    height:20px;
+    opacity: 0.5;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.deleteImage:hover{
+    opacity: 1;
+}
+@media screen and (max-width:1024px){
+    .itemImageWrapper{
+        width: 31%;
+        padding: 1%;
+    }
+}
+@media screen and (max-width:600px){
+    .itemImageWrapper{
+        width: 48%;
+        padding: 1%;
+    }
+}
