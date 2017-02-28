@@ -53,6 +53,7 @@ export const GET_IMAGES = "images";
 export const GET_IMAGES_RESPONSE = "images_response";
 export const ITEM_IMAGE_PATH = "http://shellybrown.com/linesheets/img/products/";
 export const OPEN_IMAGE_OVERLAY = "open_image_overlay";
+export const UPLOAD_IMAGES = "upload_images";
 
 /* FILES */
 export const SAVE_FILE = "save_file";

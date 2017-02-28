@@ -17,7 +17,8 @@ import {
     GET_INVENTORY,
     SAVE_FILE,
     UPDATE_ITEM,
-    UPDATE_ITEM_RESPONSE
+    UPDATE_ITEM_RESPONSE,
+    UPLOAD_IMAGES
 } from '../constants';
 
 export default function busyMsg(state = '', action) {
@@ -54,6 +55,9 @@ export default function busyMsg(state = '', action) {
             break;
         case UPDATE_ITEM:
             return "Updating Item";
+            break;
+        case UPLOAD_IMAGES:
+            return "Uploading Images";
             break;
         case ADD_CATEGORY_RESPONSE:
         case ADD_ITEM_RESPONSE:

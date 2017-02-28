@@ -12,7 +12,8 @@ import {
     GET_IMAGES,
     GET_INVENTORY,
     SAVE_FILE,
-    UPDATE_ITEM
+    UPDATE_ITEM,
+    UPLOAD_IMAGES
 } from '../constants';
 
 export default function busy(state = false, action) {
@@ -28,6 +29,7 @@ export default function busy(state = false, action) {
         case GET_INVENTORY:
         case SAVE_FILE:
         case UPDATE_ITEM:
+        case UPLOAD_IMAGES:
             return true;
             break;
         default:
