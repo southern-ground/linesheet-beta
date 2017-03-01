@@ -143,6 +143,10 @@ class AddItemForm extends React.Component {
 
         var itemCategories = this.state.itemCategories;
 
+        if(typeof itemCategories === "string"){
+            itemCategories = [];
+        }
+        
         if (checked) {
             if (itemCategories.indexOf(id) === -1) {
                 itemCategories.push(id);
