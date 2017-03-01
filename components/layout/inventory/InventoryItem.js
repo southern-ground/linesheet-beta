@@ -40,15 +40,17 @@ class InventoryItem extends React.Component {
         var itemCategories = this.getCategoryList(this.props.itemProps.categories.split(','), this.props.allCategories);
 
         return (
+            <div>
             <div
                 className={
                     s.flexBox + " " +
-                    s.inventoryItem
+                    s.flexBoxTop + " "
                 }>
 
                 <div>
                     <input
                         type="checkbox"
+                        id={this.props.itemProps.sku.replace(/-/gi, "_")}
                         checked={this.props.selected}
                         className={
                             s.inventoryItemSelect
@@ -60,16 +62,15 @@ class InventoryItem extends React.Component {
                                 value: !this.props.selected
                             })
                         }}/>
-                    <span
+                    <label
+                        htmlFor={this.props.itemProps.sku.replace(/-/gi, "_")}
                         className={
                             s.inventoryItemSku + " " +
                             s.uppercase
                         }>
                             {this.props.itemProps.sku}
-                    </span>
-                </div>
+                    </label>
 
-                <div>
                     <span
                         className={
                             s.inventoryItemName + " " +
@@ -78,6 +79,34 @@ class InventoryItem extends React.Component {
                         {this.props.itemProps.name}
                     </span>
                 </div>
+
+                <div className={s.inventoryItemControls}>
+                    <button
+                        className={
+                            s.button + " " +
+                            s.button__edit + " " +
+                            s.inventoryItemControlButton
+                        }
+                        onClick={() => {
+                            history.push('/edit/' + this.props.itemProps.sku);
+                        }}>
+                        Edit
+                    </button>
+
+                    <a
+                        className={s.inventoryItemDelete}
+                        onClick={() => {
+                            this.props.onDelete(this.props.itemProps.sku);
+                        }}>
+                        <img src="images/delete.svg"/>
+                    </a>
+                </div>
+            </div>
+                <div
+                    className={
+                        s.flexBox + " " +
+                        s.inventoryItem
+                    }>
 
                 {/* PRODUCT IMAGE */}
 
@@ -92,18 +121,39 @@ class InventoryItem extends React.Component {
                         }/>
                 </div>
 
-                {/* MATERIAL */}
+                    < div>
+                        <span className={s.inventoryItemProperty}>Categories:</span>
+                        <
+                            ul
+                            className={s.categoriesList
+                            }>
+                            {
+                                itemCategories.map((category, index) => {
+                                    return (<li
+                                        className={s.category}
+                                        data-id={category.id}
+                                        key={'cat-' + index}>
+                                        {category.name}
+                                    </li>)
+                                })
+                            }
+                        </ul>
+                    </div>
 
-                <div>
+                {/*<div>
                     <span className={s.inventoryItemProperty}>Material:</span>
                     <div>
                         {this.props.itemProps.material || "n/a"}
                     </div>
-                </div>
-
-                {/* STONES */}
+                </div>*/}
 
                 <div>
+                    {/* MATERIAL */}
+                    <span className={s.inventoryItemProperty}>Material:</span>
+                    <div>
+                        {this.props.itemProps.material || "n/a"}
+                    </div>
+                    {/* STONES */}
                     <div>
                         <span
                             className={s.inventoryItemProperty}>Swarovski Stones:</span>
@@ -130,45 +180,8 @@ class InventoryItem extends React.Component {
                         <span className={s.inventoryItemProperty}>MSRP:</span> ${this.props.itemProps.msrp}
                     </div>
                 </div>
-                < div>
-                    <span className={s.inventoryItemProperty}>Categories:</span>
-                    <
-                        ul
-                        className={s.categoriesList
-                        }>
-                        {
-                            itemCategories.map((category, index) => {
-                                return (<li
-                                    className={s.category}
-                                    data-id={category.id}
-                                    key={'cat-' + index}>
-                                    {category.name}
-                                </li>)
-                            })
-                        }
-                    </ul>
-                </div>
-                <div className={s.inventoryItemControls}>
-                    <button
-                        className={
-                            s.button + " " +
-                            s.button__edit + " " +
-                            s.inventoryItemControlButton
-                        }
-                        onClick={() => {
-                            history.push('/edit/' + this.props.itemProps.sku);
-                        }}>
-                        Edit
-                    </button>
 
-                    <a
-                        className={s.inventoryItemDelete}
-                        onClick={() => {
-                            this.props.onDelete(this.props.itemProps.sku);
-                        }}>
-                        <img src="images/delete.svg"/>
-                    </a>
-                </div>
+            </div>
             </div>
         );
     }

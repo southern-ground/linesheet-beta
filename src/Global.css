@@ -118,6 +118,24 @@ a{
     border-bottom: 1px solid #cccccc;
 }
 
+.flexBoxTop{
+    background-color: lightgray;
+    padding: 10px 0;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+}
+
+.flexBoxTop div{
+    font-size:0.8rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flexBoxTop div:not(:first-child){
+    padding: 0 0 0 10px;
+}
+
 .flexBoxHeader{
     background: darkgray;
 }
