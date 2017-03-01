@@ -19,6 +19,11 @@ import store from '../store';
 
 class ImagePage extends React.Component {
 
+    /*
+    * TODO: Break Out Upload Image form to standalone Component.
+    * TODO: Add that brand-spanking new component RIGHT HERE.
+    * */
+    
     constructor(props) {
 
         super(props);
