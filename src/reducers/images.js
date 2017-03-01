@@ -19,7 +19,10 @@ const imagesDefault = {
     images: [],
     msg: "",
     openOverlay: false,
-    uploadStatus: ""
+    uploadStatus: "",
+    deleteStatus: 0,
+    deleteStatusMsg: "",
+    itemSku: ""
 };
 
 export default function imageStore(state = imagesDefault, action) {
@@ -33,21 +36,25 @@ export default function imageStore(state = imagesDefault, action) {
             request
                 .get(API)
                 .query({
-                    action: DELETE_IMAGE
+                    action: DELETE_IMAGE,
+                    imageName: action.imageName
                 })
                 .end((err, res) => {
                     if (err) {
                         console.warn("DELETE_IMAGE error: " + err);
-                        store.dispatch({action: OK})
+                        store.dispatch({type: OK})
                     } else {
                         var data = JSON.parse(res.text);
                         if (data.response === 200) {
                             store.dispatch({
                                 type: GET_IMAGES_RESPONSE,
-                                images: data.images
+                                images: data.images,
+                                deleteStatus: data.status.isUsed,
+                                deleteStatusMsg: data.status.isUsed === 1 ? "Image used in item " : "Image Deleted.",
+                                itemSku: data.status.sku
                             });
                         } else {
-                            console.warn('Error on getting images', data.response);
+                            console.warn('Error on getting images', data);
                             store.dispatch({
                                 type: OK
                             });
@@ -83,7 +90,6 @@ export default function imageStore(state = imagesDefault, action) {
                                 type: OK
                             });
                         }
-
                     }
                 });
             return state;
@@ -94,23 +100,9 @@ export default function imageStore(state = imagesDefault, action) {
                     return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
                 }),
                 initialized: true,
-                uploadStatus: (action.msg ? ((() => {
-                        var uploadCount = 0;
-                        action.msg.forEach(result => {
-                            switch (parseInt(result.error)) {
-                                case 0:
-                                    uploadCount++;
-                                    break;
-                                case 1:
-                                    console.warn('Skipped because it already exists: ' + result.fileName);
-                                    break;
-                                case 2:
-                                    console.warn('Skipped because it isn\'t an image: ' + result.fileName);
-                                    break;
-                            }
-                        });
-                        return uploadCount + " file" + ( uploadCount === 1 ? "" : "s") + " uploaded successfully."
-                    })()) : "")
+                deleteStatus: action.deleteStatus || 0,
+                deleteStatusMsg:action.deleteStatusMsg || "",
+                itemSku: action.itemSku || ""
             };
         case UPLOAD_IMAGES:
             var i, file, req = request.post(API + 'upload.php');

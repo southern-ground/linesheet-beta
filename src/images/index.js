@@ -25,7 +25,8 @@ class ImagePage extends React.Component {
         this.updateProps = this.updateProps.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
         this.state = {
-            images: []
+            images: [],
+            msg: ""
         };
 
     }
@@ -61,9 +62,14 @@ class ImagePage extends React.Component {
     }
 
     updateProps() {
+        var imageStore = store.getState().imageStore;
+        console.log(imageStore);
         this.setState({
             ...this.state,
-            images: store.getState().imageStore.images
+            images: imageStore.images,
+            status: imageStore.deleteStatus,
+            msg: imageStore.deleteStatusMsg,
+            itemSku: imageStore.itemSku
         });
     }
 
@@ -88,6 +94,32 @@ class ImagePage extends React.Component {
                         })}
                     </ul>
                 </section>
+
+                <div
+                    className={this.state.msg === "" ? s.hidden : s.modalBlocker}
+                    ref="deleteMessageModal">
+                    <div className={s.modal}>
+                        <span className={s.modalTitle}>
+                            {this.state.status === 0 ? "Success" : "Could Not Delete Image" }
+                            </span>
+                        <span className={s.modalMessage}>
+                            {this.state.msg}
+                            <strong>{this.state.itemSku !== "" ? "#" + this.state.itemSku : ""}</strong>
+                        </span>
+                        <span className={s.modalEdit}>
+                            {this.state.itemSku === "" ? "" : <Link to={"/edit/" + this.state.itemSku}>Edit Item</Link> }
+                        </span>
+                        <button
+                            className={s.button}
+                            onClick={e => {
+                                this.setState({
+                                    msg: ''
+                                });
+                            }}>
+                            OK
+                        </button>
+                    </div>
+                </div>
 
             </Layout>
         );
