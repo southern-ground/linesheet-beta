@@ -13,7 +13,7 @@ import store from '../../src/store';
 import request from 'superagent';
 
 var defaultState = {
-    allFiles: [],
+    files: [],
     fileExists: 0,
     initialized: false,
     lastSavedFile: "",
@@ -21,6 +21,7 @@ var defaultState = {
 };
 
 const getFileList = (action) => {
+    console.log('getFileList');
     request
         .get(API)
         .query({
@@ -34,7 +35,7 @@ const getFileList = (action) => {
                 if (data.response === 200) {
                     store.dispatch({
                         type: GET_FILE_LIST_RESPONSE,
-                        files: data.files || []
+                        files: data.allFiles || []
                     });
                 } else {
                     console.warn();
@@ -82,15 +83,16 @@ const saveFile = (action) => {
 
 };
 
-export default function savedFiles(state = defaultState, action) {
+export default function savedFileStore(state = defaultState, action) {
     switch (action.type) {
         case GET_FILE_LIST:
             getFileList(action);
             return state;
         case GET_FILE_LIST_RESPONSE:
+            console.log('GET_FILE_LIST_RESPONSE', action);
             return {
                 ...state,
-                allFiles: action.files,
+                files: action.files,
                 initialized: true,
                 msg: action.files.length === 0 ? "There are no saved sheets." : ""
             };
@@ -102,7 +104,7 @@ export default function savedFiles(state = defaultState, action) {
             return {
                 ...state,
                 fileExists: action.fileExists,
-                allFiles: action.files,
+                files: action.files,
                 lastSavedFile: action.savedFile
             };
         default:

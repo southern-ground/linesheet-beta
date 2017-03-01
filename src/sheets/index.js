@@ -42,7 +42,7 @@ class SheetsPage extends React.Component {
 
         document.title = title;
 
-        if (!store.getState().savedFiles.initialized) {
+        if (!store.getState().savedFileStore.initialized) {
             store.dispatch({
                 type: GET_FILE_LIST
             })
@@ -58,16 +58,15 @@ class SheetsPage extends React.Component {
 
     updateProps() {
 
-        var state = store.getState().savedFiles,
-            files = state.allFiles.slice(0);
+        var state = store.getState().savedFileStore;
 
         this.setState({
             ...this.state,
             files: this.state.sort === SORT_DATE
                 ?
-                files
+                state.files
                 :
-                files.sort((a, b) => {
+                state.files.sort((a, b) => {
                     return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
                 }),
             msg: state.msg
@@ -91,7 +90,7 @@ class SheetsPage extends React.Component {
                         e.preventDefault();
                         this.setState({
                             sort: SORT_DATE,
-                            files: store.getState().savedFiles.allFiles.slice(0)
+                            files: store.getState().savedFileStore.files.slice(0)
                         });
                     }}
                     className={s.sortLink + (this.state.sort === SORT_DATE ? " " + s.active : "")}>
@@ -102,7 +101,7 @@ class SheetsPage extends React.Component {
                         e.preventDefault();
                         this.setState({
                             sort: SORT_NAME,
-                            files: store.getState().savedFiles.allFiles.slice(0)
+                            files: store.getState().savedFileStore.files.slice(0)
                                 .sort((a, b) => {
                                     return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
                                 })

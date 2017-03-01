@@ -159,7 +159,7 @@ class OrganizePage extends React.Component {
                 } successfully. <a
                     href={
                         "http://shellybrown.com/linesheets/pdf/?data=" +
-                        store.getState().savedFiles.lastSavedFile
+                        store.getState().savedFileStore.lastSavedFile
                     }
                     target="_blank">
                     View as PDF
@@ -173,7 +173,7 @@ class OrganizePage extends React.Component {
 
     updateProps() {
 
-        var fileInfo = store.getState().savedFiles;
+        var fileInfo = store.getState().savedFileStore;
 
         this.setState({
             ...this.state,

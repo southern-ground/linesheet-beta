@@ -7,7 +7,7 @@ import categories from './categories';
 import imageStore from './images';
 import inventoryInitialized from './inventoryInitialized';
 import selectedCategories from './selectedCategories';
-import savedFiles from './savedFiles';
+import savedFileStore from './savedFiles';
 import error from './error';
 import busy from './busy';
 import busyMsg from './busyMsg';
@@ -15,7 +15,7 @@ import openInventoryFile from './openInventoryFile';
 import homeInventorySort from './homeInventorySort';
 
 export default combineReducers({
-    savedFiles,
+    savedFileStore,
     selectedCategories,
     inventory,
     inventoryInitialized,
