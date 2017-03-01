@@ -1,4 +1,6 @@
-.imagesList{
+@import "../../src/Global.css";
+
+.imagesList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -8,4 +10,56 @@
     overflow: hidden;
     padding: 0;
     margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.modalBlocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-flow: column;
+    min-width: 25vw;
+    text-align: center;
+}
+
+.button{
+    padding: 5px 20px;
+    margin: 0 auto;
+}
+
+.modalMessage {
+    padding: 0 0 10px;
+    text-transform: uppercase;
+}
+
+.modalEdit{
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0 0 10px 0;
+}
+
+.modalTitle {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    font-size: 1.25rem;
+    padding: 0 0 10px;
 }
