@@ -31,7 +31,6 @@ a{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
     font-weight: bold;
     text-transform: uppercase;
 }
