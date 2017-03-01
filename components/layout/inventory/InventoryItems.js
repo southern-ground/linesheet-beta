@@ -27,14 +27,10 @@ class InventoryItems extends React.Component {
 
         super(props);
 
-        // TODO: Weed this list ... seems long.
-        this.refreshInventory = this.refreshInventory.bind(this);
-        this.renderLoading = this.renderLoading.bind(this);
         this.renderInventory = this.renderInventory.bind(this);
         this.renderPrompt = this.renderPrompt.bind(this);
         this.onDeleteItem = this.onDeleteItem.bind(this);
         this.sortOn = this.sortOn.bind(this);
-        this.toggleForm = this.toggleForm.bind(this);
         this.getSortedInventory = this.getSortedInventory.bind(this);
 
         this.state = {
@@ -80,11 +76,6 @@ class InventoryItems extends React.Component {
         });
     }
 
-    refreshInventory() {
-        store.dispatch({type: GET_INVENTORY, refresh: true});
-        this.setState({...this.state, loading: true});
-    }
-
     renderInventory() {
 
         return (
@@ -109,10 +100,6 @@ class InventoryItems extends React.Component {
             </div>);
     }
 
-    renderLoading() {
-        return (<span>Loading &#133;</span>);
-    }
-
     renderPrompt() {
         return (<div className={s.inventoryPrompt}>
             <p>
@@ -129,15 +116,6 @@ class InventoryItems extends React.Component {
             type: SORT_HOME_INVENTORY_ON,
             sortOn: which
         });
-    }
-
-    toggleForm(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        store.dispatch({
-            type: TOGGLE_ADD_ITEM_FORM,
-            value: true
-        })
     }
 
     render() {
