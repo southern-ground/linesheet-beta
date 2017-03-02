@@ -84,31 +84,36 @@ class AddPage extends React.Component {
                 <AddItemForm
                     categories={appState.categories}
                     selectedImage={this.state.selectedImage || ""}
-                    clearSelectedImage={(e)=>{
+                    clearSelectedImage={(e) => {
                         this.setState({
                             selectedImage: ""
                         })
                     }}
                 />
 
-                <section ref="imageOverlay" className={
-                    s.overlaySection +
-                    (appState.imageStore.openOverlay ? "" : " " + s.hidden)
-                }>
-                    <div className={s.content + " " + s.overlayContent}>
+                <section
+                    ref="imageOverlay"
+                    className={
+                        s.overlaySection +
+                        (appState.imageStore.openOverlay ? "" : " " + s.hidden)
+                    }>
+                    <div className={s.overlayContent}>
+
                         <button
-                            className={s.button + " " + s.button__close}
+                            className={s.button + " " + s.buttonClose + " " + s.closeButton}
                             onClick={(e) => {
                                 store.dispatch({
                                     type: CLOSE_IMAGE_OVERLAY
                                 });
                             }}>Close
                         </button>
+
                         <ImagesOverlay
                             images={appState.imageStore.images}
                             selectedImage={this.state.selectedImage}
                             selectImage={this.selectImage}
                         />
+
                     </div>
                 </section>
             </Layout>
