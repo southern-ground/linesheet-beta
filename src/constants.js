@@ -63,8 +63,8 @@ export const GET_FILE_LIST = "get_file_list";
 export const GET_FILE_LIST_RESPONSE = "get_file_list_response";
 
 /* SUNDRY */
-export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "http://placehold.it/50/ff00ff/000";
-export const ITEM_IMAGE_PLACEHOLDER = "http://placehold.it/640/ff00ff/000";
+export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "images/placeholder.svg";
+export const ITEM_IMAGE_PLACEHOLDER = "images/placeholder.svg";
 
 /* INVENTORY ITEMS */
 export const SKU_FIELD_REF = "itemSKU";
