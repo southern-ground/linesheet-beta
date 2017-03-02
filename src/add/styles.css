@@ -1,11 +1,8 @@
 @import "../Global.css";
 
-.overlaySection{
-
-}
-
 .overlayContent {
     position: relative;
+
 }
 
 .closeButton {

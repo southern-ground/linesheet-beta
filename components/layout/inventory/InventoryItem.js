@@ -41,85 +41,87 @@ class InventoryItem extends React.Component {
 
         return (
             <div>
-            <div
-                className={
-                    s.flexBox + " " +
-                    s.flexBoxTop + " "
-                }>
+                <div
+                    className={
+                        s.flexBox + " " +
+                        s.flexBoxTop + " "
+                    }>
 
-                <div>
-                    <input
-                        type="checkbox"
-                        id={this.props.itemProps.sku.replace(/-/gi, "_")}
-                        checked={this.props.selected}
-                        className={
-                            s.inventoryItemSelect
-                        }
-                        onChange={(e) => {
-                            store.dispatch({
-                                type: SELECT_ITEM,
-                                sku: this.props.itemProps.sku,
-                                value: !this.props.selected
-                            })
-                        }}/>
-                    <label
-                        htmlFor={this.props.itemProps.sku.replace(/-/gi, "_")}
-                        className={
-                            s.inventoryItemSku + " " +
-                            s.uppercase
-                        }>
+                    <div>
+                        <input
+                            type="checkbox"
+                            id={this.props.itemProps.sku.replace(/-/gi, "_")}
+                            checked={this.props.selected}
+                            className={
+                                s.inventoryItemSelect
+                            }
+                            onChange={(e) => {
+                                store.dispatch({
+                                    type: SELECT_ITEM,
+                                    sku: this.props.itemProps.sku,
+                                    value: !this.props.selected
+                                })
+                            }}/>
+                        <label
+                            htmlFor={this.props.itemProps.sku.replace(/-/gi, "_")}
+                            className={
+                                s.inventoryItemSku + " " +
+                                s.uppercase
+                            }>
                             {this.props.itemProps.sku}
-                    </label>
+                        </label>
 
-                    <span
-                        className={
-                            s.inventoryItemName + " " +
-                            s.uppercase
-                        }>
+                        <span
+                            className={
+                                s.inventoryItemName + " " +
+                                s.uppercase
+                            }>
                         {this.props.itemProps.name}
                     </span>
-                </div>
+                    </div>
 
-                <div className={s.inventoryItemControls}>
-                    <button
-                        className={
-                            s.button + " " +
-                            s.buttonEdit + " " +
-                            s.inventoryItemControlButton
-                        }
-                        onClick={() => {
-                            history.push('/edit/' + this.props.itemProps.sku);
-                        }}>
-                        Edit
-                    </button>
+                    <div className={s.inventoryItemControls}>
+                        <button
+                            className={
+                                s.button + " " +
+                                s.buttonEdit + " " +
+                                s.inventoryItemControlButton
+                            }
+                            onClick={() => {
+                                history.push('/edit/' + this.props.itemProps.sku);
+                            }}>
+                            Edit
+                        </button>
 
-                    <a
-                        className={s.inventoryItemDelete}
-                        onClick={() => {
-                            this.props.onDelete(this.props.itemProps.sku);
-                        }}>
-                        <img src="images/delete.svg"/>
-                    </a>
+                        <a
+                            className={s.inventoryItemDelete}
+                            onClick={() => {
+                                this.props.onDelete(this.props.itemProps.sku);
+                            }}>
+                            <img
+                                className={s.deleteIcon}
+                                src="images/delete.svg"/>
+                        </a>
+                    </div>
                 </div>
-            </div>
                 <div
                     className={
                         s.flexBox + " " +
                         s.inventoryItem
                     }>
 
-                {/* PRODUCT IMAGE */}
+                    {/* PRODUCT IMAGE */}
 
-                <div>
-                    <img
-                        className={s.inventoryItemImage}
-                        src={(this.props.itemProps.image || "").length === 0
-                            ?
-                            ITEM_IMAGE_THUMBNAIL_PLACEHOLDER
-                            :
-                            ITEM_IMAGE_PATH + this.props.itemProps.image
-                        }/>
-                </div>
+                    <div>
+                        <img
+                            className={s.inventoryItemImage}
+                            src={(this.props.itemProps.image || "").length === 0
+                                ?
+                                ITEM_IMAGE_THUMBNAIL_PLACEHOLDER
+                                :
+                                ITEM_IMAGE_PATH + this.props.itemProps.image
+                            }/>
+                    </div>
 
                     < div>
                         <span className={s.inventoryItemProperty}>Categories:</span>
@@ -140,48 +142,42 @@ class InventoryItem extends React.Component {
                         </ul>
                     </div>
 
-                {/*<div>
-                    <span className={s.inventoryItemProperty}>Material:</span>
                     <div>
-                        {this.props.itemProps.material || "n/a"}
-                    </div>
-                </div>*/}
-
-                <div>
-                    {/* MATERIAL */}
-                    <span className={s.inventoryItemProperty}>Material:</span>
-                    <div>
-                        {this.props.itemProps.material || "n/a"}
-                    </div>
-                    {/* STONES */}
-                    <div>
+                        {/* MATERIAL */}
+                        <span className={s.inventoryItemProperty}>Material:</span>
+                        <div>
+                            {this.props.itemProps.material || "n/a"}
+                        </div>
+                        {/* STONES */}
+                        <div>
                         <span
                             className={s.inventoryItemProperty}>Swarovski Stones:</span>
-                        <div>
-                            {this.props.itemProps.swarovski  || "n/a"}
+                            <div>
+                                {this.props.itemProps.swarovski || "n/a"}
+                            </div>
                         </div>
-                    </div>
-                    <div>
+                        <div>
                         <span
                             className={s.inventoryItemProperty}>Natural Stones:</span>
-                        <div>
-                            {this.props.itemProps.natural || "n/a"}
+                            <div>
+                                {this.props.itemProps.natural || "n/a"}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* PRICES */}
+                    {/* PRICES */}
 
-                <div>
                     <div>
-                        <span className={s.inventoryItemProperty}>Wholesale:</span> ${this.props.itemProps.wholesale}
+                        <div>
+                            <span className={s.inventoryItemProperty}>Wholesale:</span>
+                            ${this.props.itemProps.wholesale}
+                        </div>
+                        <div>
+                            <span className={s.inventoryItemProperty}>MSRP:</span> ${this.props.itemProps.msrp}
+                        </div>
                     </div>
-                    <div>
-                        <span className={s.inventoryItemProperty}>MSRP:</span> ${this.props.itemProps.msrp}
-                    </div>
-                </div>
 
-            </div>
+                </div>
             </div>
         );
     }

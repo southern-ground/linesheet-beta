@@ -97,6 +97,7 @@ class AddPage extends React.Component {
                         s.overlaySection +
                         (appState.imageStore.openOverlay ? "" : " " + s.hidden)
                     }>
+
                     <div className={s.overlayContent}>
 
                         <button
@@ -115,6 +116,7 @@ class AddPage extends React.Component {
                         />
 
                     </div>
+
                 </section>
             </Layout>
         );

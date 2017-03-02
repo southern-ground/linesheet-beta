@@ -30,14 +30,14 @@ class ImagesOverlay extends React.Component {
 
     }
 
-    toggleOpen(open){
+    toggleOpen(open) {
         open ? this.refs.imagesList.classList.add(s.imagesListOpen) : this.refs.imagesList.classList.remove(s.imagesListOpen);
     }
 
     render() {
 
         return (
-            <div className={s.imageOverlay + " " + s.container}
+            <div className={s.imageOverlay}
                  onDragEnd={e => {
                      e.preventDefault();
                      e.stopPropagation();
@@ -50,31 +50,30 @@ class ImagesOverlay extends React.Component {
                  }}>
 
 
-                    <h2 className={s.addItemFormHeading}>
-                        Images
-                    </h2>
+                <h2 className={s.addItemFormHeading}>
+                    Images
+                </h2>
 
-                    <UploadImage
-                        openListeners={[this.toggleOpen]} />
+                <UploadImage
+                    openListeners={[this.toggleOpen]}/>
 
-                    <ul className={s.imagesList}
-                        ref="imagesList">
-                        {this.props.images.map((image, index) => {
-                            return (<EditItemImage
-                                imagePath={ITEM_IMAGE_PATH}
-                                imageName={image}
-                                key={' product-image-' + index}
-                                selectImage={this.props.selectImage}
-                                selectedImage={this.props.selectedImage}
-                            />);
-                        })}
-                    </ul>
-
+                <ul className={s.imagesList}
+                    ref="imagesList">
+                    {this.props.images.map((image, index) => {
+                        return (<EditItemImage
+                            imagePath={ITEM_IMAGE_PATH}
+                            imageName={image}
+                            key={' product-image-' + index}
+                            selectImage={this.props.selectImage}
+                            selectedImage={this.props.selectedImage}
+                        />);
+                    })}
+                </ul>
 
             </div>
-    );
+        );
     }
 
-    }
+}
 
-    export default ImagesOverlay;
+export default ImagesOverlay;

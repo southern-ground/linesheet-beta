@@ -49,10 +49,6 @@
     cursor: pointer;
     padding: 0 20px;
 }
-.inventoryItemDelete img{
-    width: 20px;
-    height: auto;
-}
 .inventoryItem div{
     flex-grow: 0;
     flex-basis: 150px;

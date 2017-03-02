@@ -437,21 +437,29 @@ class EditPage extends React.Component {
                         </ul>
                     </form>
                 </section>
-                <section ref="imageOverlay" className={s.overlaySection + " " + s.hidden}>
-                    <div className={s.content + " " + s.overlayContent}>
+
+                <section ref="imageOverlay"
+                         className={s.overlaySection + " " + s.hidden}>
+
+                    <div className={s.overlayContent}>
+
                         <button
                             className={s.button + " " + s.buttonClose}
                             onClick={(e) => {
                                 this.refs.imageOverlay.classList.toggle(s.hidden);
                             }}>Close
                         </button>
+
                         <ImageOverlay
                             images={appState.imageStore.images}
                             selectedImage={this.state.item.image}
                             selectImage={this.selectImage}
                         />
+
                     </div>
+
                 </section>
+
             </Layout>
         );
     }

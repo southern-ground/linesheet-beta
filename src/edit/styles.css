@@ -64,6 +64,18 @@
     margin: 10px 0 0 10px;
 }
 
+.overlayContent {
+    position: relative;
+
+}
+
+.buttonClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
 @media (max-width: 1024px){
     .formItems{
         margin: 0 auto;
