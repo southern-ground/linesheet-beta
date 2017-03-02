@@ -18,6 +18,7 @@
     padding: 0;
     width: 80vw;
     max-width: 400px;
+    margin: 0 auto;
 }
 
 .formItems li {
@@ -74,7 +75,7 @@
 
 .itemImage{
     height: auto;
-    max-height: 100px;
+    max-height: 400px;
     width: auto;
     border: 1px solid darkgray;
 }
