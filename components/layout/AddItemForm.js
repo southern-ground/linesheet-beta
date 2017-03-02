@@ -200,7 +200,7 @@ class AddItemForm extends React.Component {
                                 placeholder="SKU"
                                 ref={SKU_FIELD_REF}
                                 onChange={this.updateSaveEnabled}
-                                className={this.state.error === ERROR_SKU ? s.error__input : ""}
+                                className={this.state.error === ERROR_SKU ? s.errorInput : ""}
                             />
                         </li>
                         <li>
@@ -212,7 +212,7 @@ class AddItemForm extends React.Component {
                                 placeholder="Item Name"
                                 ref={NAME_FIELD_REF}
                                 onChange={this.updateSaveEnabled}
-                                className={this.state.error === ERROR_NAME ? s.error__input : ""}
+                                className={this.state.error === ERROR_NAME ? s.errorInput : ""}
                             />
                         </li>
                         <li>
@@ -323,9 +323,9 @@ class AddItemForm extends React.Component {
                             <input className={
                                 s.formSubmit + " " +
                                 s.button + " " +
-                                s.button__save + " " +
+                                s.buttonSave + " " +
                                 s.align__right +
-                                (this.state.saveEnabled ? "" : " " + s.button__disabled)
+                                (this.state.saveEnabled ? "" : " " + s.buttonDisabled)
                             } type="submit" value="Add Item"
                                    disabled={this.state.busy ? 'disabled' : ''} onClick={this.addItem}/>
 
@@ -333,14 +333,14 @@ class AddItemForm extends React.Component {
                                 to={'/'}
                                 className={
                                     s.button + " " +
-                                    s.button__cancel
+                                    s.buttonCancel
                                 }>
                                 Back
                             </Link>
 
                         </li>
                         <li>
-                            <p className={s.error__message}>{this.state.itemErrorText}</p>
+                            <p className={s.errorMessage}>{this.state.itemErrorText}</p>
                         </li>
                     </ul>
                 </form>

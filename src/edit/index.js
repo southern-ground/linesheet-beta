@@ -274,7 +274,7 @@ class EditPage extends React.Component {
                                     name="item_sku"
                                     placeholder="SKU"
                                     ref={SKU_FIELD_REF}
-                                    className={this.state.error === ERROR_SKU ? s.error__input : ""}
+                                    className={this.state.error === ERROR_SKU ? s.errorInput : ""}
                                     disabled
                                     value={this.state.item.sku}
                                     onChange={(e) => {
@@ -290,7 +290,7 @@ class EditPage extends React.Component {
                                     name="item_name"
                                     placeholder="Item Name"
                                     ref={NAME_FIELD_REF}
-                                    className={this.state.error === ERROR_NAME ? s.error__input : ""}
+                                    className={this.state.error === ERROR_NAME ? s.errorInput : ""}
                                     value={this.state.item.name}
                                     onChange={(e) => {
                                         this.updateField(NAME_FIELD_REF);
@@ -310,7 +310,7 @@ class EditPage extends React.Component {
                                 <button
                                     className={
                                         s.button + " " +
-                                        s.button__image
+                                        s.buttonImage
                                     }
                                     onClick={this.updateImage}>
                                     Change
@@ -415,10 +415,10 @@ class EditPage extends React.Component {
                                 <Link to="#"
                                       className={
                                           s.button + " " +
-                                          s.button__save + " " +
+                                          s.buttonSave + " " +
                                           s.formSubmit + " " +
-                                          s.button__group +
-                                          (this.state.edited ? "" : " " + s.button__disabled)
+                                          s.buttonGroup +
+                                          (this.state.edited ? "" : " " + s.buttonDisabled)
                                       }
                                       onClick={this.updateItem}
                                       disabled={this.state.edited}
@@ -426,13 +426,13 @@ class EditPage extends React.Component {
                                 <Link to={'/'}
                                       className={
                                           s.button + " " +
-                                          s.button__cancel + " " +
-                                          s.button__group}>
+                                          s.buttonCancel + " " +
+                                          s.buttonGroup}>
                                     Done
                                 </Link>
                             </li>
                             <li>
-                                <p className={s.error__message}>{this.state.itemErrorText}</p>
+                                <p className={s.errorMessage}>{this.state.itemErrorText}</p>
                             </li>
                         </ul>
                     </form>
@@ -440,7 +440,7 @@ class EditPage extends React.Component {
                 <section ref="imageOverlay" className={s.overlaySection + " " + s.hidden}>
                     <div className={s.content + " " + s.overlayContent}>
                         <button
-                            className={s.button + " " + s.button__close}
+                            className={s.button + " " + s.buttonClose}
                             onClick={(e) => {
                                 this.refs.imageOverlay.classList.toggle(s.hidden);
                             }}>Close

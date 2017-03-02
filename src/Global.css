@@ -57,48 +57,48 @@ a{
     display: inline-block;
     background: darkgreen;
 }
-.button__close{
+.buttonClose{
     background-color: red;
 }
-.button__delete{
+.buttonDelete{
     background-color: red;
 }
-.button__edit{
+.buttonEdit{
     background-color: darkgreen;
 }
-.button__image{
+.buttonImage{
     display: inline-block;
 }
-.button__save{
+.buttonSave{
     background-color: blue;
 }
-.button__cancel{
+.buttonCancel{
     background-color: darkslategray;
 }
-.button__category{
+.buttonCategory{
     text-transform: uppercase;
 }
-.button__group{
+.buttonGroup{
     display: inline;
     width: 40%;
 }
-.button__disabled{
+.buttonDisabled{
     opacity: 0.5;
     cursor: default;
     pointer-events: none;
 }
 
-.error__input{
+.errorInput{
     border: 1px solid red;
 }
-.error__message{
+.errorMessage{
     color: red;
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: 700;
 }
 
-.generic__error{
+.genericError{
     color: red;
     font-weight: 700;
     text-transform: uppercase;

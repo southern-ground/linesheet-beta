@@ -23,16 +23,16 @@ button{
     margin: 0 0 0 10px;
 }
 
-.button__delete{
+.buttonDelete{
     background-color: red;
 }
-.button__edit{
+.buttonEdit{
     background-color: darkgreen;
 }
-.button__save{
+.buttonSave{
     background-color: blue;
 }
-.button__cancel{
+.buttonCancel{
     background-color: darkslategray;
 }
 .even{

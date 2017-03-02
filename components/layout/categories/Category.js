@@ -71,19 +71,19 @@ class Category extends React.Component {
                 />
                 <div>
                 <button
-                    className={s.button + " " + s.button__save + (this.state.editActive ? "" : " hidden")}
+                    className={s.button + " " + s.buttonSave + (this.state.editActive ? "" : " hidden")}
                     onClick={this.editSave}>Save
                 </button>
                 <button
-                    className={s.button + " " + s.button__cancel + (this.state.editActive ? "" : " hidden")}
+                    className={s.button + " " + s.buttonCancel + (this.state.editActive ? "" : " hidden")}
                     onClick={this.editCancel}>Cancel
                 </button>
                 <button
-                    className={s.button + " " + s.button__edit + (this.state.editActive ? " hidden" : "")}
+                    className={s.button + " " + s.buttonEdit + (this.state.editActive ? " hidden" : "")}
                     onClick={this.editStart}>Edit
                 </button>
                 <button
-                    className={s.button + " " + s.button__delete + (this.state.editActive ? " hidden" : "")}
+                    className={s.button + " " + s.buttonDelete + (this.state.editActive ? " hidden" : "")}
                     onClick={this.deleteCategoryById}>Delete
                 </button>
                 </div>

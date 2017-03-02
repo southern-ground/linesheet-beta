@@ -1,8 +1,10 @@
 @import "../../../src/Global.css";
-.imageOverlay{
+
+.imageOverlay {
     position: relative;
 }
-.imagesList{
+
+.imagesList {
     width: 80vw;
     border: 1px solid #c5c5c5;
     display: flex;
@@ -16,74 +18,9 @@
     margin: 0;
     overflow-y: scroll;
     height: 100%;
-    max-height: calc( 50vh - 20px );
+    max-height: calc(50vh - 20px);
 }
-.imagesListOpen{
-    max-height: calc( 31vh - 20px );
-}
-.uploadFormContainer{
-    height: auto;
-    max-height: 0;
-    overflow:hidden;
-    text-align: center;
-    border: 2px dashed transparent;
-    outline-offset: -10px;
-}
-.uploadForm{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    flex-direction: column;
-    -webkit-transition: max-height 0.5s;
-    -moz-transition: max-height 0.5s;
-    transition: max-height 0.5s;
-}
-.uploadFormOpen{
-    max-height: 999px;
-    padding: 10px;
-    margin: 0 0 20px 0;
-    -webkit-transition: max-height 0.5s;
-    -moz-transition: max-height 0.5s;
-    transition: max-height 0.5s;
-    border: 2px dashed darkgray;
-    outline-offset: -10px;
-}
-.buttonOpenUpload{
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-.dragOver{
-    background: darkgray;
-    border: 2px dashed black;
-}
-.uploading{
-    text-transform: uppercase;
-    color: black;
-}
-.success{
-    text-transform: uppercase;
-    color: green;
-}
-.uploading{
-    text-transform: uppercase;
-    color: red;
-}
-.button__upload{
-    margin: 10px auto 0 auto;
-}
-.status{
-    font-size: 0.8rem;
-    margin: 10px 0 0 0;
-}
-.chooseFiles strong{
-    cursor: pointer;
-}
-.uploadLimit{
-    font-size: 0.75rem;
-    color: darkgray;
-    font-weight: bold;
-    text-transform: uppercase;
+
+.imagesListOpen {
+    max-height: calc(38vh - 20px);
 }

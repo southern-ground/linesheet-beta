@@ -109,7 +109,7 @@ class CategoriesPage extends React.Component {
                                        name="category_name"
                                        placeholder="Category"
                                        ref="category"
-                                       className={this.state.error === ERROR_CATEGORY ? s.error__input : ''}
+                                       className={this.state.error === ERROR_CATEGORY ? s.errorInput : ''}
                                        onChange={this.updateButtonEnable}
                                 />
                             </li>
@@ -117,9 +117,9 @@ class CategoriesPage extends React.Component {
                                 <input className={
                                     s.formSubmit + " " +
                                     s.button + " " +
-                                    s.button__save + " " +
+                                    s.buttonSave + " " +
                                     s.align__right +
-                                    (this.state.formDisabled ? " " + s.button__disabled : "")
+                                    (this.state.formDisabled ? " " + s.buttonDisabled : "")
 
                                 }
                                        type="submit"
@@ -128,7 +128,7 @@ class CategoriesPage extends React.Component {
                                        onClick={this.addCategory}/>
                             </li>
                             <li>
-                                <p className={s.error__message}>
+                                <p className={s.errorMessage}>
                                     {this.state.categoryErrorText}
                                 </p>
                             </li>
@@ -137,7 +137,7 @@ class CategoriesPage extends React.Component {
                 </section>
                 <section>
                     <h2>Current Categories</h2>
-                    <p className={s.error__message}>{this.state.error}</p>
+                    <p className={s.errorMessage}>{this.state.error}</p>
                     <div className={s.categoryList}>
                         {(store.getState().categories || [])
                             .sort((a, b) => {

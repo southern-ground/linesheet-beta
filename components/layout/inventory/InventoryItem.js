@@ -84,7 +84,7 @@ class InventoryItem extends React.Component {
                     <button
                         className={
                             s.button + " " +
-                            s.button__edit + " " +
+                            s.buttonEdit + " " +
                             s.inventoryItemControlButton
                         }
                         onClick={() => {

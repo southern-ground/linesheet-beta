@@ -27,7 +27,7 @@ class Header extends React.Component {
         return (
             <header className={s.header} ref={node => (this.root = node)}>
 
-                <div className={s.header__content}>
+                <div className={s.headerContent}>
                     <Link className={s.title} to="/">
                         Line Sheet Generator
                     </Link>

@@ -335,10 +335,10 @@ class OrganizePage extends React.Component {
                         <input
                             className={
                                 s.button + " " +
-                                s.button__save +
+                                s.buttonSave +
                                 ((this.state.title || "").length > 0 &&
                                 (this.state.fileName || "").length > 0
-                                    ? "" : " " + s.button__disabled)
+                                    ? "" : " " + s.buttonDisabled)
                             }
                             type="submit"
                             value="Save"/>
@@ -354,7 +354,7 @@ class OrganizePage extends React.Component {
                     className={
                         s.backButton + " " +
                         s.button + " " +
-                        s.button__cancel
+                        s.buttonCancel
                     }
                 >
                     Back

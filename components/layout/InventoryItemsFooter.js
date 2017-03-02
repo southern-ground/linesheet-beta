@@ -33,7 +33,7 @@ class InventoryItemsFooter extends React.Component {
                     <div>
                         <form onSubmit={this.saveItems}>
                             <span
-                                className={s.error__message + " " + s.inputErrorMsg}>
+                                className={s.errorMessage + " " + s.inputErrorMsg}>
                                 {this.state.errorMsg}
                             </span>
 
@@ -42,9 +42,9 @@ class InventoryItemsFooter extends React.Component {
                                 className={
                                     s.align__right + " " +
                                     s.button + " " +
-                                    s.button__save +
+                                    s.buttonSave +
                                     (this.props.numItemsSelected == 0
-                                        ? " " + s.button__disabled
+                                        ? " " + s.buttonDisabled
                                         :
                                         "")
                                 }

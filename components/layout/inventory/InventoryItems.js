@@ -103,7 +103,7 @@ class InventoryItems extends React.Component {
     renderPrompt() {
         return (<div className={s.inventoryPrompt}>
             <p>
-                <span className={s.generic__error}>Error:</span> There doesn't appear to be any inventory in the system.
+                <span className={s.genericError}>Error:</span> There doesn't appear to be any inventory in the system.
             </p>
             <p>
                 You can add some by clicking "Add Item" above.
