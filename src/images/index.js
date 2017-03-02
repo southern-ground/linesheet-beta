@@ -14,6 +14,7 @@ import {
 } from '../constants';
 import Layout from '../../components/Layout';
 import ItemImage from '../../components/layout/images/ItemImage';
+import UploadImage from '../../components/layout/UploadImage';
 import Link from '../../components/Link';
 import store from '../store';
 
@@ -23,7 +24,7 @@ class ImagePage extends React.Component {
     * TODO: Break Out Upload Image form to standalone Component.
     * TODO: Add that brand-spanking new component RIGHT HERE.
     * */
-    
+
     constructor(props) {
 
         super(props);
@@ -68,7 +69,6 @@ class ImagePage extends React.Component {
 
     updateProps() {
         var imageStore = store.getState().imageStore;
-        console.log(imageStore);
         this.setState({
             ...this.state,
             images: imageStore.images,
@@ -88,6 +88,7 @@ class ImagePage extends React.Component {
                 </section>
 
                 <section>
+                    <UploadImage/>
                     <ul className={s.imagesList}>
                         {this.state.images.map((image, index) => {
                             return <ItemImage
