@@ -77,6 +77,7 @@ class AddPage extends React.Component {
 
         return (
             <Layout className={s.content}>
+
                 <section>
                     <div dangerouslySetInnerHTML={{__html: html}}/>
                 </section>
@@ -118,6 +119,7 @@ class AddPage extends React.Component {
                     </div>
 
                 </section>
+
             </Layout>
         );
     }
