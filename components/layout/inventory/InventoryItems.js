@@ -14,14 +14,11 @@ import {
 } from '../../../src/constants';
 import store from '../../../src/store';
 import InventorySort from './InventorySort';
+import InventorySearch from './InventorySearch';
 import InventoryItem from './InventoryItem';
 import InventoryItemCategories from './InventoryItemCategories';
 
 class InventoryItems extends React.Component {
-
-    static propTypes = {
-        // articles: PropTypes.array.isRequired,
-    };
 
     constructor(props) {
 
@@ -32,17 +29,37 @@ class InventoryItems extends React.Component {
         this.onDeleteItem = this.onDeleteItem.bind(this);
         this.sortOn = this.sortOn.bind(this);
         this.getSortedInventory = this.getSortedInventory.bind(this);
+        this.filterInventory = this.filterInventory.bind(this);
 
         this.state = {
             loading: true,
-            selectAll: false
+            selectAll: false,
+            filterText: '',
+            itemToDelete: ''
         };
 
     }
 
+    filterInventory(arr) {
+        console.log('filterInventory', arr.length);
+
+        var name, sku, s = this.state.filterText.toLowerCase();
+
+        if (s === '') {
+            return arr;
+        } else {
+            return arr.filter(item => {
+                name = item.name.toLowerCase();
+                sku = item.sku.toLowerCase();
+                return (name.indexOf(s) > -1 || sku.indexOf(s) > -1);
+            });
+        }
+    }
+
     getSortedInventory() {
-        var inventory = this.props.inventory,
+        var inventory = this.filterInventory(this.props.inventory.slice(0)),
             sortOn = this.props.sortOn;
+
         switch (sortOn) {
             case SORT_SKU:
                 return inventory.sort((a, b) => {
@@ -70,10 +87,8 @@ class InventoryItems extends React.Component {
     }
 
     onDeleteItem(id) {
-        store.dispatch({
-            type: DELETE_ITEM,
-            sku: id
-        });
+        this.setState({itemToDelete: id});
+        this.refs.deleteModal.classList.toggle(s.hidden);
     }
 
     renderInventory() {
@@ -82,7 +97,17 @@ class InventoryItems extends React.Component {
 
             <div>
 
-                <InventorySort/>
+                <div className={s.inventoryControls}>
+                    <InventorySort/>
+                    <InventorySearch
+                        filterFunc={s => {
+                            this.setState({
+                                filterText: s
+                            });
+                        }}
+                    />
+                </div>
+
                 <InventoryItemCategories
                     cateogories={this.props.categories}/>
 
@@ -128,7 +153,40 @@ class InventoryItems extends React.Component {
                         :
                         this.renderInventory()
                 }
+
+                <div
+                    className={s.overlay + " " + s.hidden}
+                    ref="deleteModal">
+                    <div
+                        className={s.modal}>
+                        <span>Are you sure you want to delete item <strong>#{this.state.itemToDelete}</strong></span>
+                        <div>
+                            <button
+                                className={s.button + " " + s.buttonDelete}
+                                onClick={e => {
+                                    store.dispatch({
+                                        type: DELETE_ITEM,
+                                        sku: this.state.itemToDelete
+                                    });
+                                    this.refs.deleteModal.classList.toggle(s.hidden);
+                                    this.setState({
+                                        itemToDelete: ""
+                                    });
+                                }}>
+                                Yes
+                            </button>
+                            <button
+                                className={s.button + " " + s.buttonCancel}
+                                onClick={e => {
+                                    this.refs.deleteModal.classList.toggle(s.hidden);
+                                }}>
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
+
         );
     }
 
