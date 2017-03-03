@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import s from './Category.css';
-import store from '../../../src/store';
 import {
     DELETE_CATEGORY,
     EDIT_CATEGORY
 } from '../../../src/constants';
+import store from '../../../src/store';
 
 class Category extends React.Component {
 

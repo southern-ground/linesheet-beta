@@ -1,20 +1,23 @@
+/**
+ * Created by fst on 2/16/17.
+ */
+
 import React, {PropTypes} from 'react';
 import s from './InventoryItem.css';
-import store from '../../../src/store';
 import {
     ITEM_IMAGE_PATH,
     ITEM_IMAGE_THUMBNAIL_PLACEHOLDER,
     SELECT_ITEM
 } from '../../../src/constants';
+import store from '../../../src/store';
 import history from '../../../src/history';
-import Link from '../../../components/Link';
 
 class InventoryItem extends React.Component {
 
     static propTypes = {
         itemProps: PropTypes.object.isRequired,
         allCategories: PropTypes.array.isRequired,
-        onDelete: PropTypes.func.isRequired/**/
+        onDelete: PropTypes.func.isRequired
     };
 
     constructor(props) {

@@ -1,11 +1,14 @@
+/**
+ * Created by fst on 2/1/17.
+ */
+
 import React, {PropTypes} from 'react';
-import s from './styles.css';
 import {
     title,
     html
 } from './index.md';
+import s from './styles.css';
 import {
-    CLOSE_IMAGE_OVERLAY,
     GET_INVENTORY
 } from '../constants';
 import InventoryItems from '../../components/layout/inventory/InventoryItems';

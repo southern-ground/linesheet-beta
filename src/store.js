@@ -1,3 +1,7 @@
+/**
+ * Created by fst on 2/1/17.
+ */
+
 import {
     createStore
 } from 'redux';

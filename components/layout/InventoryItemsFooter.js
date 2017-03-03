@@ -1,13 +1,10 @@
+/**
+ * Created by fst on 2/20/17.
+ */
+
 import React, {PropTypes} from 'react';
 import s from './InventoryItemsFooter.css';
-import {
-    ORGANIZE_SELECTION,
-    sanitizeString
-} from '../../src/constants';
-import store from '../../src/store';
 import Link from '../../components/Link';
-
-const FILE_NAME_ERROR = "Please enter a valid filename";
 
 class InventoryItemsFooter extends React.Component {
 

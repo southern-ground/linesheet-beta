@@ -2,6 +2,7 @@
  * Created by fst on 2/14/17.
  */
 
+import request from 'superagent';
 import {
     API,
     OK,
@@ -17,7 +18,6 @@ import {
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE
 } from '../constants';
-import request from 'superagent';
 import store from '../store';
 
 export default function inventory(state = [], action) {

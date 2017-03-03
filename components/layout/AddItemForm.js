@@ -1,6 +1,9 @@
+/**
+ * Created by fst on 2/20/17.
+ */
+
 import React, {PropTypes} from 'react';
 import s from './AddItemForm.css';
-import store from '../../src/store';
 import {
     ADD_ITEM,
     ERROR_NAME,
@@ -19,6 +22,7 @@ import {
     WHOLESALE_FIELD_REF,
     sanitizeProductName
 } from '../../src/constants';
+import store from '../../src/store';
 import CategorySelect from './categories/CategorySelect';
 import Link from '../../components/Link';
 

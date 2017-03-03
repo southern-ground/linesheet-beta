@@ -1,8 +1,10 @@
+/**
+ * Created by fst on 2/7/17.
+ */
+
 import React from 'react';
-import Layout from '../../components/Layout';
-import s from './styles.css';
 import {title, html} from './index.md';
-import store from '../../src/store';
+import s from './styles.css';
 import {
     ERROR_SKU,
     ERROR_NAME,
@@ -22,9 +24,11 @@ import {
     MSRP_FIELD_REF,
     sanitizeProductName
 } from '../constants';
+import Layout from '../../components/Layout';
 import CategorySelect from '../../components/layout/categories/CategorySelect';
 import Link from '../../components/Link';
 import ImageOverlay from '../../components/layout/overlays/ImagesOverlay';
+import store from '../../src/store';
 
 class EditPage extends React.Component {
 

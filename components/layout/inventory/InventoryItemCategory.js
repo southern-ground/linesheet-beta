@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/15/17.
  */
+
 import React, { PropTypes } from 'react';
 
 export default class InventoryItemCategory extends React.Component{

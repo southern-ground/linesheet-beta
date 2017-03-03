@@ -1,6 +1,9 @@
+/**
+ * Created by fst on 3/3/17.
+ */
+
 import React, {PropTypes} from 'react';
 import s from './InventorySearch.css';
-
 
 export default class InventorySearch extends React.Component {
 

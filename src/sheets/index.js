@@ -3,18 +3,16 @@
  */
 
 import React, {PropTypes} from 'react';
-import s from './styles.css';
-import _ from 'lodash';
 import {
     title,
     html
 } from './index.md';
+import s from './styles.css';
 import {
     GET_FILE_LIST
 } from '../../src/constants';
 import Layout from '../../components/Layout';
 import Link from '../../components/Link';
-import history from '../history';
 import store from '../store';
 
 const SORT_DATE = "sort-date";

@@ -1,15 +1,14 @@
 /**
  * Created by fst on 2/16/17.
  */
+
 import React, {PropTypes} from 'react';
 import s from './ImagesOverlay.css';
-import EditItemImage from '../images/EditItemImage';
 import {
     ITEM_IMAGE_PATH
 } from '../../../src/constants';
+import EditItemImage from '../images/EditItemImage';
 import UploadImage from '../UploadImage';
-
-import {} from '../../../src/constants';
 
 class ImagesOverlay extends React.Component {
 

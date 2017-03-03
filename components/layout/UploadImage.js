@@ -1,12 +1,13 @@
 /**
  * Created by fst on 3/2/17.
  */
+
 import React, {PropTypes} from 'react';
-import store from '../../src/store';
+import s from './UploadImage.css'
 import {
     UPLOAD_IMAGES
 } from '../../src/constants';
-import s from './UploadImage.css'
+import store from '../../src/store';
 
 export default class UploadImage extends React.Component {
 

@@ -6,9 +6,6 @@
 
 export const API = "http://shellybrown.com/linesheets/api/";
 
-/* FILES */
-export const JSON_FILE = "http://shellybrown.com/linesheets/data/linesheets.json";
-
 /* ERRORS */
 
 export const ERROR_CATEGORY = "invalid category name";

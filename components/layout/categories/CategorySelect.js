@@ -1,5 +1,8 @@
+/**
+ * Created by fst on 2/20/17.
+ */
+
 import React, {PropTypes} from 'react';
-import s from './CategorySelect.css';
 
 class CategorySelect extends React.Component {
 

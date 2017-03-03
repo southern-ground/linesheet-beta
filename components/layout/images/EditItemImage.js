@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/16/17.
  */
+
 import React, {PropTypes} from 'react';
 import s from './EditItemImage.css';
 

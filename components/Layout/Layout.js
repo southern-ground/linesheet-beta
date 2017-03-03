@@ -10,9 +10,9 @@
 
 import React, {PropTypes} from 'react';
 import cx from 'classnames';
+import s from './Layout.css';
 import Header from './Header';
 import Footer from '../Footer';
-import s from './Layout.css';
 import store from '../../src/store';
 
 class Layout extends React.Component {

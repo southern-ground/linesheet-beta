@@ -1,23 +1,24 @@
 /**
  * Created by fst on 2/20/17.
  */
+
 import React, {PropTypes} from 'react';
-import s from './styles.css';
+import history from '../history';
 import {
     title,
     html
 } from './index.md';
-import Layout from '../../components/Layout';
-import Link from '../../components/Link';
-import history from '../history';
-import store from '../store';
-import ArrangableItem from '../../components/layout/inventory/ArrangableItem';
+import Sortable from 'sortablejs';
+import s from './styles.css';
 import {
     SAVE_FILE,
     SORT_SKU,
     SORT_NAME
 } from '../../src/constants';
-import Sortable from 'sortablejs';
+import Layout from '../../components/Layout';
+import Link from '../../components/Link';
+import ArrangableItem from '../../components/layout/inventory/ArrangableItem';
+import store from '../store';
 
 class OrganizePage extends React.Component {
 

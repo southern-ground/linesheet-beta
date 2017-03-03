@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/14/17.
  */
+
 import {
     API,
     ADD_CATEGORY,
@@ -8,13 +9,12 @@ import {
     DELETE_CATEGORY,
     EDIT_CATEGORY,
     GET_CATEGORIES_RESPONSE,
-    GET_INVENTORY_RESPONSE
+    GET_INVENTORY_RESPONSE,
+    sanitizeProductName
 } from '../constants';
 import request from 'superagent';
 import store from '../store';
-import {
-    sanitizeProductName
-} from '../constants';
+
 export default function categories(state = [], action) {
     switch (action.type) {
         case ADD_CATEGORY:

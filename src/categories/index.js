@@ -1,14 +1,18 @@
+/**
+ * Created by fst on 2/7/17.
+ */
+
 import React from 'react';
-import Layout from '../../components/Layout';
-import s from './styles.css';
 import {title, html} from './index.md';
-import store from '../store';
+import s from './styles.css';
 import {
     ADD_CATEGORY,
     GET_CATEGORIES,
     ERROR_CATEGORY
 } from '../constants';
+import Layout from '../../components/Layout';
 import Category from '../../components/layout/categories/Category';
+import store from '../store';
 
 class CategoriesPage extends React.Component {
 

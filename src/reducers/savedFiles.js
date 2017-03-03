@@ -1,6 +1,8 @@
 /**
  * Created by fst on 2/22/17.
  */
+
+import request from 'superagent';
 import {
     API,
     GET_FILE_LIST,
@@ -10,7 +12,6 @@ import {
     sanitizeString
 } from '../constants';
 import store from '../../src/store';
-import request from 'superagent';
 
 var defaultState = {
     files: [],

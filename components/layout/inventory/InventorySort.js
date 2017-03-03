@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/21/17.
  */
+
 import React, {PropTypes} from 'react';
 import {
     SORT_SKU,
@@ -10,6 +11,7 @@ import {
 import s from './InventorySort.css';
 import store from '../../../src/store';
 import Link from '../../Link';
+
 export default class InventorySort extends React.Component {
 
     render() {

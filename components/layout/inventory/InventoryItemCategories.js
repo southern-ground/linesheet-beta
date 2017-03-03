@@ -1,13 +1,14 @@
 /**
  * Created by fst on 2/15/17.
  */
+
 import React, {PropTypes} from 'react';
-import InventoryItemCategory from './InventoryItemCategory';
-import s from './InventoryItemCategories.css';
-import store from '../../../src/store';
 import {
     SELECT_CATEGORY
 } from '../../../src/constants';
+import s from './InventoryItemCategories.css';
+import store from '../../../src/store';
+import InventoryItemCategory from './InventoryItemCategory';
 
 export default class InventoryItemCategories extends React.Component {
 

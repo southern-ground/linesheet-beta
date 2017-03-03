@@ -1,6 +1,8 @@
 /**
  * Created by fst on 2/16/17.
  */
+
+import request from 'superagent';
 import {
     API,
     CLOSE_IMAGE_OVERLAY,
@@ -11,7 +13,6 @@ import {
     OPEN_IMAGE_OVERLAY,
     UPLOAD_IMAGES
 } from '../constants';
-import request from 'superagent';
 import store from '../store';
 
 const imagesDefault = {

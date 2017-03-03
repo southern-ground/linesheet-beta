@@ -1,8 +1,11 @@
+/**
+ * Created by fst on 2/1/17.
+ */
 
 import React from 'react';
-import Layout from '../../components/Layout';
-import s from './styles.css';
 import {title, html} from './index.md';
+import s from './styles.css';
+import Layout from '../../components/Layout';
 
 class AboutPage extends React.Component {
 

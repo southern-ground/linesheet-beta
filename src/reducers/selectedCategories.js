@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/17/17.
  */
+
 import {
     SELECT_CATEGORY
 } from '../constants';

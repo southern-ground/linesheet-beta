@@ -1,7 +1,11 @@
+/**
+ * Created by fst on 2/1/17.
+ */
+
 import React from 'react';
 import history from '../history';
-import Link from '../../components/Link';
 import s from './styles.css';
+import Link from '../../components/Link';
 
 class ErrorPage extends React.Component {
 

@@ -1,12 +1,13 @@
 /**
  * Created by fst on 2/28/17.
  */
+
 import React, {PropTypes} from 'react';
-import s from './styles.css';
 import {
     title,
     html
 } from './index.md';
+import s from './styles.css';
 import {
     DELETE_IMAGE,
     GET_IMAGES,

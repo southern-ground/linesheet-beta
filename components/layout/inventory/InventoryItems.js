@@ -1,11 +1,11 @@
+/**
+ * Created by fst on 2/16/17.
+ */
+
 import React, {PropTypes} from 'react';
 import s from './InventoryItems.css';
-import i from './InventoryItems.css';
 import {
     DELETE_ITEM,
-    GET_INVENTORY,
-    ITEM_IMAGE_PATH,
-    SELECT_ALL_INVENTORY_ITEMS,
     SORT_HOME_INVENTORY_ON,
     SORT_SKU,
     SORT_NAME,

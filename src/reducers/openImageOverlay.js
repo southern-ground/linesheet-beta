@@ -1,6 +1,7 @@
 /**
  * Created by fst on 2/17/17.
  */
+
 import {
     CLOSE_IMAGE_OVERLAY,
     OPEN_IMAGE_OVERLAY
