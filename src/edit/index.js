@@ -310,7 +310,7 @@ class EditPage extends React.Component {
                                         ?
                                         ITEM_IMAGE_PATH + this.state.item.image
                                         :
-                                        ITEM_IMAGE_PLACEHOLDER}/>
+                                        "../" + ITEM_IMAGE_PLACEHOLDER}/>
                                 <button
                                     className={
                                         s.button + " " +
