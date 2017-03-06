@@ -1,3 +1,5 @@
+@import "../../src/Global.css";
+
 .nav {
 
     margin: 0;
@@ -8,7 +10,7 @@
     height: auto;
     align-items: center;
     box-sizing: border-box;
-    color: rgb(255, 255, 255);
+    color: color(var(--white));
     text-align: center;
 
 }
@@ -16,7 +18,7 @@
 .nav a {
     font-weight: bold;
     text-transform: uppercase;
-    color: white;
+    color: color(var(--white));
     text-decoration: none;
 
     display: inline-block;

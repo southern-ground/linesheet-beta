@@ -1,3 +1,5 @@
+@import "../../../src/Global.css";
+
 .category{
     padding: 5px 10px;
     display: flex;
@@ -13,7 +15,7 @@ button{
 .button{
     cursor:pointer;
     border: none;
-    color: white;
+    color: color(var(--white));
     border-radius:5px;
     padding: 4px 10px;
     text-align: center;
@@ -24,17 +26,17 @@ button{
 }
 
 .buttonDelete{
-    background-color: red;
+    background-color: color(var(--red));
 }
 .buttonEdit{
-    background-color: darkgreen;
+    background-color: color(var(--green));
 }
 .buttonSave{
-    background-color: blue;
+    background-color: color(var(--blue));
 }
 .buttonCancel{
-    background-color: darkslategray;
+    background-color: color(var(--cancel));
 }
 .even{
-    background-color: #c5c5c5;
+    background-color: color(var(--gray));
 }

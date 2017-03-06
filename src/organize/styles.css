@@ -55,7 +55,7 @@
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: color(var(--black));
     position: relative;
 }
 .sortType:not(:last-of-type){

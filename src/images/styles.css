@@ -30,10 +30,10 @@
 }
 
 .modal {
-    background: white;
+    background: color(var(--white));
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    box-shadow: 5px 5px 10px color(var(--black) a(80%));
     display: flex;
     flex-flow: column;
     min-width: 25vw;
@@ -59,7 +59,7 @@
 .modalTitle {
     text-transform: uppercase;
     font-weight: bold;
-    color: red;
+    color: color(var(--red));
     font-size: 1.25rem;
     padding: 0 0 10px;
 }

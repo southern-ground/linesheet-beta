@@ -1,28 +1,41 @@
-body,html{
+:root {
+    --red: red;
+    --green: darkgreen;
+    --blue: blue;
+    --white: white;
+    --gray: darkgray;
+    --cancel: darkslategray;
+    --black: black;
+    --blocker: black;
+}
+
+body, html {
     margin: 0;
     padding: 0;
+    background: white;
 }
 
 *, html, body, h1, h2, h3, h4 {
     font-family: 'Raleway', sans-serif;
 }
 
-a{
-    color: red;
+a {
+    color: color(var(--red));
 }
-.align__right{
+
+.align__right {
     text-align: right;
     justify-content: flex-end;
 }
 
-.float__right{
+.float__right {
     float: right;
 }
 
-.blocker{
+.blocker {
     z-index: 150;
-    background-color: rgba(0,0,0,0.95);
-    color: white;
+    background-color: color(var(--blocker) a(95%));
+    color: color(var(--white));
     position: fixed;
     top: 0;
     width: 100%;
@@ -34,17 +47,18 @@ a{
     font-weight: bold;
     text-transform: uppercase;
 }
-.busyMessage{
+
+.busyMessage {
     font-size: 0.8rem;
     opacity: 0.8;
 }
 
-.button{
-    cursor:pointer;
+.button {
+    cursor: pointer;
     border: none;
-    color: white;
+    color: color(var(--white));
     font-weight: bold;
-    border-radius:5px;
+    border-radius: 5px;
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
@@ -53,100 +67,111 @@ a{
     text-transform: uppercase;
     line-height: normal;
 }
-.button__addItem{
+
+.button__addItem {
     display: inline-block;
-    background: darkgreen;
+    background: color(var(--green));
 }
-.buttonClose{
-    background-color: red;
+
+.buttonClose {
+    background-color: color(var(--red));
 }
-.buttonDelete{
-    background-color: red;
+
+.buttonDelete {
+    background-color: color(var(--red));
 }
-.buttonEdit{
-    background-color: darkgreen;
+
+.buttonEdit {
+    background-color: color(var(--green));
 }
-.buttonImage{
+
+.buttonImage {
     display: inline-block;
 }
-.buttonSave{
-    background-color: blue;
+
+.buttonSave {
+    background-color: color(var(--blue));
 }
-.buttonCancel{
-    background-color: darkslategray;
+
+.buttonCancel {
+    background-color: color(var(--cancel));
 }
-.buttonCategory{
+
+.buttonCategory {
     text-transform: uppercase;
 }
-.buttonGroup{
+
+.buttonGroup {
     display: inline;
     width: 40%;
 }
-.buttonDisabled{
+
+.buttonDisabled {
     opacity: 0.5;
     cursor: default;
     pointer-events: none;
 }
 
-.errorInput{
-    border: 1px solid red;
+.errorInput {
+    border: 1px solid color(var(--red));
 }
-.errorMessage{
-    color: red;
+
+.errorMessage {
+    color: color(var(--red));
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: 700;
 }
 
-.genericError{
-    color: red;
+.genericError {
+    color: color(var(--red));
     font-weight: 700;
     text-transform: uppercase;
 }
 
-.hidden{
+.hidden {
     display: none !important;
 }
 
-.flexBox{
+.flexBox {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     justify-content: space-between;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid color(var(--gray));
 }
 
-.flexBox > div{
+.flexBox > div {
     padding: 10px 0;
 }
 
-.flexBoxTop{
-    background-color: lightgray;
+.flexBoxTop {
+    background-color: color(var(--gray));
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid transparent;
 }
 
-.flexBoxTop div{
-    font-size:0.8rem;
+.flexBoxTop div {
+    font-size: 0.8rem;
     justify-content: flex-start;
     align-items: center;
 }
 
-.flexBoxTop div:not(:first-child){
+.flexBoxTop div:not(:first-child) {
     padding: 0 0 0 10px;
 }
 
-.flexBoxHeader{
-    background: darkgray;
+.flexBoxHeader {
+    background: color(var(--gray));
 }
 
-.flexItem{
+.flexItem {
     padding: 5px 10px;
-    border: 1px solid red;
+    border: 1px solid color(var(--red));
     flex-basis: 150px;
-    flex-grow:0;
+    flex-grow: 0;
     align-items: center;
     justify-content: center;
 }
@@ -160,39 +185,39 @@ a{
     flex-direction: column;
 }
 
-.uppercase{
+.uppercase {
     text-transform: uppercase;
 }
 
 /* OVERLAYS */
 
-.overlaySection{
+.overlaySection {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.8);
+    background-color: color(var(--blocker) a(80%));
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.overlayContent{
-    background: white;
+.overlayContent {
+    background: color(var(--white));
     padding: 20px;
     border-radius: 10px;
     width: 80vw;
     height: 80vh;
 }
 
-.deleteIcon{
-    width: 20px;
-    height: auto;
+.deleteIcon {
+    width: 2em;
+    height: 2em;
 }
 
 @media screen and (max-width: 1024px) {
-    .content{
+    .content {
         padding: 0 20px;
     }
 

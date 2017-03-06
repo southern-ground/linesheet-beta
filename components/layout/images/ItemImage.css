@@ -13,7 +13,7 @@
     display: none;
 }
 .itemImageWrapper:hover{
-    box-shadow: inset 0 0 0 3px darkgray;
+    box-shadow: inset 0 0 0 3px color(var(--gray));
     transition: box-shadow 0.25s ease-in-out;
     -moz-transition: box-shadow .25s ease-in-out;
     -webkit-transition: box-shadow .25s ease-in-out;
@@ -33,8 +33,8 @@
     opacity: 1;
 }
 .selectedImage{
-    border: 1px solid darkgray;
-    box-shadow: 4px 4px 5px darkgray;
+    border: 1px solid color(var(--gray));
+    box-shadow: 4px 4px 5px color(var(--gray));
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

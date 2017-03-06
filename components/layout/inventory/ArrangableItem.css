@@ -1,3 +1,5 @@
+@import "../../../src/Global.css";
+
 .item{
     display: flex;
     flex-direction: row;
@@ -5,7 +7,7 @@
     width: 50%;
     cursor: pointer;
     opacity: 0.8;
-    background: white;
+    background: color(var(--white));
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
@@ -13,10 +15,10 @@
     opacity: 1;
 }
 .dragging{
-    border: 2px dashed darkgray;
+    border: 2px dashed color(var(--gray));
 }
 .dragOver{
-    border: 2px solid red;
+    border: 2px solid color(var(--red));
 }
 .image {
     width: 50%;

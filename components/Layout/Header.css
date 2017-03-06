@@ -7,9 +7,11 @@
 * This source code is licensed under the MIT license found in the
 * LICENSE.txt file in the root directory of this source tree.
 */
+@import "../../src/Global.css";
+
 .header {
     width: 100%;
-    background: #c5c5c5;
+    background: color(var(--gray));
     color: white;
     text-transform: uppercase;
     padding: 20px 0;
