@@ -103,6 +103,8 @@ class InventoryItem extends React.Component {
                             }}>
                             <img
                                 className={s.deleteIcon}
+                                width="0"
+                                height="0"
                                 src="images/delete.svg"/>
                         </a>
                     </div>

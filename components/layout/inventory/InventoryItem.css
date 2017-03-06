@@ -1,5 +1,8 @@
 @import '../../../src/Global.css';
-
+.deleteIcon {
+    width: 2em;
+    height: 2em;
+}
 .inventoryItem{
     font-size:0.8rem;
     justify-content: space-around;
