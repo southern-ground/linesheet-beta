@@ -58,6 +58,10 @@ export const SAVE_FILE = "save_file";
 export const SAVE_FILE_RESPONSE = "save_file_response";
 export const GET_FILE_LIST = "get_file_list";
 export const GET_FILE_LIST_RESPONSE = "get_file_list_response";
+export const IMPORT_XLSX = "import_xlsx";
+export const UPLOAD_XLSX = "upload_xlsx";
+export const UPDATE_AFTER_IMPORT = "update_after_import";
+export const XLSX_LIST = "xlsx_list";
 
 /* SUNDRY */
 export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "images/placeholder.svg";

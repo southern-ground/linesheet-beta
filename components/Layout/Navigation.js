@@ -29,6 +29,7 @@ class Navigation extends React.Component {
                 ref={node => (this.root = node)}>
                 <Link to="/">Items</Link>
                 <Link to="/add">Add Item</Link>
+                <Link to="/import">Import</Link>
                 <Link to="/categories">Categories</Link>
                 <Link to="/images">Images</Link>
                 <Link to="/sheets">Saved Sheets</Link>

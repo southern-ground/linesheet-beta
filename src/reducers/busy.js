@@ -12,6 +12,7 @@ import {
     GET_FILE_LIST,
     GET_IMAGES,
     GET_INVENTORY,
+    IMPORT_XLSX,
     SAVE_FILE,
     UPDATE_ITEM,
     UPLOAD_IMAGES
@@ -28,6 +29,7 @@ export default function busy(state = false, action) {
         case GET_FILE_LIST:
         case GET_IMAGES:
         case GET_INVENTORY:
+        case IMPORT_XLSX:
         case SAVE_FILE:
         case UPDATE_ITEM:
         case UPLOAD_IMAGES:

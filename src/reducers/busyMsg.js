@@ -15,6 +15,7 @@ import {
     GET_FILE_LIST,
     GET_IMAGES,
     GET_INVENTORY,
+    IMPORT_XLSX,
     SAVE_FILE,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE,
@@ -50,6 +51,8 @@ export default function busyMsg(state = '', action) {
         case GET_INVENTORY:
             return "Getting Inventory";
             break;
+        case IMPORT_XLSX:
+            return "Importing Data";
         case SAVE_FILE:
             return "Saving File";
             break;

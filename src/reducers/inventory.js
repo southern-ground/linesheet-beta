@@ -15,6 +15,7 @@ import {
     SELECT_CATEGORY,
     SELECT_ITEM,
     SELECT_ALL_INVENTORY_ITEMS,
+    UPDATE_AFTER_IMPORT,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE
 } from '../constants';
@@ -141,6 +142,7 @@ export default function inventory(state = [], action) {
                     }
                 });
             return state;
+        case UPDATE_AFTER_IMPORT:
         case UPDATE_ITEM_RESPONSE:
             return action.inventory;
         case SELECT_ITEM:

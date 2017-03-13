@@ -34,6 +34,10 @@
     "page": "./add"
   },
   {
+    "path": "/import",
+    "page": "./import"
+  },
+  {
     "path": "/edit/:id",
     "page": "./edit"
   },

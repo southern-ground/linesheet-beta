@@ -10,6 +10,7 @@ import {
     EDIT_CATEGORY,
     GET_CATEGORIES_RESPONSE,
     GET_INVENTORY_RESPONSE,
+    UPDATE_AFTER_IMPORT,
     sanitizeProductName
 } from '../constants';
 import request from 'superagent';
@@ -101,6 +102,7 @@ export default function categories(state = [], action) {
                 });
             return state;
         case GET_INVENTORY_RESPONSE:
+        case UPDATE_AFTER_IMPORT:
             return action.categories;
         default:
             return state;

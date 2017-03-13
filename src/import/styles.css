@@ -1,0 +1,53 @@
+@import "../Global.css";
+
+.overlayContent {
+    position: relative;
+
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.sectionDisabled{
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.skuList{
+    max-height: 999px;
+    transition: max-height .25s ease-in-out;
+    -moz-transition: max-height .25s ease-in-out;
+    -webkit-transition: max-height .25s ease-in-out;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0 0 20px;
+}
+.skuList ol{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items:flex-start;
+    align-content: flex-start;
+    flex-grow: 200;
+}
+.skuList ol li{
+    flex-basis: 20%;
+    margin: 0 24px 0 0;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+.collapsed{
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    transition: max-height .25s ease-in-out;
+    -moz-transition: max-height .25s ease-in-out;
+    -webkit-transition: max-height .25s ease-in-out;
+}

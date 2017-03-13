@@ -14,6 +14,7 @@ import busy from './busy';
 import busyMsg from './busyMsg';
 import openInventoryFile from './openInventoryFile';
 import homeInventorySort from './homeInventorySort';
+import xlsx from './xlsx';
 
 export default combineReducers({
     savedFileStore,
@@ -26,5 +27,6 @@ export default combineReducers({
     busy,
     busyMsg,
     openInventoryFile,
-    homeInventorySort
+    homeInventorySort,
+    xlsx
 })
