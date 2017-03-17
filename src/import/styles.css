@@ -18,7 +18,7 @@
 }
 
 .skuList{
-    max-height: 999px;
+    max-height: 3000px;
     transition: max-height .25s ease-in-out;
     -moz-transition: max-height .25s ease-in-out;
     -webkit-transition: max-height .25s ease-in-out;
@@ -42,6 +42,15 @@
     margin: 0 24px 0 0;
     font-size: 1em;
     line-height: 1.5em;
+}
+.bottomSection{
+    overflow-y: hidden;
+    margin: 20px 0 0;
+    max-height: 5000px;
+}
+.uploadButton{
+    margin: 20px 0 0 20px;
+    display: inline-block;
 }
 .collapsed{
     max-height: 0;

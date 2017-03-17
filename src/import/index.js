@@ -56,11 +56,11 @@ class ImportPage extends React.Component {
     }
 
     renderComplete() {
-        return <section>
+        return <section className={s.bottomSection}>
 
             <strong>Import Complete</strong>
 
-            <p>A total of {this.state.imported.length} item(s) were imported. <a
+            <p>A total of {this.state.imported.length} item{this.state.imported.length === 1 ? " was" : "s were"} imported. <a
                 href="#"
                 className={this.state.imported.length === 0 ? s.hidden : ""}
                 onClick={e => {
@@ -81,7 +81,7 @@ class ImportPage extends React.Component {
                 </ol>
             </div>
 
-            <p>A total of {this.state.skipped.length} item(s) were skipped. <a
+            <p>A total of {this.state.skipped.length} item{this.state.skipped.length === 1 ? " was" : "s were"} skipped. <a
                 href="#"
                 className={this.state.skipped.length === 0 ? s.hidden : ""}
                 onClick={e => {
@@ -107,12 +107,12 @@ class ImportPage extends React.Component {
     }
 
     renderUploadedFile() {
-        return <section className={this.state.target === "" ? s.sectionDisabled : ""}>
+        return <section className={s.bottomSection + (this.state.target === "" ? " " + s.collapsed : "")}>
 
             <strong>Uploaded File:</strong> {this.state.target !== "" ? this.state.target : ""}
 
             <button
-                className={s.button + " " + (this.state.target === "" ? s.buttonDisabled : "")}
+                className={s.button + " " + s.uploadButton + " " + (this.state.target === "" ? s.buttonDisabled : "")}
                 disabled={this.state.target !== "" ? "" : "DISABLED"}
                 onClick={(e) => {
                     store.dispatch({
