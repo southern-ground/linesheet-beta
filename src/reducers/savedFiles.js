@@ -5,6 +5,7 @@
 import request from 'superagent';
 import {
     API,
+    DELETE_FILE,
     GET_FILE_LIST,
     GET_FILE_LIST_RESPONSE,
     SAVE_FILE,
@@ -86,11 +87,33 @@ const saveFile = (action) => {
 
 export default function savedFileStore(state = defaultState, action) {
     switch (action.type) {
+        case DELETE_FILE:
+            request
+                .get(API)
+                .query({
+                    action: DELETE_FILE,
+                    file: action.file
+                })
+                .end((err, res) => {
+                    if (err) {
+                        console.warn('DELETE_FILE error', err);
+                    } else {
+                        var data = JSON.parse(res.text);
+                        if (data.response === 200) {
+                            store.dispatch({
+                                type: GET_FILE_LIST_RESPONSE,
+                                files: data.allFiles || []
+                            });
+                        } else {
+                            console.warn();
+                        }
+                    }
+                });
+            return state;
         case GET_FILE_LIST:
             getFileList(action);
             return state;
         case GET_FILE_LIST_RESPONSE:
-            console.log('GET_FILE_LIST_RESPONSE', action);
             return {
                 ...state,
                 files: action.files,

@@ -54,6 +54,7 @@ export const OPEN_IMAGE_OVERLAY = "open_image_overlay";
 export const UPLOAD_IMAGES = "upload_images";
 
 /* FILES */
+export const DELETE_FILE = "delete_file";
 export const SAVE_FILE = "save_file";
 export const SAVE_FILE_RESPONSE = "save_file_response";
 export const GET_FILE_LIST = "get_file_list";

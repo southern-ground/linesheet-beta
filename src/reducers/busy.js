@@ -13,6 +13,7 @@ import {
     GET_IMAGES,
     GET_INVENTORY,
     IMPORT_XLSX,
+    DELETE_FILE,
     SAVE_FILE,
     UPDATE_ITEM,
     UPLOAD_IMAGES
@@ -23,6 +24,7 @@ export default function busy(state = false, action) {
         case ADD_CATEGORY:
         case ADD_ITEM:
         case DELETE_CATEGORY:
+        case DELETE_FILE:
         case DELETE_ITEM:
         case EDIT_CATEGORY:
         case GET_CATEGORIES:

@@ -9,6 +9,7 @@ import {
 } from './index.md';
 import s from './styles.css';
 import {
+    DELETE_FILE,
     GET_FILE_LIST
 } from '../../src/constants';
 import Layout from '../../components/Layout';
@@ -82,32 +83,34 @@ class SheetsPage extends React.Component {
 
                 <section
                     className={this.state.files.length === 0 ? s.hidden : ""}>
-                    <strong>Order by:</strong> <Link
-                    to={'#'}
-                    onClick={e => {
-                        e.preventDefault();
-                        this.setState({
-                            sort: SORT_DATE,
-                            files: store.getState().savedFileStore.files.slice(0)
-                        });
-                    }}
-                    className={s.sortLink + (this.state.sort === SORT_DATE ? " " + s.active : "")}>
-                    Last Modified
-                </Link> or <Link
-                    to={'#'}
-                    onClick={e => {
-                        e.preventDefault();
-                        this.setState({
-                            sort: SORT_NAME,
-                            files: store.getState().savedFileStore.files.slice(0)
-                                .sort((a, b) => {
-                                    return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
-                                })
-                        })
-                    }}
-                    className={s.sortLink + (this.state.sort === SORT_NAME ? " " + s.active : "")}>
-                    Name
-                </Link>
+                    <strong>Order by:</strong>
+                    <Link
+                        to={'#'}
+                        onClick={e => {
+                            e.preventDefault();
+                            this.setState({
+                                sort: SORT_DATE,
+                                files: store.getState().savedFileStore.files.slice(0)
+                            });
+                        }}
+                        className={s.sortLink + (this.state.sort === SORT_DATE ? " " + s.active : "")}>
+                        Last Modified
+                    </Link> or
+                    <Link
+                        to={'#'}
+                        onClick={e => {
+                            e.preventDefault();
+                            this.setState({
+                                sort: SORT_NAME,
+                                files: store.getState().savedFileStore.files.slice(0)
+                                    .sort((a, b) => {
+                                        return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
+                                    })
+                            })
+                        }}
+                        className={s.sortLink + (this.state.sort === SORT_NAME ? " " + s.active : "")}>
+                        Name
+                    </Link>
                     <ul className={s.fileList}>
                         {this.state.files.map((file, index) => {
                             return <li
@@ -117,13 +120,65 @@ class SheetsPage extends React.Component {
                                 href={"http://shellybrown.com/linesheets/pdf/?data=" + file}>
                                 {file.replace(/\.json/gi, '')}
                             </a>
+
+                                <a
+                                    className={s.button + " " + s.buttonOpen}
+                                    href={"http://shellybrown.com/linesheets/pdf/?data=" + file}
+                                    target="_blank">
+                                    Open
+                                </a>
+                                <button
+                                    className={s.button + " " + s.buttonDelete}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        this.setState({
+                                            fileToDelete: file
+                                        });
+                                        this.refs.deleteModal.classList.toggle(s.hidden);
+                                    }}>
+                                    Delete
+                                </button>
                             </li>
                         })}
                     </ul>
                 </section>
+
                 <section>
                     <div className={s.filesMessage}>{this.state.msg}</div>
                 </section>
+
+                <div
+                    className={s.overlay + " " + s.hidden}
+                    ref="deleteModal">
+                    <div className={s.modal}>
+                        <p>
+                            Are you sure you want to delete <strong>{this.state.fileToDelete}</strong>
+                        </p>
+                        <div>
+                            <button
+                                className={s.button + " " + s.buttonDelete}
+                                onClick={e => {
+                                    store.dispatch({
+                                        type: DELETE_FILE,
+                                        file: this.state.fileToDelete
+                                    });
+                                    this.refs.deleteModal.classList.toggle(s.hidden);
+                                    this.setState({
+                                        itemToDelete: ""
+                                    });
+                                }}>
+                                Yes
+                            </button>
+                            <button
+                                className={s.button + " " + s.buttonCancel}
+                                onClick={e => {
+                                    this.refs.deleteModal.classList.toggle(s.hidden);
+                                }}>
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
             </Layout>
         );

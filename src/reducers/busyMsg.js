@@ -16,6 +16,7 @@ import {
     GET_IMAGES,
     GET_INVENTORY,
     IMPORT_XLSX,
+    DELETE_FILE,
     SAVE_FILE,
     UPDATE_ITEM,
     UPDATE_ITEM_RESPONSE,
@@ -32,6 +33,9 @@ export default function busyMsg(state = '', action) {
             break;
         case DELETE_CATEGORY:
             return "Deleting Category";
+            break;
+        case DELETE_FILE:
+            return "Deleting File";
             break;
         case DELETE_ITEM:
             return "Deleting Item";
