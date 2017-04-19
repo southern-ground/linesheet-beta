@@ -35,19 +35,24 @@ class InventoryItems extends React.Component {
             loading: true,
             selectAll: false,
             filterText: '',
+            filterOnSelected: false,
             itemToDelete: ''
         };
 
     }
 
     filterInventory(arr) {
-        console.log('filterInventory', arr.length);
 
         var name, sku, s = this.state.filterText.toLowerCase();
 
         if (s === '') {
             return arr;
         } else {
+            if(this.state.filterOnSelected){
+                return arr.filter(item=>{
+                    return item.selected;
+                });
+            }
             return arr.filter(item => {
                 name = item.name.toLowerCase();
                 sku = item.sku.toLowerCase();
@@ -103,6 +108,11 @@ class InventoryItems extends React.Component {
                         filterFunc={s => {
                             this.setState({
                                 filterText: s
+                            });
+                        }}
+                        filterOnSelectedFunc={s=>{
+                            this.setState({
+                                filterOnSelected: s
                             });
                         }}
                     />
