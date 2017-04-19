@@ -29,7 +29,8 @@ class ImportPage extends React.Component {
             selectedImage: "",
             imagesOverlayOpen: false,
             importedOpen: false,
-            skippedOpen: false
+            skippedOpen: false,
+            updatedOpen: false
         };
 
     }
@@ -77,6 +78,28 @@ class ImportPage extends React.Component {
                 <ol>
                     {this.state.imported.map((sku,index) => {
                         return <li key={"imported_" + index}>{sku}</li>
+                    })}
+                </ol>
+            </div>
+
+            <p>A total of {this.state.updated.length} item{this.state.updated.length === 1 ? " was" : "s were"} updated. <a
+                href="#"
+                className={this.state.updated.length === 0 ? s.hidden : ""}
+                onClick={e => {
+                    e.preventDefault();
+                    this.setState({
+                        updatedOpen: !this.state.updatedOpen
+                    });
+
+                }}>
+                {this.state.updatedOpen ? "Close" : "View Updated SKUs"}
+            </a>
+            </p>
+
+            <div ref="updated" className={(this.state.updatedOpen ? "" : s.collapsed) + " " + s.skuList}>
+                <ol>
+                    {this.state.updated.map((sku, index) => {
+                        return <li key={"updated_" + index}>{sku}</li>
                     })}
                 </ol>
             </div>
@@ -137,8 +160,6 @@ class ImportPage extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.complete);
 
         return (
             <Layout className={s.content}>
