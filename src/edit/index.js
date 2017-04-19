@@ -166,6 +166,7 @@ class EditPage extends React.Component {
         e.preventDefault();
 
         var item = {
+                originalSku: this.state.originalSku,
                 sku: this.state.item.sku,
                 name: sanitizeProductName(this.refs[NAME_FIELD_REF].value || ''),
                 image: this.state.item.image,
@@ -235,7 +236,8 @@ class EditPage extends React.Component {
             }),
             currentItem,
             newState = {
-                ...this.state
+                ...this.state,
+                originalSku: this.state.item.sku
             };
 
         if (filteredInventory.length > 0) {
@@ -279,7 +281,6 @@ class EditPage extends React.Component {
                                     placeholder="SKU"
                                     ref={SKU_FIELD_REF}
                                     className={this.state.error === ERROR_SKU ? s.errorInput : ""}
-                                    disabled
                                     value={this.state.item.sku}
                                     onChange={(e) => {
                                         this.updateField(SKU_FIELD_REF);
