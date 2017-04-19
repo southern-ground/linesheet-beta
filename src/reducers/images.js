@@ -9,6 +9,7 @@ import {
     DELETE_IMAGE,
     GET_IMAGES,
     GET_IMAGES_RESPONSE,
+    ADD_ITEM_RESPONSE,
     OK,
     OPEN_IMAGE_OVERLAY,
     UPLOAD_IMAGES
@@ -123,6 +124,12 @@ export default function imageStore(state = imagesDefault, action) {
                             images: data.images,
                             msg: data.uploadResult
                         });
+                        if(data.updatedInventory && data.updatedInventory.length > 0){
+                            store.dispatch({
+                                type: ADD_ITEM_RESPONSE,
+                                inventory: data.updatedInventory
+                            });
+                        }
                     } else {
                         console.warn('Error on getting images', data.response);
                         store.dispatch({
