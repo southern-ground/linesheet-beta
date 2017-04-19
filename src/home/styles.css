@@ -1,5 +1,11 @@
 @import '../Global.css';
 
+.scrollToTop{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 50;
+}
 @media screen and (max-width: 1024px) {
 
     .content {
