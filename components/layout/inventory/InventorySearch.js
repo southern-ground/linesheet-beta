@@ -8,19 +8,21 @@ import s from './InventorySearch.css';
 export default class InventorySearch extends React.Component {
 
     static propTypes = {
-        filterFunc: PropTypes.func
+        filterFunc: PropTypes.func,
+        filterOnSelectedFunc: PropTypes.func
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            search: ""
+            search: "",
+            filterOnSelected: false
         }
     }
 
     clearSearch() {
 
-        if(this.props.filterFunc){
+        if (this.props.filterFunc) {
             this.props.filterFunc("");
         };
 
@@ -31,7 +33,7 @@ export default class InventorySearch extends React.Component {
 
     updateSearch(str) {
 
-        if(this.props.filterFunc){
+        if (this.props.filterFunc) {
             this.props.filterFunc(str);
         };
 
@@ -41,12 +43,42 @@ export default class InventorySearch extends React.Component {
 
     }
 
+    updateFilter(str) {
+
+        if (this.props.filterOnSelectedFunc) {
+            this.props.filterOnSelectedFunc(str);
+        };
+
+        this.setState({
+            filterOnSelected: str
+        });
+
+    }
+
     render() {
         return <div className={s.inventorySearch}>
 
             <label
                 className={s.label}
-                htmlFor="InventorySearch">Search:</label>
+                htmlFor="FilterOnSelected">
+                Filter on Selected:
+            </label>
+            <input
+                id="FilterOnSelected"
+                ref="selectOnFilter"
+                type="checkbox"
+                className={s.filterOn}
+                value={this.state.filterOnSelected}
+                onChange={(e) => {
+                    this.updateFilter(e.target.checked)
+                }}
+            />
+
+            <label
+                className={s.label}
+                htmlFor="InventorySearch">
+                Search:
+            </label>
             <input
                 className={s.input}
                 id="InventorySearch"
