@@ -3,6 +3,7 @@
  */
 
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {
     title,
     html
@@ -12,6 +13,7 @@ import {
     GET_INVENTORY
 } from '../constants';
 import InventoryItems from '../../components/layout/inventory/InventoryItems';
+import InventoryItemsHeader from '../../components/layout/InventoryItemsHeader';
 import InventoryItemsFooter from '../../components/layout/InventoryItemsFooter';
 import Layout from '../../components/Layout';
 import Link from '../../components/Link';
@@ -49,10 +51,34 @@ class HomePage extends React.Component {
         } else {
             this.updateProps();
         }
+        /*
+        ReactDOM.findDOMNode(this.refs.items).addEventListener('scroll', ()=>{
+            console.log('EABOD');
+        });
+        */
     }
 
     componentWillUnmount() {
         this.unsubscribeFunciton();
+        /*
+        ReactDOM.findDOMNode(this.refs.items).removeEventListener('scroll', this.handleScroll);
+        */
+    }
+
+    handleScroll(event) {
+        let scrollBarPosition = window.pageYOffset | document.body.scrollTop;
+
+        console.log('handleScroll', scrollBarPosition);
+        console.log(this.refs.scrollToTop);
+        /*
+            // At specifiv position do what you want
+            if(scrollBarPosition == 0) {
+                document.getElementById('status').innerHTML = "User is on top of the page, position=" + scrollBarPosition;
+            }
+            else {
+                document.getElementById('status').innerHTML = "User is not on top of the page, position="  + scrollBarPosition;
+            }*/
+
     }
 
     numItemsSelected() {
@@ -75,7 +101,7 @@ class HomePage extends React.Component {
         var appState = store.getState();
 
         return (
-            <Layout className={s.content}>
+            <Layout id="Items" className={s.content  + " items"} ref="items">
 
                 <section>
                     <div dangerouslySetInnerHTML={{__html: html}}/>
@@ -89,6 +115,12 @@ class HomePage extends React.Component {
                     </Link>
                 </section>
 
+                <InventoryItemsHeader
+                    className={(appState.inventory || []).length === 0 ? s.hidden : ""}
+                    numItems={(appState.inventory || []).length}
+                    numItemsSelected={this.numItemsSelected()}
+                />
+
                 <InventoryItems
                     categories={(appState.categories || [])
                         .sort((a, b) => {
@@ -98,6 +130,8 @@ class HomePage extends React.Component {
                     allSelected={appState.allSelected}
                     sortOn={appState.homeInventorySort}
                 />
+
+                <a href="#Items" id="ScrollToTop" ref="scrollToTop" className={s.scrollToTop} >Back To Top</a>
 
                 <InventoryItemsFooter
                     className={(appState.inventory || []).length === 0 ? s.hidden : ""}
