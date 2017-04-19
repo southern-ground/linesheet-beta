@@ -19,6 +19,7 @@ var defaultState = {
     target: '',
     imported: 0,
     skipped: 0,
+    updated: 0,
     complete: false
 };
 
@@ -38,18 +39,18 @@ export default function xlsx(state = defaultState, action) {
                     } else {
                         var data = JSON.parse(res.text);
 
-                        console.log('IMPORT_XLSX response');
-                        console.log(data);
                         store.dispatch({
                             type: OK
                         });
+
                         if (data.response === 200) {
                             store.dispatch({
                                 type: UPDATE_AFTER_IMPORT,
                                 inventory: data.inventory,
                                 categories: data.categories,
                                 skipped: data.skipped,
-                                imported: data.imported
+                                imported: data.imported,
+                                updated: data.updated
                             });
                         } else {
                             console.warn('Error on deleting item', data.response);
@@ -102,6 +103,7 @@ export default function xlsx(state = defaultState, action) {
                 ...state,
                 imported: action.imported,
                 skipped: action.skipped,
+                updated: action.updated,
                 complete: true
             };
         default:
