@@ -67,6 +67,7 @@ export const XLSX_LIST = "xlsx_list";
 /* SUNDRY */
 export const ITEM_IMAGE_THUMBNAIL_PLACEHOLDER = "images/placeholder.svg";
 export const ITEM_IMAGE_PLACEHOLDER = "images/placeholder.svg";
+export const ITEM_IMAGE_UNDEFINED = "images/picture-coming-soon.png";
 
 /* INVENTORY ITEMS */
 export const SKU_FIELD_REF = "itemSKU";

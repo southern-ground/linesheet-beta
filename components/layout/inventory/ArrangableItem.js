@@ -5,7 +5,8 @@
 import React, {PropTypes} from 'react';
 import s from './ArrangableItem.css';
 import {
-    ITEM_IMAGE_PATH
+    ITEM_IMAGE_PATH,
+    ITEM_IMAGE_UNDEFINED,
 } from '../../../src/constants';
 
 export default class ArrangableItem extends React.Component {
@@ -23,6 +24,8 @@ export default class ArrangableItem extends React.Component {
     }
 
     render() {
+
+        console.log(this.props.state.image);
 
         return <div className={s.item}
                     data-sku={this.props.state.sku}
@@ -44,7 +47,7 @@ export default class ArrangableItem extends React.Component {
                 className={
                     s.image
                 }
-                src={ITEM_IMAGE_PATH + this.props.state.image}/>
+                src={this.props.state.image.length > 0 ? ITEM_IMAGE_PATH + this.props.state.image : ITEM_IMAGE_UNDEFINED}/>
 
 
             <ul className={s.attributes}>
