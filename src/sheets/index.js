@@ -117,13 +117,13 @@ class SheetsPage extends React.Component {
                                 key={"file_" + index}>
                                 {index + 1 + ".) "} <a
                                 target="_blank"
-                                href={"http://shellybrown.com/linesheets/pdf/?data=" + file}>
+                                href={"http://linesheets.shellybrown.com/pdf/?data=" + file}>
                                 {file.replace(/\.json/gi, '')}
                             </a>
 
                                 <a
                                     className={s.button + " " + s.buttonOpen}
-                                    href={"http://shellybrown.com/linesheets/pdf/?data=" + file}
+                                    href={"http://linesheets.shellybrown.com/pdf/?data=" + file}
                                     target="_blank">
                                     Open
                                 </a>

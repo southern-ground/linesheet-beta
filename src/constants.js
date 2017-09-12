@@ -4,7 +4,7 @@
 
 /* API */
 
-export const API = "http://shellybrown.com/linesheets/api/";
+export const API = "http://linesheets.shellybrown.com/api/";
 
 /* ERRORS */
 
@@ -49,7 +49,7 @@ export const CLOSE_IMAGE_OVERLAY = "close_image_overlay";
 export const DELETE_IMAGE = "delete_image";
 export const GET_IMAGES = "images";
 export const GET_IMAGES_RESPONSE = "images_response";
-export const ITEM_IMAGE_PATH = "http://shellybrown.com/linesheets/img/products/";
+export const ITEM_IMAGE_PATH = "http://linesheets.shellybrown.com/img/products/";
 export const OPEN_IMAGE_OVERLAY = "open_image_overlay";
 export const UPLOAD_IMAGES = "upload_images";
 

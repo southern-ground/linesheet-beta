@@ -121,6 +121,7 @@ export default function inventory(state = [], action) {
             Object.keys(action.item).map(key => {
                 query[key] = action.item[key];
             });
+
             request
                 .get(updateUrl)
                 .query(query)

@@ -159,7 +159,7 @@ class OrganizePage extends React.Component {
                         "written"
                 } successfully. <a
                     href={
-                        "http://shellybrown.com/linesheets/pdf/?data=" +
+                        "http://linesheets.shellybrown.com/pdf/?data=" +
                         store.getState().savedFileStore.lastSavedFile
                     }
                     target="_blank">
