@@ -1,224 +1,225 @@
 :root {
-    --red: red;
-    --green: darkgreen;
-    --blue: blue;
-    --white: white;
-    --gray: darkgray;
-    --cancel: darkslategray;
-    --black: black;
-    --blocker: black;
+  --red: red;
+  --green: darkgreen;
+  --blue: blue;
+  --white: white;
+  --gray: darkgray;
+  --cancel: darkslategray;
+  --black: black;
+  --blocker: black;
 }
 
 body, html {
-    margin: 0;
-    padding: 0;
-    background: white;
+  margin: 0;
+  padding: 0;
+  background: white;
 }
 
 *, html, body, h1, h2, h3, h4 {
-    font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 a {
-    color: color(var(--red));
+  color: color(var(--red));
 }
 
 .align__right {
-    text-align: right;
-    justify-content: flex-end;
+  text-align: right;
+  justify-content: flex-end;
 }
 
 .float__right {
-    float: right;
+  float: right;
 }
 
 .blocker {
-    z-index: 150;
-    background-color: color(var(--blocker) a(95%));
-    color: color(var(--white));
-    position: fixed;
-    top: 0;
-    width: 100%;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    text-transform: uppercase;
+  z-index: 150;
+  background-color: color(var(--blocker) a(95%));
+  color: color(var(--white));
+  position: fixed;
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .busyMessage {
-    font-size: 0.8rem;
-    opacity: 0.8;
+  font-size: 0.8rem;
+  opacity: 0.8;
 }
 
 .button {
-    cursor: pointer;
-    border: none;
-    color: color(var(--white));
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    line-height: normal;
+  cursor: pointer;
+  border: none;
+  color: color(white);
+  background: color(gray);
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  line-height: normal;
 }
 
 .button__addItem {
-    display: inline-block;
-    background: color(var(--green));
+  display: inline-block;
+  background: color(var(--green));
 }
 
 .buttonClose {
-    background-color: color(var(--red));
+  background-color: color(var(--red));
 }
 
 .buttonDelete {
-    background-color: color(var(--red));
+  background-color: color(var(--red));
 }
 
 .buttonEdit {
-    background-color: color(var(--green));
+  background-color: color(var(--green));
 }
 
 .buttonImage {
-    display: inline-block;
+  display: inline-block;
 }
 
 .buttonSave {
-    background-color: color(var(--blue));
+  background-color: color(var(--blue));
 }
 
 .buttonCancel {
-    background-color: color(var(--cancel));
+  background-color: color(var(--cancel));
 }
 
 .buttonCategory {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .buttonGroup {
-    display: inline;
-    width: 40%;
+  display: inline;
+  width: 40%;
 }
 
 .buttonDisabled {
-    opacity: 0.5;
-    cursor: default;
-    pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
 }
 
 .errorInput {
-    border: 1px solid color(var(--red));
+  border: 1px solid color(var(--red));
 }
 
 .errorMessage {
-    color: color(var(--red));
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    font-weight: 700;
+  color: color(var(--red));
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .genericError {
-    color: color(var(--red));
-    font-weight: 700;
-    text-transform: uppercase;
+  color: color(var(--red));
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .flexBox {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-between;
-    border-bottom: 1px solid color(var(--gray));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid color(var(--gray));
 }
 
 .flexBox > div {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .flexBoxTop {
-    background-color: color(var(--gray));
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid transparent;
+  background-color: color(var(--gray));
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid transparent;
 }
 
 .flexBoxTop div {
-    font-size: 0.8rem;
-    justify-content: flex-start;
-    align-items: center;
+  font-size: 0.8rem;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .flexBoxTop div:not(:first-child) {
-    padding: 0 0 0 10px;
+  padding: 0 0 0 10px;
 }
 
 .flexBoxHeader {
-    background: color(var(--gray));
+  background: color(var(--gray));
 }
 
 .flexItem {
-    padding: 5px 10px;
-    border: 1px solid color(var(--red));
-    flex-basis: 150px;
-    flex-grow: 0;
-    align-items: center;
-    justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid color(var(--red));
+  flex-basis: 150px;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .asRow {
-    flex-direction: row !important;
-    align-items: flex-start;
+  flex-direction: row !important;
+  align-items: flex-start;
 }
 
 .asColumn {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 /* OVERLAYS */
 
 .overlaySection {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: color(var(--blocker) a(80%));
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: color(var(--blocker) a(80%));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlayContent {
-    background: color(var(--white));
-    padding: 20px;
-    border-radius: 10px;
-    width: 80vw;
-    height: 80vh;
+  background: color(var(--white));
+  padding: 20px;
+  border-radius: 10px;
+  width: 80vw;
+  height: 80vh;
 }
 
 .deleteIcon {
-    width: 2em;
-    height: 2em;
+  width: 2em;
+  height: 2em;
 }
 
 @media screen and (max-width: 1024px) {
-    .content {
-        padding: 0 20px;
-    }
+  .content {
+    padding: 0 20px;
+  }
 
 }

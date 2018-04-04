@@ -24,6 +24,9 @@ class SheetsPage extends React.Component {
     constructor(props) {
 
         super(props);
+
+        alert('what?');
+
         this.updateProps = this.updateProps.bind(this);
         this.state = {
             status: "",
